@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="博客,编程,代码,Java,空间,记录">
+    <meta name="description" content="郑皓云的个人博客,博客,编程,代码,Java,空间,记录">
+    <meta name="author" content="郑皓云">
+    
+    <title>
+        
+            关于我对Socket的暂时理解 |
+        
+        好运的云
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                好运的云
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">关于我对Socket的暂时理解</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">郑皓云</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2020-10-02 18:12:20
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Socket/">Socket</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>为什么说是对Socket的暂时理解呢，因为Socket这玩意真要深入了解那可以很深很深，其涉及到的TCP/IP协议栈里面包含了太多内容了，而我之前是对Socket一无所知的，上次面试有面试官问：“你会Socket编程吗？”， 我一脸懵逼直摇头。于是此次，用这次博文，记录下自己对Socket的暂时理解，希望以后能在工作中通过这门技术去完成某项工作，然后在实践和尝试中去加深对Socket的理解。</p>
+<h1 id="1-Socket原理"><a href="#1-Socket原理" class="headerlink" title="1. Socket原理"></a>1. Socket原理</h1><p>要写网络程序就必须要用到Socket，甚至有句话说“一切皆Socket”，听起来夸张，其实事实如此。敲了那么多代码，其实很多地方都使用到了Socket，但是我以前一直觉得Socket是个遥远且深奥的东西，所以未曾去了解过它。</p>
+<h2 id="1-1-Sokcet的位置"><a href="#1-1-Sokcet的位置" class="headerlink" title="1.1 Sokcet的位置"></a>1.1 Sokcet的位置</h2><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002154703.jpeg"
+                      alt="img" style="zoom: 80%;" /
+                >
+
+<p>通过此图我们可以看到，Socket就如同一道门，从应用层通往传输层，处在应用层的用户进程不需要知道传输层发生了什么，他们只需要知道如何去开启Socket这道门即可。</p>
+<p>所以，Socket是应用层与TCP/IP协议族通信的中间软件抽象层，Socket是一组接口，它把复杂的TCP/IP协议族隐藏在Socket这道门后面，对于用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议。</p>
+<h2 id="1-2-Socket概念"><a href="#1-2-Socket概念" class="headerlink" title="1.2 Socket概念"></a>1.2 Socket概念</h2><p>通过上文，我们知道网络中就是通过Socket来进行通信，应该对Socket的概念也有了一些抽象的理解。</p>
+<p>Socket就是通信的基石，是支持TCP/IP协议的路通信的基本操作单元。可以将套接字看作不同主机间的进程进行双间通信的端点，它构成了单个主机内及整个网络间的编程界面，这是一个逻辑上的概念。</p>
+<blockquote>
+<p> 通信时其中一个网络应用程序将要传输的一段信息写入它所在主机的 Socket中，该 Socket通过与网络接口卡相连的传输介质将这段信息送到另外一台主机的 Socket中，使对方能够接收到这段信息。 Socket是由IP地址和端口结合的，提供向应用层进程传送数据包的机制</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002160113.jpeg"
+                      alt="img"
+                ></p>
+<p>简单的来说，Socket是对TCP/IP协议的封装，Socket本身只是一个调用接口（API），方便程序员用Socket使用TCP/IP协议栈。</p>
+<h1 id="2-Socket工作流程"><a href="#2-Socket工作流程" class="headerlink" title="2. Socket工作流程"></a>2. Socket工作流程</h1><p>Socket的工作流程分为两个部分：</p>
+<ul>
+<li>服务端需要建立 socket 来监听指定的地址，等待客户端连接</li>
+<li>客户端则需要建立 socket 并与服务端的 socket 地址进行连接</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002173653.jpeg"
+                      alt="img" style="zoom:150%;" /
+                >
+
+<p>这图展示的就是建立 TCP/IP 连接的过程，经典的叫法为“<strong>三次握手</strong>”的过程。顾名思义，这个过程中来回产生了三次网络通信。</p>
+<p>建立连接后就可以进行数据传输了！</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002174114.png"
+                      alt="image-20201002174113494"
+                ></p>
+<p>传输的过程涉及到数据 Copy，不过这些 Copy 是必不可少的。其中的发送缓冲区和接收缓冲区就是套接字缓存 (socket buffer)。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002174229.png"
+                      alt="image-20201002174228848"
+                ></p>
+<p>连接使用完之后需要关闭，不过 TCP/IP 连接关闭过程比创建更复杂一些，次数多了一次，这就是经典的“<strong>四次握手</strong>”过程。</p>
+<h1 id="3-Socket的基本操作"><a href="#3-Socket的基本操作" class="headerlink" title="3. Socket的基本操作"></a>3. Socket的基本操作</h1><p>Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。我的理解就是Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关</p>
+<h2 id="3-1-socket"><a href="#3-1-socket" class="headerlink" title="3.1. socket()"></a>3.1. socket()</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int socket(int domain, int type, int protocol);</span><br></pre></td></tr></table></figure>
+
+<p>socket函数对应于普通文件的打开操作。普通文件的打开操作返回一个文件描述字，而socket()用于创建一个socket描述符（socket descriptor），它唯一标识一个socket。这个socket描述字跟文件描述字一样，后续的操作都有用到它，把它作为参数，通过它来进行一些读写操作。</p>
+<p>正如可以给fopen的传入不同参数值，以打开不同的文件。创建socket的时候，也可以指定不同的参数创建不同的socket描述符，socket函数的三个参数分别为：</p>
+<ul>
+<li>domain：即协议域，又称为协议族（family）。常用的协议族有，AF_INET、AF_INET6、AF_LOCAL（或称AF_UNIX，Unix域socket）、AF_ROUTE等等。协议族决定了socket的地址类型，在通信中必须采用对应的地址，如AF_INET决定了要用ipv4地址（32位的）与端口号（16位的）的组合、AF_UNIX决定了要用一个绝对路径名作为地址。</li>
+<li>type：指定socket类型。常用的socket类型有，SOCK_STREAM、SOCK_DGRAM、SOCK_RAW、SOCK_PACKET、SOCK_SEQPACKET等等（可以百度下Socket类型）。</li>
+<li>protocol：故名思意，就是指定协议。常用的协议有，IPPROTO_TCP、IPPTOTO_UDP、IPPROTO_SCTP、IPPROTO_TIPC等，它们分别对应TCP传输协议、UDP传输协议、STCP传输协议、TIPC传输协议（这个协议我将会单独开篇讨论！）。</li>
+</ul>
+<p>注意：并不是上面的type和protocol可以随意组合的，如SOCK_STREAM不可以跟IPPROTO_UDP组合。当protocol为0时，会自动选择type类型对应的默认协议。</p>
+<p>当我们调用socket创建一个socket时，返回的socket描述字它存在于协议族（address family，AF_XXX）空间中，但没有一个具体的地址。如果想要给它赋值一个地址，就必须调用bind()函数，否则就当调用connect()、listen()时系统会自动随机分配一个端口。</p>
+<h2 id="3-2-bind"><a href="#3-2-bind" class="headerlink" title="3.2. bind()"></a>3.2. bind()</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);</span><br></pre></td></tr></table></figure>
+
+<p>bind()函数把一个地址族中的特定地址赋给socket。例如对应AF_INET、AF_INET6就是把一个ipv4或ipv6地址和端口号组合赋给socket。</p>
+<ul>
+<li>sockfd：即socket描述字，它是通过socket()函数创建了，唯一标识一个socket。bind()函数就是将给这个描述字绑定一个名字。</li>
+<li>addr：一个const struct sockaddr *指针，指向要绑定给sockfd的协议地址。</li>
+<li>addrlen：对应的是地址的长度。</li>
+</ul>
+<h2 id="3-3-listen-与connect"><a href="#3-3-listen-与connect" class="headerlink" title="3.3. listen()与connect()"></a>3.3. listen()与connect()</h2><p>如果作为一个服务器，在调用socket()、bind()之后就会调用listen()来监听这个socket，如果客户端这时调用connect()发出连接请求，服务器端就会接收到这个请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int listen(int sockfd, int backlog);</span><br><span class="line">int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);</span><br></pre></td></tr></table></figure>
+
+<p>listen函数的第一个参数即为要监听的socket描述字，第二个参数为相应socket可以排队的最大连接个数。socket()函数创建的socket默认是一个主动类型的，listen函数将socket变为被动类型的，等待客户的连接请求。</p>
+<p>connect函数的第一个参数即为客户端的socket描述字，第二参数为服务器的socket地址，第三个参数为socket地址的长度。客户端通过调用connect函数来建立与TCP服务器的连接。</p>
+<h2 id="3-4-accept"><a href="#3-4-accept" class="headerlink" title="3.4. accept()"></a>3.4. accept()</h2><p>TCP服务器端依次调用socket()、bind()、listen()之后，就会监听指定的socket地址了。<strong>TCP客户端依次调用socket()、connect()之后就想TCP服务器发送了一个连接请求。TCP服务器监听到这个请求之后，就会调用accept()函数取接收请求，这样连接就建立好了</strong>。之后就可以开始网络I/O操作了，即类同于普通文件的读写I/O操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);</span><br></pre></td></tr></table></figure>
+
+<p>accept函数的第一个参数为服务器的socket描述字，第二个参数为指向struct sockaddr *的指针，用于返回客户端的协议地址，第三个参数为协议地址的长度。如果accpet成功，那么其返回值是由内核自动生成的一个全新的描述字，代表与返回客户的TCP连接。</p>
+<p>注意：accept的第一个参数为服务器的socket描述字，是服务器开始调用socket()函数生成的，称为监听socket描述字；而accept函数返回的是已连接的socket描述字。一个服务器通常通常仅仅只创建一个监听socket描述字，它在该服务器的生命周期内一直存在。内核为每个由服务器进程接受的客户连接创建了一个已连接socket描述字，当服务器完成了对某个客户的服务，相应的已连接socket描述字就被关闭。</p>
+<h2 id="3-5-read-、write"><a href="#3-5-read-、write" class="headerlink" title="3.5. read()、write()"></a>3.5. read()、write()</h2><p>万事具备只欠东风，至此服务器与客户已经建立好连接了。可以调用网络I/O进行读写操作了，即实现了网咯中不同进程之间的通信！网络I/O操作有下面几组：</p>
+<ul>
+<li>read()/write()</li>
+<li>recv()/send()</li>
+<li>readv()/writev()</li>
+<li>recvmsg()/sendmsg()</li>
+<li>recvfrom()/sendto()</li>
+</ul>
+<p>推荐使用recvmsg()/sendmsg()函数，这两个函数是最通用的I/O函数，实际上可以把上面的其它函数都替换成这两个函数。</p>
+<h2 id="3-6-close"><a href="#3-6-close" class="headerlink" title="3.6. close()"></a>3.6. close()</h2><p>在服务器与客户端建立连接之后，会进行一些读写操作，完成了读写操作就要关闭相应的socket描述字，好比操作完打开的文件要调用fclose关闭打开的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int close(int fd);</span><br></pre></td></tr></table></figure>
+
+<p>close一个TCP socket的缺省行为时把该socket标记为以关闭，然后立即返回到调用进程。该描述字不能再由调用进程使用，也就是说不能再作为read或write的第一个参数。</p>
+<p>注意：close操作只是使相应socket描述字的引用计数-1，只有当引用计数为0的时候，才会触发TCP客户端向服务器发送终止连接请求。</p>
+<h1 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h1><p>Socket编程基本就是listen，accept以及send，write等几个基本的操作。是的，就跟常见的文件操作一样。</p>
+<p>对于网络编程，我们也言必称TCP/IP，对于TCP/IP，我们还知道TCP和UDP，前者可以保证数据的正确和可靠性，后者则允许数据丢失。最后，我们还知道，在建立连接前，必须知道对方的IP地址和端口号。</p>
+<p>看资料的时候还看到一个大佬写的一段话，挺有感触的，也贴上来吧。</p>
+<blockquote>
+<p>不要去考虑这些形而上学的东西，什么本质，什么概念。<br>这些东西都是理解了这些技术的人用语言表达的时候使用的说法。<br>需要做的是到实践中去掌握这项技术能够完成什么工作，怎么使用它。<br>当能够熟练使用的时候再去看就明白了。</p>
+<p>换句话说，那些文章是写给看得懂的人看的<br>不能通过阅读这些文章学会这些技术<br>最好通过实践和尝试学会这些技术</p>
+<p>作者：王小明<br>链接：<a class="link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/64316083/answer/218935997" >https://www.zhihu.com/question/64316083/answer/218935997<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<p>参考文章：</p>
+<ol>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/pashanhu6402/article/details/96428887" >https://blog.csdn.net/pashanhu6402/article/details/96428887<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/29637351/answer/534704474" >https://www.zhihu.com/question/29637351/answer/534704474<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.zhihu.com/question/64316083/answer/220480072" >https://www.zhihu.com/question/64316083/answer/220480072<i class="fas fa-external-link-alt"></i></a></li>
+</ol>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：关于我对Socket的暂时理解</li>
+        <li>Post author：郑皓云</li>
+        <li>Create time：2020-10-02 18:12:20</li>
+        <li>
+            Post link：https://zhenghaoyun.cn/计算机网络/关于我对Socket的暂时理解
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/Java%E5%9F%BA%E7%A1%80/%E4%BB%8E%E8%AE%BE%E8%AE%A1%E5%B1%82%E9%9D%A2%E4%B8%8A%E8%B0%88%E8%B0%88%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">从设计层面上谈谈抽象类和接口的区别</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/%E5%88%86%E5%B8%83%E5%BC%8F/%E6%B5%85%E8%B0%88%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E2%80%94%E2%80%94RPC"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">浅谈远程过程调用——RPC</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'uffz9vWTIQhDc1YbAjAndspC-gzGzoHsz',
+                    appKey: 'KQwbThRfP3cQIJYoLHMIqXLX',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'zh-Hans'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '郑皓云';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2019</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">郑皓云</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Socket%E5%8E%9F%E7%90%86"><span class="nav-text">1. Socket原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Sokcet%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-text">1.1 Sokcet的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Socket%E6%A6%82%E5%BF%B5"><span class="nav-text">1.2 Socket概念</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Socket%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-text">2. Socket工作流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Socket%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-text">3. Socket的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-socket"><span class="nav-text">3.1. socket()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-bind"><span class="nav-text">3.2. bind()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-listen-%E4%B8%8Econnect"><span class="nav-text">3.3. listen()与connect()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-accept"><span class="nav-text">3.4. accept()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-read-%E3%80%81write"><span class="nav-text">3.5. read()、write()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-close"><span class="nav-text">3.6. close()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%80%BB%E7%BB%93"><span class="nav-text">4. 总结</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

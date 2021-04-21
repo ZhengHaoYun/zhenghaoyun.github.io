@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="博客,编程,代码,Java,空间,记录">
+    <meta name="description" content="郑皓云的个人博客,博客,编程,代码,Java,空间,记录">
+    <meta name="author" content="郑皓云">
+    
+    <title>
+        
+            从初识DNS到搭建DNS服务器 |
+        
+        好运的云
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                好运的云
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">从初识DNS到搭建DNS服务器</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">郑皓云</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2020-04-19 17:15:20
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/DNS/">DNS</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>写一个网站很简单，大多数人都能胜任，但是向一个外行的人如何展示你的网站呢？我们会想到把自己的网站部署到服务器上去，每台服务器都会对应一串数字（如123.xx.xxx.xxx），这个就是我们的IP地址，我们通过这个IP地址就可以访问到我们的网站。记一个IP地址都够呛，更何况世界上的IP地址那么多，然后我们就又买了一个域名（如zhenghaoyun.cn)，通过这个域名就可以访问到我们的网站。</p>
+<p>为什么通过域名就能访问到网站？这就是DNS的作用，我们在浏览器输入域名时，DNS将域名“翻译”成IP地址，然后我们就可以访问到服务器了，自然而然就可以看到网站了。</p>
+<span id="more"></span>
+
+<h2 id="DNS原理"><a href="#DNS原理" class="headerlink" title="DNS原理"></a>DNS原理</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>DNS的中文名叫做域名解析协议，它用于域名与IP地址的互换。能够使人便捷的访问互联网，而不用记住能够被机器识别的IP地址。</p>
+<p>每一个域名都对应了一个IP地址，一个IP地址可能对应了多个域名，所以多个域名可以同时被解析到一个IP地址。域名解析需要由专门的DNS服务器完成。</p>
+<h3 id="DNS服务器"><a href="#DNS服务器" class="headerlink" title="DNS服务器"></a>DNS服务器</h3><p>DNS服务器是指运行DNS服务器程序的计算机，储存DNS的数据信息。DNS服务器会尝试解析客户机的查询请求。就如同你（客户机）想给小明（域名）打电话，然后你拨打小明的电话，这个时候通讯录（DNS服务器）查到小明的电话是138xxxxxxxx，你就顺利的拨出了电话。</p>
+<h3 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h3><p>世界上几乎每个人都拥有1个以上的电话号码，如果你想给一个人打电话，但是你没有他的电话号码怎么办？世界上也没有一本通讯录记录着所有人的电话号码，这个时候你可能去问亲朋好友，问到后你为了方便就会将他的电话号码存在自己的手机里。</p>
+<p>DNS服务器在解析客户机的请求时，如果本地没有该DNS信息，会去询问其他DNS服务器，当从其他DNS服务器得到查询结果时，该DNS服务器会将结果记录在本地的DNS缓存中，成为DNS缓存地址。</p>
+<p>当下一次客户机提交相同的请求时，DNS服务器能够直接使用缓存中的DNS信息进行解析。</p>
+<h3 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h3><p>DNS解析过程就拿访问 <a class="link"   target="_blank" rel="noopener" href="http://www.163.com/" >www.163.com<i class="fas fa-external-link-alt"></i></a> 来举例吧。<a class="link"   target="_blank" rel="noopener" href="http://www.163.com/" >www.163.com<i class="fas fa-external-link-alt"></i></a> 其实完整的写法是 <a class="link"   target="_blank" rel="noopener" href="http://www.163.com/" >www.163.com<i class="fas fa-external-link-alt"></i></a>. ，注意com后面有个<code>.</code>。我们在平常都是将这个<code>.</code>给省略了的。</p>
+<h4 id="DNS域名层次结构"><a href="#DNS域名层次结构" class="headerlink" title="DNS域名层次结构"></a>DNS域名层次结构</h4><p>在了解DNS解析过程前，先了解下DNS域名的层次结构，DNS域名是分层次的且以<code>.</code>进行分割，而且是从后面开始的，分别为：</p>
+<ul>
+<li>根域（ <a class="link"   target="_blank" rel="noopener" href="http://www.163.com/" >www.163.com<i class="fas fa-external-link-alt"></i></a>. 最后的那个<code>.</code>）</li>
+<li>顶级域（.com）</li>
+<li>二级域（.163.com）</li>
+<li>子域（ <a class="link"   target="_blank" rel="noopener" href="http://www.163.com/" >www.163.com<i class="fas fa-external-link-alt"></i></a> 只分了四层，所以子域是 <a class="link"   target="_blank" rel="noopener" href="http://www.163.com/" >www.163.com<i class="fas fa-external-link-alt"></i></a> ）</li>
+<li>主机名，通常情况下是指域名的最左侧的标签标识网络上的特定计算机（如 h1.<a class="link"   target="_blank" rel="noopener" href="http://www.qq.com/" >www.qq.com<i class="fas fa-external-link-alt"></i></a> ）</li>
+</ul>
+<h4 id="解析过程"><a href="#解析过程" class="headerlink" title="解析过程"></a>解析过程</h4><ol>
+<li>客户机请求本地DNS服务器查询 <a class="link"   target="_blank" rel="noopener" href="http://www.163.com/" >www.163.com<i class="fas fa-external-link-alt"></i></a> 对应的缓存信息，如果查到直接返回给客户机，如果没有查到去询问根服务器。</li>
+<li>根服务器发现这个域名是.com，返回给本地DNS服务器.com域服务器的地址。</li>
+<li>本地DNS服务器通过.com域服务器的地址找到.com域服务器并询问。</li>
+<li>.com域服务器又说.163.com域服务器可以帮到你，并且告诉了.163.com域服务器的地址。</li>
+<li>本地DNS服务器又找到了.163.com域服务器，并询问 <a class="link"   target="_blank" rel="noopener" href="http://www.163.com/" >www.163.com<i class="fas fa-external-link-alt"></i></a> 对应的IP地址是多少。</li>
+<li>.163.com域服务器经查询得知IP地址为1.1.1.1，然后告诉了本地DNS服务器。</li>
+<li>本地DNS服务器将此IP地址写入缓存，然后告诉了客户机。</li>
+<li>客户机得到IP地址，欣喜若狂。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9c237dc2a9a83be511c0a8.jpg"
+                     
+                ></p>
+<center>图片来源于网络</center>
+
+
+
+<h3 id="DNS查询方式"><a href="#DNS查询方式" class="headerlink" title="DNS查询方式"></a>DNS查询方式</h3><p>上面的DNS解析过程多次提到了查询，DNS查询的方式分为两种：</p>
+<ul>
+<li><strong>递归查询</strong>：也就是说我问你，你找不到，你去问别人。别人找不到，再再去问，找到了就一层一层向上返回最终给我。在该模式下DNS 服务器接收到客户机请求，必须使用一个准确的查询结果回复客户机。如果DNS 服务器本地没有存储查询DNS 信息，那么该服务器会询问其他服务器，并将返回的查询结果提交给客户机。</li>
+<li><strong>迭代查询</strong>：我问你，你不知道，但是你告诉我另一个服务器，让我去那里找。类似相关部门踢皮球。DNS 服务器会向客户机提供其他能够解析查询请求的DNS 服务器地址，当客户机发送查询请求时，DNS 服务器并不直接回复查询结果，而是告诉客户机另一台DNS 服务器地址，客户机再向这台DNS 服务器提交请求，依次循环直到返回查询的结果为止。</li>
+</ul>
+<p>客户端和本地DNS使用递归查询，本地DNS找不到会去其他的服务器找，但是其他服务器与本地DNS服务器之间通常是迭代查询，毕竟服务器查询压力很大的，不能帮每个人都去找，只能告诉他你去哪找。</p>
+<h2 id="DNS服务器搭建"><a href="#DNS服务器搭建" class="headerlink" title="DNS服务器搭建"></a>DNS服务器搭建</h2><p>本次安装基于CentOS 6.8，其他版本可能会有所出入。</p>
+<h3 id="安装BIND"><a href="#安装BIND" class="headerlink" title="安装BIND"></a>安装BIND</h3><p><code>yum install bind</code></p>
+<p><code>yum install bind-chroot</code></p>
+<p><code>yum install bind-utils</code>    默认已安装</p>
+<p>显示完毕即安装成功</p>
+<blockquote>
+<p>BIND是一种开源的DNS（Domain Name System）协议的实现，包含对域名的查询和响应所需的所有软件。它是互联网上最广泛使用的一种DNS服务器，对于类UNIX系统来说，已经成为事实上的标准。</p>
+<p>BIND-chroot是BIND的一个功能，使得BIND在chroot模式下运行，提高安全性。</p>
+</blockquote>
+<h3 id="启动named服务"><a href="#启动named服务" class="headerlink" title="启动named服务"></a>启动named服务</h3><p>开启named服务后，会自动挂载调用chroot功能。</p>
+<p><code>service named restart</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9c4e62c2a9a83be54d34dc.jpg"
+                     
+                ></p>
+<p>使用<code>ifconfig</code>查看到本机的IP地址为192.168.254.128，记录下你自己的IP地址，后续要使用到。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9d0ef6c2a9a83be51a3b30.jpg"
+                     
+                ></p>
+<p>使用<code>cat /etc/resolv.conf</code>查看DNS服务器地址</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9c5050c2a9a83be55017ce.jpg"
+                     
+                ></p>
+<p>使用<code>vim /etc/resolv.conf</code>将DNS服务器地址修改为本机的IP地址</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9c5efcc2a9a83be5674b9c.jpg"
+                     
+                ></p>
+<h3 id="配置DNS服务器解析"><a href="#配置DNS服务器解析" class="headerlink" title="配置DNS服务器解析"></a>配置DNS服务器解析</h3><p>使用<code>vim /var/named/chroot/etc/named.conf </code>修改全局配置文件，将下面三处修改为any表示允许任何服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9c51b9c2a9a83be55230ad.jpg"
+                     
+                ></p>
+<p>按下G跳到文件末尾，在图中位置添加以下内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zone &quot;zhenghaoyun.cn&quot; IN &#123;</span><br><span class="line">	type master;</span><br><span class="line">	file &quot;zhenghaoyun.cn.zone&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9c5366c2a9a83be554ca70.jpg"
+                     
+                ></p>
+<h3 id="创建ZONE文件"><a href="#创建ZONE文件" class="headerlink" title="创建ZONE文件"></a>创建ZONE文件</h3><p>进入此目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;var&#x2F;named&#x2F;chroot&#x2F;var&#x2F;named&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>创建ZONE文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -rp named.localhost zhenghaoyun.cn.zone</span><br></pre></td></tr></table></figure>
+
+<p>修改此文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim zhenghaoyun.cn.zone </span><br></pre></td></tr></table></figure>
+
+<p>修改为以下内容</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9c582ac2a9a83be55c5a11.jpg"
+                     
+                ></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$TTL 1D</span><br><span class="line">@       IN SOA  ns.zhenghaoyun.cn.        admin.zhenghaoyun.cn (</span><br><span class="line">                                        0       ; serial</span><br><span class="line">                                        1D      ; refresh</span><br><span class="line">                                        1H      ; retry</span><br><span class="line">                                        1W      ; expire</span><br><span class="line">                                        3H )    ; minimum</span><br><span class="line">        NS      ns.zhenghaoyun.cn.</span><br><span class="line">ns      A       192.168.254.128			#这里填你自己的Linux主机的IP地址</span><br><span class="line">www     A       192.168.254.128			#这里填你自己的Linux主机的IP地址</span><br><span class="line">smtp    CNAME   mail.zhenghaoyun.cn.</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>退出named目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br></pre></td></tr></table></figure>
+
+<p>重启服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service named restart</span><br></pre></td></tr></table></figure>
+
+<p>如果如下图所示正常启动，说明你的配置是没有问题的。如果有问题，就检查自己的配置有没有问题，有没有漏掉标点符号，这一步相对来说比较复杂。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9c6533c2a9a83be57094db.jpg"
+                     
+                ></p>
+<p>查看DNS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nslookup www.zhenghaoyun.cn</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e9c63f9c2a9a83be56efbbe.jpg"
+                     
+                ></p>
+<p>从图中我们可以看到成功获取到地址！至此大功告成！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>DNS服务器是很重要的一环，本人之前对DNS一点表面的认识，此次加强了对DNS的理解，但是总感觉在搭建过程中对一些东西的理解有所纰漏，如果发现问题，欢迎指出，共同进步。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：从初识DNS到搭建DNS服务器</li>
+        <li>Post author：郑皓云</li>
+        <li>Create time：2020-04-19 17:15:20</li>
+        <li>
+            Post link：https://zhenghaoyun.cn/Linux/从初识DNS到搭建DNS服务器
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/Linux/Ubuntu%2018.04%E6%90%AD%E5%BB%BAFTP%E6%9C%8D%E5%8A%A1%E5%99%A8"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Ubuntu 18.04搭建FTP服务器</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%80%8E%E6%A0%B7%E5%86%99%E4%B8%80%E4%B8%AASingleton%EF%BC%9F"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">怎样写一个Singleton？</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'uffz9vWTIQhDc1YbAjAndspC-gzGzoHsz',
+                    appKey: 'KQwbThRfP3cQIJYoLHMIqXLX',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'zh-Hans'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '郑皓云';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2019</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">郑皓云</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS%E5%8E%9F%E7%90%86"><span class="nav-text">DNS原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">DNS服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS%E7%BC%93%E5%AD%98"><span class="nav-text">DNS缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="nav-text">DNS解析过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS%E5%9F%9F%E5%90%8D%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-text">DNS域名层次结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="nav-text">解析过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F"><span class="nav-text">DNS查询方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA"><span class="nav-text">DNS服务器搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85BIND"><span class="nav-text">安装BIND</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8named%E6%9C%8D%E5%8A%A1"><span class="nav-text">启动named服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEDNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E6%9E%90"><span class="nav-text">配置DNS服务器解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAZONE%E6%96%87%E4%BB%B6"><span class="nav-text">创建ZONE文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

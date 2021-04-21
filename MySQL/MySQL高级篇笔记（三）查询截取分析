@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="博客,编程,代码,Java,空间,记录">
+    <meta name="description" content="郑皓云的个人博客,博客,编程,代码,Java,空间,记录">
+    <meta name="author" content="郑皓云">
+    
+    <title>
+        
+            MySQL高级篇笔记（三）查询截取分析 |
+        
+        好运的云
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                好运的云
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">MySQL高级篇笔记（三）查询截取分析</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">郑皓云</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2020-08-29 11:55:20
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/MySQL/">MySQL</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/MySQL%E6%9F%A5%E8%AF%A2%E6%88%AA%E5%8F%96%E5%88%86%E6%9E%90/">MySQL查询截取分析</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="三、查询截取分析"><a href="#三、查询截取分析" class="headerlink" title="三、查询截取分析"></a>三、查询截取分析</h2><h3 id="1、查询优化"><a href="#1、查询优化" class="headerlink" title="1、查询优化"></a>1、查询优化</h3><h4 id="（1）小表驱动大表"><a href="#（1）小表驱动大表" class="headerlink" title="（1）小表驱动大表"></a>（1）小表驱动大表</h4><p>即小的数据集驱动大的数据集</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select * from A where id in (select id from B)</span><br><span class="line">等价于：</span><br><span class="line">for select id from B</span><br><span class="line">for select * from A where A.id&#x3D;B.id</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>用in 还是 exists ？</p>
+</blockquote>
+<p>当B的数据集必须小于A表的数据集时，用in优于exists</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select * from A where exists (select 1 from B where B.id&#x3D;A.id)</span><br><span class="line">等价于：</span><br><span class="line">for select id from B</span><br><span class="line">for select * from A where A.id&#x3D;B.id</span><br></pre></td></tr></table></figure>
+
+<p><strong>EXISTS</strong></p>
+<p>SELECT … FROM table WHERE EXISTS (subquery)</p>
+<p>该语法可以理解为：将主查询的数据，放到子查询中做条件验证，根据验证结果（TRUE OR FALSE）来决定主查询的数据结果是否得以保留</p>
+<blockquote>
+<p>提示</p>
+</blockquote>
+<ol>
+<li>EXSITS(subquery)只返回true或者false，因此子查询中的select *也可以是select 1或者select，官方说法是实际执行时会忽略select清单，因此没有区别</li>
+<li>EXISTS子查询的实际执行过程可能经过了优化而不是我们所理解的逐条对比，如果担忧效率问题，可进行实际检验以确定是否有效率问题</li>
+<li>EXISTS子查询往往也可以用条件表达式，其他子查询或者JOIN来替代，何种最优需要具体问题具体分析</li>
+</ol>
+<h4 id="（2）order-by关键字优化"><a href="#（2）order-by关键字优化" class="headerlink" title="（2）order by关键字优化"></a>（2）order by关键字优化</h4><p><strong>1）ORDER BY子句，尽量使用Index方式排序，避免使用FileSort方式排序</strong></p>
+<p>建立索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create index idx_A_ageBirth on tblA(age,birth);</span><br></pre></td></tr></table></figure>
+
+<p>进行分析</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200804104124.png"
+                      alt="image-20200804104124775"
+                ></p>
+<ul>
+<li>order by birth，缺失age，索引失效，产生了filesort</li>
+<li>同 （1）</li>
+<li>order by age，age排在了前面，没有违背最左前缀原则，所以没有filesort</li>
+<li>一升一降导致之前建立索引时的排序无效，只能使用了mysql内排序了，所以产生了filesort</li>
+</ul>
+<blockquote>
+<p>小总结</p>
+</blockquote>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200829140257.png"
+                      alt="image-20200829140257314" style="zoom:67%;" /
+                >
+
+<blockquote>
+<p>结论</p>
+</blockquote>
+<p>以下两种情况会使用Index方式排序：</p>
+<ul>
+<li>order by语句使用索引最左前列</li>
+<li>使用where子句与order by子句条件列组合满足索引最左前列</li>
+</ul>
+<p><strong>2）尽可能在索引列上完成排序操作，遵照索引建的最佳左前缀</strong></p>
+<p><strong>3）如果不在索引列上，filesort有两种算法：双路排序和单路排序</strong></p>
+<ul>
+<li><p>双路排序：</p>
+<p>MySQL4.1之前是使用双路排序，字面意思是两次扫描磁盘，最终得到数据</p>
+<p>读取行指针和order by列，对他们进行排序，然后扫描已经排序好的列表，按照列表中的值重新从列表中读取对应的数据传输</p>
+<p>从磁盘取排序字段，在buffer进行排序，再从磁盘取其他字段</p>
+<blockquote>
+<p>问题是：取一批数据，要对磁盘进行两次扫描，众所周知，I\O是很耗时的，所以在mysql4.1之后，出现了第二张改进的算法，就是单路排序。</p>
+</blockquote>
+</li>
+<li><p>单路排序：</p>
+<p>从磁盘读取查询<strong>需要的所有列</strong>，按照orderby列在buffer区对它们进行排序，然后扫描排序后的列表进行输出，它的效率更快一些，避免了第二次读取数据，并且把随机IO变成顺序IO，但是它会使用更多的空间，因为它把每一行都保存在内存中了</p>
+</li>
+<li><p>结论：</p>
+<ul>
+<li><p>由于单路是后出来的，总体而言好过双路</p>
+</li>
+<li><p>但是用单路有问题：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200804120103.png"
+                      alt="image-20200804120103660"
+                ></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>4）优化策略</strong></p>
+<ul>
+<li>增大sort_buffer_size参数的设置</li>
+<li>增大max_length_for_sort_data参数的设置</li>
+</ul>
+<p>原因分析：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200804140824.png"
+                      alt="image-20200804140824337"
+                ></p>
+<h4 id="（3）group-by关键字优化"><a href="#（3）group-by关键字优化" class="headerlink" title="（3）group by关键字优化"></a>（3）group by关键字优化</h4><p>1）group by实质是先排序后进行分组，遵循索引建的最佳左前缀</p>
+<p>2）当无法使用索引列，增大max_length_for_sort_data参数的设置+增大sort_buffer_size参数的设置</p>
+<p>3）where高于having，能写在where限定的条件就不要去having限定了</p>
+<blockquote>
+<p>去重优化</p>
+</blockquote>
+<p>尽量不要使用 distinct 关键字去重</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">t_mall_sku 表</span><br><span class="line">  	id    shp_id      kcdz                </span><br><span class="line">-------  ------- --------------------</span><br><span class="line">     3       1    北京市昌平区  </span><br><span class="line">     4       1    北京市昌平区  </span><br><span class="line">     5       5    北京市昌平区  </span><br><span class="line">     6       3       重庆              </span><br><span class="line">     8       8     天津    </span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<p>select kcdz form t_mall_sku where id in( 3,4,5,6,8 ) 将产生重复数据，<br>select distinct kcdz form t_mall_sku where id in( 3,4,5,6,8 ) 使用 distinct 关键字去重消耗性能<br>优化： </p>
+<p>select kcdz form t_mall_sku where id in( 3,4,5,6,8 ) group by kcdz 能够利用到索引</p>
+<h3 id="2、慢查询日志"><a href="#2、慢查询日志" class="headerlink" title="2、慢查询日志"></a>2、慢查询日志</h3><h4 id="（1）慢查询日志是什么？"><a href="#（1）慢查询日志是什么？" class="headerlink" title="（1）慢查询日志是什么？"></a>（1）慢查询日志是什么？</h4><ul>
+<li>MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阈值的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。</li>
+<li>具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。long_query_time的默认值是10，意思是运行10秒以上的语句。</li>
+<li>由它来查看哪些SQL超出了我们的最大忍耐时间值，比如一条sql执行超过5秒，我们就算慢SQL，希望能收集超过5秒的sql，结合之前的Explain进行分析。</li>
+</ul>
+<h4 id="（2）慢查询日志的用法"><a href="#（2）慢查询日志的用法" class="headerlink" title="（2）慢查询日志的用法"></a>（2）慢查询日志的用法</h4><blockquote>
+<p>默认情况下，MySQL数据库没有开启慢查询日志，需要我们手动来设置这个参数。<br>当然，如果不是调优需要，一般不建议开启该参数，因为开启慢查询日志会或多或少带来一定的性能影响。<br>慢查询日志支持将日志记录写入文件。</p>
+</blockquote>
+<p><strong>1）查看是否开启以及如何开启</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200812135154.png"
+                      alt="image-20200812135139444"
+                ></p>
+<p>默认情况下slow_query_log的值为OFF，表示慢查询日志是禁用的，可以通过设置slow_query_log的值来开启</p>
+<blockquote>
+<p>开启慢查询日志方法一</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200812135346.png"
+                      alt="image-20200812135346509"
+                ></p>
+<center>开启慢查询日志</center>
+
+<p>使用SET GLOBAL slow_query_log=1;开启了慢查询日志只对当前数据库生效，如果重启MySQL后则会失效（或者使用</p>
+<p>SET GLOBAL slow_query_log=0;关闭）</p>
+<blockquote>
+<p>开启慢查询日志方法二</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200812135642.png"
+                      alt="image-20200812135642829"
+                ></p>
+<p><strong>2）开启了慢查询日志后，怎样的SQL才会记录到慢查询日志里面呢</strong></p>
+<p>这个是由参数long_query_time控制的，默认情况下long_query_time的值为10秒</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200812140017.png"
+                      alt="image-20200812140017736"
+                ></p>
+<p>可以使用命令修改该参数，也可以在my.cnf里修改</p>
+<p>加入时间正好等于long_query_time的情况，是不会被记录，也就是说在mysql源码里是判断大于long_query_time，而非大于等于</p>
+<p><strong>3）案例</strong></p>
+<p>①查看当前多少秒算慢</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200812141923.png"
+                      alt="image-20200812141923788"
+                ></p>
+<p>②设置慢的时间阈值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200812142048.png"
+                      alt="image-20200812142048599"
+                ></p>
+<p>③为什么设置后看不出变化</p>
+<p>需要重新连接或重开一个会话才能看到修改值</p>
+<p>或者不用重开或连接，直接用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW GLOBAL VARIABLES LIKE &#39;%long_query_time%&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200812142149.png"
+                      alt="image-20200812142149303"
+                ></p>
+<p>④记录慢SQL并后续分析</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200812142710.png"
+                      alt="image-20200812142709981"
+                ></p>
+<p>⑤查看当前系统有多少条慢查询记录</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200812142808.png"
+                      alt="image-20200812142808530"
+                ></p>
+<p><strong>4）配置版</strong></p>
+<p>在【mysqld】下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">slow_query_log&#x3D;1;</span><br><span class="line">slow_query_log_file&#x3D;&#x2F;....(地址)</span><br><span class="line">long_query_time&#x3D;3;</span><br><span class="line">log_output&#x3D;FILE</span><br></pre></td></tr></table></figure>
+
+<p>这样就会永久生效</p>
+<h3 id="3、日志分析工具mysqldumpslow"><a href="#3、日志分析工具mysqldumpslow" class="headerlink" title="3、日志分析工具mysqldumpslow"></a>3、日志分析工具mysqldumpslow</h3><p>在生产环境中，如果要手工分析日志，查找、分析SQL，显然是个体力活，MySQL提供了日志分析工具mysqldumpslow</p>
+<h4 id="（1）查看mysqldumpslow的帮助信息"><a href="#（1）查看mysqldumpslow的帮助信息" class="headerlink" title="（1）查看mysqldumpslow的帮助信息"></a>（1）查看mysqldumpslow的帮助信息</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200829141156.png"
+                      alt="image-20200812143250127"
+                ></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">s：表示按照何种方式排序；</span><br><span class="line"></span><br><span class="line">c：访问次数；</span><br><span class="line"></span><br><span class="line">I：锁定时间</span><br><span class="line"></span><br><span class="line">r：返回记录</span><br><span class="line"></span><br><span class="line">t：查询时间</span><br><span class="line"></span><br><span class="line">al：平均锁定时间</span><br><span class="line"></span><br><span class="line">ar：平均返回记录数</span><br><span class="line"></span><br><span class="line">at：平均查询时间</span><br><span class="line"></span><br><span class="line">t：返回前面有多少条数据</span><br><span class="line"></span><br><span class="line">g：后边搭配一个正则匹配模式，大小写不敏感</span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）工作常用参考"><a href="#（2）工作常用参考" class="headerlink" title="（2）工作常用参考"></a>（2）工作常用参考</h4><p>得到返回记录集最多的10个SQL：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mysqldumpslow</span> -s r -t <span class="number">10</span> /DESKTOP-O<span class="number">360</span>IRK-slow.log</span><br></pre></td></tr></table></figure>
+
+<p>得到访问次数最多的10个SQL：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mysqldumpslow</span> -s c -t <span class="number">10</span> /DESKTOP-O<span class="number">360</span>IRK-slow.log</span><br></pre></td></tr></table></figure>
+
+<p>得到按照时间排序的前10条里面含有左连接的查询语句：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mysqldumpslow</span> -s t -t <span class="number">10</span> -g <span class="string">&quot;LEFT JOIN&quot;</span> /DESKTOP-O<span class="number">360</span>IRK-slow.log</span><br></pre></td></tr></table></figure>
+
+<p>另外建议在使用这些属性的时候结合 | 和more使用，否则可能出现爆屏的情况：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mysqldumpslow</span> -s r -t <span class="number">10</span> /DESKTOP-O<span class="number">360</span>IRK-slow.log | more</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、批量数据脚本"><a href="#4、批量数据脚本" class="headerlink" title="4、批量数据脚本"></a>4、批量数据脚本</h3><h4 id="（1）创建表"><a href="#（1）创建表" class="headerlink" title="（1）创建表"></a>（1）创建表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 新建库 </span><br><span class="line">create database bigData; </span><br><span class="line">use bigData; </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">#1 建表dept </span><br><span class="line">CREATE TABLE dept(   </span><br><span class="line">id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,   </span><br><span class="line">deptno MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,    </span><br><span class="line">dname VARCHAR(20) NOT NULL DEFAULT &quot;&quot;,   </span><br><span class="line">loc VARCHAR(13) NOT NULL DEFAULT &quot;&quot;   </span><br><span class="line">) ENGINE&#x3D;INNODB DEFAULT CHARSET&#x3D;UTF8 ;   </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">#2 建表emp </span><br><span class="line">CREATE TABLE emp   </span><br><span class="line">(   </span><br><span class="line">id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,   </span><br><span class="line">empno MEDIUMINT UNSIGNED NOT NULL DEFAULT 0, &#x2F;*编号*&#x2F;   </span><br><span class="line">ename VARCHAR(20) NOT NULL DEFAULT &quot;&quot;, &#x2F;*名字*&#x2F;   </span><br><span class="line">job VARCHAR(9) NOT NULL DEFAULT &quot;&quot;,&#x2F;*工作*&#x2F;   </span><br><span class="line">mgr MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,&#x2F;*上级编号*&#x2F;   </span><br><span class="line">hiredate DATE NOT NULL,&#x2F;*入职时间*&#x2F;   </span><br><span class="line">sal DECIMAL(7,2) NOT NULL,&#x2F;*薪水*&#x2F;   </span><br><span class="line">comm DECIMAL(7,2) NOT NULL,&#x2F;*红利*&#x2F;   </span><br><span class="line">deptno MEDIUMINT UNSIGNED NOT NULL DEFAULT 0 &#x2F;*部门编号*&#x2F;   </span><br><span class="line">)ENGINE&#x3D;INNODB DEFAULT CHARSET&#x3D;UTF8 ;  </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 设置参数log_bin_trust_function_creators</p>
+</blockquote>
+<p>由于开启过慢查询日志， 因为我们开启了 bin-log，我们就必须为我们的function指定一个参数，否则会报错：This function has none of DETERMINISTIC…… </p>
+<p>我们可以通过设置参数log_bin_trust_function_creators来解决这个问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#39;log_bin_trust_function_creators&#39;; </span><br><span class="line"></span><br><span class="line">+---------------------------------+-------+</span><br><span class="line">| Variable_name                   | Value |</span><br><span class="line">+---------------------------------+-------+</span><br><span class="line">| log_bin_trust_function_creators | OFF   |</span><br><span class="line">+---------------------------------+-------+</span><br><span class="line">1 row in set</span><br><span class="line"></span><br><span class="line">mysql&gt; set global log_bin_trust_function_creators&#x3D;1; </span><br><span class="line">Query OK, 0 rows affected</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#39;log_bin_trust_function_creators&#39;; </span><br><span class="line">+---------------------------------+-------+</span><br><span class="line">| Variable_name                   | Value |</span><br><span class="line">+---------------------------------+-------+</span><br><span class="line">| log_bin_trust_function_creators | ON    |</span><br><span class="line">+---------------------------------+-------+</span><br><span class="line">1 row in set</span><br><span class="line"></span><br><span class="line"># 这样添加了参数以后，如果mysqld重启，上述参数又会消失，永久方法： </span><br><span class="line">windows下 修改my.ini，在[mysqld]中加上log_bin_trust_function_creators&#x3D;1   </span><br><span class="line">linux下 修改&#x2F;etc&#x2F;my.cnf下my.cnf[mysqld]加上log_bin_trust_function_creators&#x3D;1 </span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）创建函数"><a href="#（2）创建函数" class="headerlink" title="（2）创建函数"></a>（2）创建函数</h4><p>创建函数保证每条数据都不同（可用于压力测试）</p>
+<p><strong>随机产生字符串</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 这里的两个$$对应下面的end$$，可以是两个四个八个，也可以是其他的符号，表示函数的结束</span><br><span class="line">&#x2F;&#x2F; 因为mysql默认的结尾是；但现在需要把多行写在一块，所有我们得改一下结尾，不再用；结束</span><br><span class="line">&#x2F;&#x2F; 用两个$才表示这段程序结束</span><br><span class="line">&#x2F;&#x2F; 也就是每次执行sql语句都需要通过$$才会结束</span><br><span class="line">DELIMITER $$ </span><br><span class="line">&#x2F;&#x2F;减建立函数    使我们自定义的函数名字（rand_string）   RETURNS是返回值</span><br><span class="line">CREATE FUNCTION rand_string(n INT) RETURNS VARCHAR(255) </span><br><span class="line">BEGIN    ##方法开始 </span><br><span class="line"> DECLARE chars_str VARCHAR(100) DEFAULT   &#39;abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ&#39;;  </span><br><span class="line"> ##声明一个 字符窜长度为 100 的变量 chars_str ,默认值  </span><br><span class="line"> DECLARE return_str VARCHAR(255) DEFAULT &#39;&#39;; </span><br><span class="line"> DECLARE i INT DEFAULT 0; </span><br><span class="line">##循环开始 </span><br><span class="line"> WHILE i &lt; n DO   </span><br><span class="line"> SET return_str &#x3D;CONCAT(return_str,SUBSTRING(chars_str,FLOOR(1+RAND()*52),1)); </span><br><span class="line">##concat 连接函数  ，substring(a,index,length) 从index处开始截取 </span><br><span class="line"> SET i &#x3D; i + 1; </span><br><span class="line"> END WHILE; </span><br><span class="line"> RETURN return_str; </span><br><span class="line">END $$ </span><br><span class="line"> </span><br><span class="line">#假如要删除函数</span><br><span class="line">#drop function rand_string; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200817195931.png"
+                      alt="image-20200817195900797"
+                ></p>
+<p><strong>随机产生部门编号</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#用于随机产生部门编号 </span><br><span class="line">DELIMITER $$ </span><br><span class="line">CREATE FUNCTION  rand_num( )  </span><br><span class="line">RETURNS INT(5)   </span><br><span class="line">BEGIN    </span><br><span class="line"> DECLARE i INT DEFAULT 0;   </span><br><span class="line"> SET i &#x3D; FLOOR(100+RAND()*10);   </span><br><span class="line">RETURN i;   </span><br><span class="line"> END $$ </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"># 假如要删除 </span><br><span class="line">#drop function  rand_num ; </span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200817200044.png"
+                      alt="image-20200817200043996"
+                ></p>
+<h4 id="（3）创建存储过程"><a href="#（3）创建存储过程" class="headerlink" title="（3）创建存储过程"></a>（3）创建存储过程</h4><blockquote>
+<p>tip: 函数和存储过程的区别，函数有返回值，存储过程没有返回值</p>
+</blockquote>
+<p><strong>创建往emp表中插入数据的存储过程</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER $$ </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 创建存储过程，第一个参数表示从多少id开始，第二个参数表示插入多少条数据</span><br><span class="line">CREATE PROCEDURE insert_emp(IN START INT(10),IN max_num INT(10))   </span><br><span class="line">BEGIN   </span><br><span class="line">DECLARE i INT DEFAULT 0;    </span><br><span class="line">#set autocommit &#x3D;0 把autocommit设置成0  ；提高执行效率 ，例如，执行五十次insert，提交一次</span><br><span class="line"> SET autocommit &#x3D; 0;     </span><br><span class="line"> REPEAT  ##重复 ，简而言之就是循环 相当于while true</span><br><span class="line"> SET i &#x3D; i + 1;   </span><br><span class="line"> INSERT INTO emp(empno, ename ,job ,mgr ,hiredate ,sal ,comm ,deptno ) VALUES ((START+i) ,rand_string(6),&#39;SALESMAN&#39;,0001,CURDATE(),FLOOR(1+RAND()*20000),FLOOR(1+RAND()*1000),rand_num());   </span><br><span class="line"> UNTIL i &#x3D; max_num   ##直到  上面定义的max_num也是一个循环 </span><br><span class="line"> END REPEAT;  ##满足条件后结束循环 </span><br><span class="line"> COMMIT;   ##执行完成后一起提交 </span><br><span class="line"> END $$ </span><br><span class="line"> </span><br><span class="line">#删除 </span><br><span class="line"># DELIMITER ; </span><br><span class="line"># drop PROCEDURE insert_emp; </span><br></pre></td></tr></table></figure>
+
+<p><strong>创建往dept表中插入数据的存储过程</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#执行存储过程，往dept表添加随机数据 </span><br><span class="line"></span><br><span class="line">CREATE PROCEDURE insert_dept(IN START INT(10),IN max_num INT(10))   </span><br><span class="line">BEGIN   </span><br><span class="line">DECLARE i INT DEFAULT 0;    </span><br><span class="line"> SET autocommit &#x3D; 0;     </span><br><span class="line"> REPEAT   </span><br><span class="line"> SET i &#x3D; i + 1;   </span><br><span class="line"> INSERT INTO dept (deptno ,dname,loc ) VALUES (START +i ,rand_string(10),rand_string(8));   </span><br><span class="line"> UNTIL i &#x3D; max_num   </span><br><span class="line"> END REPEAT;   </span><br><span class="line"> COMMIT;   </span><br><span class="line"> END $$  </span><br><span class="line"> </span><br><span class="line"># 删除 </span><br><span class="line"># DELIMITER ; </span><br><span class="line"># drop PROCEDURE insert_dept; </span><br></pre></td></tr></table></figure>
+
+<h4 id="（4）调用存储过程"><a href="#（4）调用存储过程" class="headerlink" title="（4）调用存储过程"></a>（4）调用存储过程</h4><p><strong>对于dept表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 首先将结尾符号修改回；</span><br><span class="line">DELIMITER ; </span><br><span class="line"></span><br><span class="line"># 进行调用</span><br><span class="line">CALL insert_dept(100,10);  </span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200817200630.png"
+                      alt="image-20200817200630167"
+                ></p>
+<p><strong>对于emp表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#执行存储过程，往emp表添加50万条数据</span><br><span class="line"></span><br><span class="line">DELIMITER ; #将结束标志换回;</span><br><span class="line">CALL insert_emp(100001,500000);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 演示</span><br><span class="line">mysql&gt; DELIMITER ;</span><br><span class="line">mysql&gt; CALL insert_emp(100001,500000);</span><br><span class="line">Query OK, 0 rows affected</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、Show-Profile"><a href="#5、Show-Profile" class="headerlink" title="5、Show Profile"></a>5、Show Profile</h3><p>是什么：是mysql提供可以用来分析当前会话中语句执行的资源消耗情况，可以用于SQL的调优的测量</p>
+<p>官网：<a class="link"   target="_blank" rel="noopener" href="http://dev.mysql.com/doc/refman/5.5/en/show-profile.html" >http://dev.mysql.com/doc/refman/5.5/en/show-profile.html<i class="fas fa-external-link-alt"></i></a></p>
+<p>默认情况下，参数处于关闭状态，并保存最近15次的运行结果</p>
+<h4 id="（1）分析步骤"><a href="#（1）分析步骤" class="headerlink" title="（1）分析步骤"></a>（1）分析步骤</h4><p>1）查看当前的mysql版本是否支持Show Profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;profiling&#39;;</span><br><span class="line"></span><br><span class="line"># 默认是关闭，使用前需要开启</span><br></pre></td></tr></table></figure>
+
+<p>2）开启</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set profiling&#x3D;1;</span><br><span class="line">或者</span><br><span class="line">set profiling&#x3D;on;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200818184113.png"
+                      alt="image-20200818184112956"
+                ></p>
+<p>（3）运行SQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from emp group by id%20 order by 5;</span><br><span class="line">select * from emp group by id%10 limit 150000;</span><br></pre></td></tr></table></figure>
+
+<p>（4）查看结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show profiles;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200818184530.png"
+                      alt="image-20200818184530565"
+                ></p>
+<h4 id="（2）参数说明"><a href="#（2）参数说明" class="headerlink" title="（2）参数说明"></a>（2）参数说明</h4><p>Duratioin：持续的时间<br>Query：具体的操作</p>
+<blockquote>
+<p>诊断SQL</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show profile cpu,block io for query [n]</span><br><span class="line"></span><br><span class="line"># [n]为Query_ID</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200818184840.png"
+                      alt="image-20200818184840402"
+                ></p>
+<p>左边的status是sql语句的完整生命：连接、初始化、打开表、查找、缓存等</p>
+<p>若想查看其他的修改命令参数即可：<br>type:<br>| ALL –显示所有的开销信息<br>| BLOCK IO –显示块IO相关开销<br>| CONTEXT SWITCHES –上下文切换相关开销<br>| CPU –显示CPU相关开销信息<br>| IPC –显示发送和接收相关开销信息<br>| MEMORY –显示内存相关开销信息<br>| PAGE FAULTS –显示页面错误相关开销信息<br>| SOURCE –显示和Source_function，Source_file，Source_line相关的开销信息<br>| SWAPS –显示交换次数相关开销的信息</p>
+<h4 id="（3）日常开发"><a href="#（3）日常开发" class="headerlink" title="（3）日常开发"></a>（3）日常开发</h4><p>如果status出现下面的就危险了</p>
+<ul>
+<li>converting HEAP to MyISAM 查询结果太大，内存都不够用了往磁盘上搬了。</li>
+<li>Creating tmp table 创建临时表</li>
+</ul>
+<blockquote>
+<p>如果你的SQL语句中有创建临时表的操作，数据量很大的话，创建临时表可能会使用较长的时间！</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200818185342.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<p>如上图，从创建临时表再到把临时表复制到磁盘中，占用了两秒多的时间</p>
+<h3 id="6、全局查询日志"><a href="#6、全局查询日志" class="headerlink" title="6、全局查询日志"></a>6、全局查询日志</h3><h4 id="（1）配置启用"><a href="#（1）配置启用" class="headerlink" title="（1）配置启用"></a>（1）配置启用</h4><p>在mysql的my.cnf中，设置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#开启 </span><br><span class="line">general_log&#x3D;1    </span><br><span class="line"># 记录日志文件的路径 </span><br><span class="line">general_log_file&#x3D;&#x2F;path&#x2F;logfile </span><br><span class="line">#输出格式 </span><br><span class="line">log_output&#x3D;FILE  </span><br></pre></td></tr></table></figure>
+
+<h4 id="（2）编码启用"><a href="#（2）编码启用" class="headerlink" title="（2）编码启用"></a>（2）编码启用</h4><p>命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global general_log&#x3D;1; </span><br></pre></td></tr></table></figure>
+
+<p>全局日志可以存放到日志文件中，也可以存放到Mysql系统表中。存放到日志中性能更好一些，存储到表中的命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set global log_output&#x3D;&#39;TABLE&#39;; </span><br></pre></td></tr></table></figure>
+
+<p>此后 ，你所编写的sql语句，将会记录到mysql库里的general_log表，可以用下面的命令查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from mysql.general_log; </span><br></pre></td></tr></table></figure>
+
+<h4 id="（3）永远不要在生产环境开启此功能"><a href="#（3）永远不要在生产环境开启此功能" class="headerlink" title="（3）永远不要在生产环境开启此功能"></a>（3）永远不要在生产环境开启此功能</h4>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：MySQL高级篇笔记（三）查询截取分析</li>
+        <li>Post author：郑皓云</li>
+        <li>Create time：2020-08-29 11:55:20</li>
+        <li>
+            Post link：https://zhenghaoyun.cn/MySQL/MySQL高级篇笔记（三）查询截取分析
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/MySQL/%E5%BF%AB%E9%80%9F%E7%90%86%E8%A7%A3%E8%84%8F%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E8%AF%BB"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">快速理解脏读、不可重复读和幻读</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MySQL高级篇笔记（二）索引优化分析</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'uffz9vWTIQhDc1YbAjAndspC-gzGzoHsz',
+                    appKey: 'KQwbThRfP3cQIJYoLHMIqXLX',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'zh-Hans'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '郑皓云';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2019</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">郑皓云</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%9F%A5%E8%AF%A2%E6%88%AA%E5%8F%96%E5%88%86%E6%9E%90"><span class="nav-text">三、查询截取分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-text">1、查询优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%B0%8F%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%A4%A7%E8%A1%A8"><span class="nav-text">（1）小表驱动大表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89order-by%E5%85%B3%E9%94%AE%E5%AD%97%E4%BC%98%E5%8C%96"><span class="nav-text">（2）order by关键字优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89group-by%E5%85%B3%E9%94%AE%E5%AD%97%E4%BC%98%E5%8C%96"><span class="nav-text">（3）group by关键字优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-text">2、慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">（1）慢查询日志是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-text">（2）慢查询日志的用法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7mysqldumpslow"><span class="nav-text">3、日志分析工具mysqldumpslow</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%9F%A5%E7%9C%8Bmysqldumpslow%E7%9A%84%E5%B8%AE%E5%8A%A9%E4%BF%A1%E6%81%AF"><span class="nav-text">（1）查看mysqldumpslow的帮助信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%B7%A5%E4%BD%9C%E5%B8%B8%E7%94%A8%E5%8F%82%E8%80%83"><span class="nav-text">（2）工作常用参考</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%89%B9%E9%87%8F%E6%95%B0%E6%8D%AE%E8%84%9A%E6%9C%AC"><span class="nav-text">4、批量数据脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-text">（1）创建表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%88%9B%E5%BB%BA%E5%87%BD%E6%95%B0"><span class="nav-text">（2）创建函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">（3）创建存储过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E8%B0%83%E7%94%A8%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-text">（4）调用存储过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81Show-Profile"><span class="nav-text">5、Show Profile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%88%86%E6%9E%90%E6%AD%A5%E9%AA%A4"><span class="nav-text">（1）分析步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="nav-text">（2）参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91"><span class="nav-text">（3）日常开发</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E5%85%A8%E5%B1%80%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-text">6、全局查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E9%85%8D%E7%BD%AE%E5%90%AF%E7%94%A8"><span class="nav-text">（1）配置启用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E7%BC%96%E7%A0%81%E5%90%AF%E7%94%A8"><span class="nav-text">（2）编码启用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E6%B0%B8%E8%BF%9C%E4%B8%8D%E8%A6%81%E5%9C%A8%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%BC%80%E5%90%AF%E6%AD%A4%E5%8A%9F%E8%83%BD"><span class="nav-text">（3）永远不要在生产环境开启此功能</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

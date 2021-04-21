@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="博客,编程,代码,Java,空间,记录">
+    <meta name="description" content="郑皓云的个人博客,博客,编程,代码,Java,空间,记录">
+    <meta name="author" content="郑皓云">
+    
+    <title>
+        
+            MySQL高级篇笔记（四）锁机制 |
+        
+        好运的云
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                好运的云
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">MySQL高级篇笔记（四）锁机制</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">郑皓云</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2020-09-06 11:55:20
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/MySQL/">MySQL</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/MySQL%E9%94%81%E6%9C%BA%E5%88%B6/">MySQL锁机制</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="四、MySQL锁机制"><a href="#四、MySQL锁机制" class="headerlink" title="四、MySQL锁机制"></a>四、MySQL锁机制</h1><h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1.1. 定义"></a>1.1. 定义</h3><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。</p>
+<p>在数据库中，除传统的计算资源（如CPU、RAM、I/O等）的争用以外，数据也是一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</p>
+<h3 id="1-2-生活例子"><a href="#1-2-生活例子" class="headerlink" title="1.2. 生活例子"></a>1.2. 生活例子</h3><p>打个比方，我们到淘宝上买一件商品，商品只有一件库存，这个时候如果还有另一个人买，<br>那么如何解决是你买到还是另一个人买到的问题？</p>
+<p>这里肯定要用到事务，我们先从库存表中取出物品数量，然后插入订单，付款后插入付款表信息，<br>然后更新商品数量。在这个过程中，使用锁可以对有限的资源进行保护，解决隔离和并发的矛盾。</p>
+<h2 id="2-锁的分类"><a href="#2-锁的分类" class="headerlink" title="2. 锁的分类"></a>2. 锁的分类</h2><h3 id="2-1-从对数据操作的类型分类"><a href="#2-1-从对数据操作的类型分类" class="headerlink" title="2.1. 从对数据操作的类型分类"></a>2.1. 从对数据操作的类型分类</h3><ul>
+<li>读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会相互影响。如果事务T对数据A加上读锁，那么其他事务只能对数据A再加读锁，不能加写锁。获取到读锁的事务只能读数据，不能写数据。</li>
+<li>写锁（排他锁）：当前写操作没有完成前，它会阻断其他写锁和读锁。</li>
+</ul>
+<h3 id="2-2-从对数据操作的颗粒度分类"><a href="#2-2-从对数据操作的颗粒度分类" class="headerlink" title="2.2. 从对数据操作的颗粒度分类"></a>2.2. 从对数据操作的颗粒度分类</h3><p>为了尽可能提高数据库的并发度，每次锁定的数据范围越小越好，理论上只需要锁定当前操作的数据，这样会得到最高的并发度，但是管理锁是很耗资源的事情（涉及到锁的获取、检查、释放锁等动作），因此数据库需要在高并发响应和系统性能两方面进行平衡，这样就产生了“颗粒度”的概念。</p>
+<p>一种提高共享资源并发性的方式是让锁定对象更有选择性，尽量只锁定需要修改的部分，而不是所有的资源。更理想的是，只会对修改的数据片进行精确的锁定。任何时候，在给定的资源上，锁定的数据量越少，则系统的并发程度越高，只要相互之间不发生冲突即可。</p>
+<ul>
+<li>表锁</li>
+<li>行锁</li>
+</ul>
+<h2 id="3-三锁"><a href="#3-三锁" class="headerlink" title="3. 三锁"></a>3. 三锁</h2><h3 id="3-1-表锁（偏读）"><a href="#3-1-表锁（偏读）" class="headerlink" title="3.1. 表锁（偏读）"></a>3.1. 表锁（偏读）</h3><h4 id="3-1-1-特点"><a href="#3-1-1-特点" class="headerlink" title="3.1.1. 特点"></a>3.1.1. 特点</h4><p>偏向MyISAM存储引擎，加锁快，开销小，无死锁。锁的粒度比较大，发生锁冲突的概率最高，并发度最低。</p>
+<h4 id="3-1-2-案例分析"><a href="#3-1-2-案例分析" class="headerlink" title="3.1.2. 案例分析"></a>3.1.2. 案例分析</h4><p><strong>建表SQL</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">create table mylock( </span><br><span class="line"> id int not null primary key auto_increment， </span><br><span class="line"> name varchar(20) </span><br><span class="line">) engine myisam; </span><br><span class="line"> </span><br><span class="line">insert into mylock(name) values(&#39;a&#39;); </span><br><span class="line">insert into mylock(name) values(&#39;b&#39;); </span><br><span class="line">insert into mylock(name) values(&#39;c&#39;); </span><br><span class="line">insert into mylock(name) values(&#39;d&#39;); </span><br><span class="line">insert into mylock(name) values(&#39;e&#39;); </span><br><span class="line"> </span><br><span class="line">select * from mylock; </span><br></pre></td></tr></table></figure>
+
+<p><strong>手动增加表锁</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lock table 表名字1 read(write)， 表名字2 read(write)，其它 ;</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看表上加过的锁</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show open tables;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904194644.png"
+                      alt="image-20200904194621258"
+                ></p>
+<p>in_use列为1时，表示有锁</p>
+<p><strong>释放表锁</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unlock tables;</span><br></pre></td></tr></table></figure>
+
+<p><strong>加读锁</strong></p>
+<p>为mylock表加read锁，分别打开两个命令行session1和session2对同一个表进行操作。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904194844.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<p>加入读锁之后：<br>session1可以读已经加锁的表，但是不能改或者读其他没加锁的表，因为前面”欠的账还没有清”。<br>session2可以查看已锁定的表，可以查看其他未锁定的表，但是操作加锁的表会阻塞等待，会导致系统性能下降。</p>
+<p><strong>加写锁</strong></p>
+<p>mylock write(MyISAM)</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904194943.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<p>注意session1去读取其他的表同样会报错，原因同读锁“欠的账还没有还清”</p>
+<p><strong>结论</strong></p>
+<p>MyISAM在执行查询语句（SELECT）前，会自动给涉及的所有表加读锁，在执行增删改操作前，会自动给涉及的表加写锁。<br>MySQL的表级锁有两种模式：</p>
+<ul>
+<li>表共享读锁（Table Read Lock）</li>
+<li>表独占写锁（Table Write Lock）</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904200653.png"
+                      alt="image-20200904200653388"
+                ></p>
+<p>结合上表，所以对于MyISAM表进行操作，会有以下情况：</p>
+<ul>
+<li>加读锁，不会阻塞其他进程对加读锁的这一张表的读操作，但会阻塞对这张表的写操作。当读锁释放后，才会执行其他其他线程的写操作。</li>
+<li>加写锁，会阻塞其他进程对加写锁的这张表的读和写操作，只有当写锁释放后，其他进程的读写操作才能正常执行</li>
+</ul>
+<p>简而言之：<strong>读锁会阻塞写，写锁会阻塞读和写。</strong></p>
+<h4 id="3-1-3-分析表锁定"><a href="#3-1-3-分析表锁定" class="headerlink" title="3.1.3. 分析表锁定"></a>3.1.3. 分析表锁定</h4><p>可以通过检查 table_ locks waited和 table_ locks_immediate状态变量来分析系统上的表锁定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like ‘table%’</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904201108.png"
+                      alt="在这里插入图片描述"
+                ><br>这里有两个状态变量记录 MySQL内部表级锁定的情况，两个变量说明如下:</p>
+<ul>
+<li>Table_ locks_ immediate：产生表级锁定的次数，表示可以立即获取锁的查询次数，每立即获取锁值加1;</li>
+<li>Table_ locks_waited出现表级锁定争用而发生等待的次数(不能立即获取锁的次数，每等待一次锁值加1)，此值高则说明存在着较严重的表级锁争用情况。</li>
+</ul>
+<p><strong>此外，MyISAM的读写锁调度是写优先，这也是MyISAM不适合做写为主的引擎，因为写锁后，其他线程不能做任何操作，大量的更新会使查询很难得到锁，从而造成永远阻塞，所以表锁偏读。</strong></p>
+<h3 id="3-2-行锁（偏写）"><a href="#3-2-行锁（偏写）" class="headerlink" title="3.2. 行锁（偏写）"></a>3.2. 行锁（偏写）</h3><h4 id="3-2-1-行锁特点"><a href="#3-2-1-行锁特点" class="headerlink" title="3.2.1. 行锁特点"></a>3.2.1. 行锁特点</h4><p>偏向InnoDB存储引擎，开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。<br>InnoDB与MyISAM的最大不同有两点：<strong>一是支持事务（TRANSACTION）；二是采用了行级锁。</strong></p>
+<h4 id="3-2-2-事务特点"><a href="#3-2-2-事务特点" class="headerlink" title="3.2.2. 事务特点"></a>3.2.2. 事务特点</h4><p>事务是由一组SQL语句组成的逻辑处理单元，事务具有以下4个属性，通常简称为事务的ACID属性。</p>
+<ul>
+<li>原子性（Atomicity） ：事务是一个原子操作单元，其对数据的修改，要么全都执行，要么全都不执行。</li>
+<li>一致性（Consistent） ：在事务开始和完成时，数据都必须保持一致状态。这意味着所有相关的数据规则都必须应用于事务的修改，以保持数据的完整性；事务结束时，所有的内部数据结构（如B树索引或双向链表）也都必须是正确的。</li>
+<li>隔离性（Isolation） ：数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的“独立”环境执行。这意味着事务处理过程中的中间状态对外部是不可见的，反之亦然。</li>
+<li>持久性（Durable） ：事务完成之后，它对于数据的修改是永久性的，即使出现系统故障也能够保持。</li>
+</ul>
+<h4 id="3-2-3-并发处理事务带来的问题"><a href="#3-2-3-并发处理事务带来的问题" class="headerlink" title="3.2.3. 并发处理事务带来的问题"></a>3.2.3. 并发处理事务带来的问题</h4><ul>
+<li>更新丢失(Lost Update)</li>
+</ul>
+<p>当两个或多个事务选择同一行，然后基于最初选定的值更新该行时，由于每个事务都不知道其他事务的存在，就会发生丢失更新问题，最后的更新覆盖了由其他事务所做的更新。</p>
+<p>例如，两个程序员修改同一java文件。每程序员独立地更改其副本，然后保存更改后的副本，这样就覆盖了原始文档。最后保存其更改副本的编辑人员覆盖前一个程序员所做的更改。</p>
+<p>如果在一个程序员完成并提交事务之前，另一个 程序员不能访问同一文件，则可避免此问题。</p>
+<ul>
+<li>脏读(Dirty Reads)</li>
+</ul>
+<p>一个事务正在对一条记录做修改，在这个事务完成并提交前，这条记录的数据就处于不一致状态；这时，另一个事务也来读取同一条记录，如果不加控制，第二个事务读取了这些“脏”数据，并据此做进一步的处理，就会产生未提交的数据依赖关系。这种现象被形象地叫做”脏读”。</p>
+<p>一句话：事务A读取到了事务B <strong>已修改但尚未提交</strong> 的的数据，还在这个数据基础上做了操作。此时，如果B事务回滚，A读取<br>的数据无效，不符合一致性要求。</p>
+<ul>
+<li>不可重复读(Non-Repeatable Reads)</li>
+</ul>
+<p>在一个事务内，多次读同一个数据。在这个事务还没有结束时，另一个事务也访问该同一数据。那么，在第一个事务的两次读数据之间。由于第二个事务的<strong>修改</strong>，那么第一个事务读到的数据可能不一样，这样就发生了在一个事务内两次读到的数据是不一样的，因此称为不可重复读，即原始读取不可重复。</p>
+<p>一句话：一个事务范围内两个相同的查询却返回了不同数据。</p>
+<ul>
+<li>幻读(Phantom Reads)</li>
+</ul>
+<p>一个事务按相同的查询条件重新读取以前检索过的数据，却发现其他事务<strong>插入</strong>了满足其查询条件的新数据，这种现象就称为“幻读”。</p>
+<p>一句话：事务A读取到了事务B提交的新增数据，不符合隔离性。</p>
+<h4 id="3-2-4-事务隔离级别"><a href="#3-2-4-事务隔离级别" class="headerlink" title="3.2.4. 事务隔离级别"></a>3.2.4. 事务隔离级别</h4><p>“脏读”、“不可重复读”和“幻读”，其实都是数据库读一致性问题，必须由数据库提供一定的事务隔离机制来解决。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906145634.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<p>数据库的事务隔离越严格，并发副作用越小，但付出的代价也就越大，因为事务隔离实质上就是使事务在一定程度上 “串行化”进行，这显然与“并发”是矛盾的。同时，不同的应用对读一致性和事务隔离程度的要求也是不同的，比如许多应用对“不可重复读”和“幻读”并不敏感，可能更关心数据并发访问的能力。</p>
+<p>查看当前数据库的事务隔离级别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;tx_isolation&#39;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906150405.png"
+                      alt="image-20200906145848899"
+                ></p>
+<p>从图中可以看到MySQL默认的隔离级别是可重复读，也就说明MYSQL默认能够解决脏读和不可重复读的问题，但是不能解决幻读的问题。</p>
+<h4 id="3-2-5-案例分析"><a href="#3-2-5-案例分析" class="headerlink" title="3.2.5. 案例分析"></a>3.2.5. 案例分析</h4><p><strong>建表SQL</strong>（注意engine=innodb）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">create table test_innodb_lock (a int(11),b varchar(16)) engine&#x3D;innodb; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">insert into test_innodb_lock values(1,&#39;b2&#39;); </span><br><span class="line">insert into test_innodb_lock values(3,&#39;3&#39;); </span><br><span class="line">insert into test_innodb_lock values(4,&#39;4000&#39;); </span><br><span class="line">insert into test_innodb_lock values(5,&#39;5000&#39;); </span><br><span class="line">insert into test_innodb_lock values(6,&#39;6000&#39;); </span><br><span class="line">insert into test_innodb_lock values(7,&#39;7000&#39;); </span><br><span class="line">insert into test_innodb_lock values(8,&#39;8000&#39;); </span><br><span class="line">insert into test_innodb_lock values(9,&#39;9000&#39;); </span><br><span class="line">insert into test_innodb_lock values(1,&#39;b1&#39;); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create index test_innodb_a_ind on test_innodb_lock(a); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create index test_innodb_lock_b_ind on test_innodb_lock(b); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">select * from test_innodb_lock; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>行锁定基本演示</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906154555.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<p>为了测试行锁，先将自动提交关闭，每次都需要手动提交，set autocommit = 0</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906154744.png"
+                      alt="image-20200906154743780"
+                ></p>
+<p>因为关闭了自动提交，所以session2没有读到sessoin1中的修改，两边都需要进行commit，按照正常的如果sessioin1关闭了自动提交，session2没有关闭自动提交的话，只需要session1执行commit，但是这里的session2也是关闭自动提交的，所以session2也应该执行commit。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906154758.png"
+                      alt="image-20200906154757777"
+                ></p>
+<p>session1操作4005行 ， session2操作 9001 行，双方互不影响，都能成功。</p>
+<p><strong>无索引行锁升级为表锁（索引失效 ）</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906154920.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906155008.png"
+                      alt="image-20200906155008012"
+                ></p>
+<p>原因分析：b是varchar类型，这里设置为4000，在mysql底层会自动做一次转换，转换为varchar，所以索引失效，行锁变成了表锁，导致seesion1操作a=41，session2操作a=9，session2会阻塞。所以生产环境中一定注意varchar加”“。</p>
+<p><strong>select也可以加锁</strong></p>
+<p>（1）读锁：select …lock in share mode</p>
+<p>（2）写锁：select… for update</p>
+<p>在查询语句后面增加 FOR UPDATE ，Mysql会对查询结果中的每行都加排他锁，当没有其他线程对查询结果集中的任何一行使用排他锁时，可以成功申请排他锁，否则会被阻塞。</p>
+<p><strong>间隙锁的危害</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906160047.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906160059.png"
+                      alt="在这里插入图片描述"
+                ></p>
+<p>注意原表中是没有a=2的，这个时候操作session1，session2设置a=2的值会阻塞，只有当session1 commit之后，session2才能操作成功。session1用的范围查询，a中1~6 虽然没有2，但是也认为2在里面，也给锁住，session2操作的时候就会阻塞。</p>
+<p>这就是MYSQL，宁可错杀一千，也不放过一个。</p>
+<blockquote>
+<p>什么是间隙锁？</p>
+</blockquote>
+<p>当我们使用范围条件而不是相等条件去检索数据时，并请求共享锁或者排他锁时，Innodb会给符合条件的数据记录的索引项加锁；对于键值不存在但是满足范围条件的记录，叫做“间隙”（GAP）</p>
+<p>Innodb会给这个间隙加锁，这个锁机制就是所谓的”间隙锁“（GAP LOCK）</p>
+<blockquote>
+<p>间隙锁的危害</p>
+</blockquote>
+<p>因为在Query执行过程中，MYSQL会锁定整个范围内的所有索引键值，即使这个键值不存在。</p>
+<p>间隙锁有一个致命的弱点，就是当锁定一个范围内的键值时，即使某个键值不存在也会被锁定，这就造成了在锁定的时候无法插入锁定范围内的任何数据，在某些场景下这可能会对性能造成极大的危害。</p>
+<p><strong>案例结论</strong></p>
+<p>Innodb存储引擎由于实现了行级锁定，虽然在锁定机制的实现方面所带来的性能损耗可能比表级锁定会要更高一些，但是在整体并发处理能力方面要远远优于MyISAM的表级锁定的。当系统并发量较高的时候，Innodb的整体性能和MyISAM相比就会有比较明显的优势了。</p>
+<p>但是，Innodb的行级锁定同样也有其脆弱的一面，当我们使用不当的时候，可能会让Innodb的整体性能表现不仅不能比MyISAM高，甚至可能会更差。</p>
+<h4 id="3-2-6-行锁分析"><a href="#3-2-6-行锁分析" class="headerlink" title="3.2.6. 行锁分析"></a>3.2.6. 行锁分析</h4><p><strong>如何分析行锁定？</strong></p>
+<p>通过检查InnoDB_row_lock状态变量来分析系统上的行锁的争夺情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show status like &#39;innodb_row_lock%&#39;;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906161114.png"
+                      alt="image-20200906161114317"
+                ></p>
+<p><strong>变量分析</strong></p>
+<p>对各个状态量的说明如下：</p>
+<p>Innodb_row_lock_current_waits：当前正在等待锁定的数量<br>Innodb_row_lock_time：从系统启动到现在锁定总时间长度<br>Innodb_row_lock_time_avg：每次等待所花平均时间<br>Innodb_row_lock_time_max：从系统启动到现在等待最长的一次所花的时间<br>Innodb_row_lock_waits：系统启动后到现在总共等待的次数<br>对于这5个状态变量， 比较重要的主要是</p>
+<p>Innodb_row_lock_time_avg（等待平均时长）<br>Innodb_row_lock_waits（等待总次数）<br>Innodb_row_lock_time（等待总时长）</p>
+<p>当等待次数很高，而且每次等待时长也不小的时候，我们就需要分析系统中为什么会有如此多的等待，然后根据分析结果着手指定优化计划。</p>
+<p>最后可以通过<code>SELECT * FROM information_schema.INNODB_TRX\G;</code>来查询正在被锁阻塞的sql语句。</p>
+<h4 id="3-2-7-面试题：如何锁定一行"><a href="#3-2-7-面试题：如何锁定一行" class="headerlink" title="3.2.7. 面试题：如何锁定一行"></a>3.2.7. 面试题：如何锁定一行</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200906162325.png"
+                      alt="image-20200906162325479"
+                ></p>
+<h4 id="3-2-8-行锁总结"><a href="#3-2-8-行锁总结" class="headerlink" title="3.2.8. 行锁总结"></a>3.2.8. 行锁总结</h4><ul>
+<li>尽可能让所有数据检索都通过索引来完成，避免无索引行锁升级为表锁。</li>
+<li>尽可能较少检索条件，避免间隙锁。</li>
+<li>尽量控制事务大小，减少锁定资源量和时间长度。</li>
+<li>锁住某行后，尽量不要去调别的行或表，赶紧处理被锁住的行然后释放掉锁。</li>
+<li>涉及相同表的事务，对于调用表的顺序尽量保持一致。</li>
+<li>在业务环境允许的情况下,尽可能低级别事务隔离。</li>
+<li></li>
+</ul>
+<h3 id="3-3-页锁（了解）"><a href="#3-3-页锁（了解）" class="headerlink" title="3.3. 页锁（了解）"></a>3.3. 页锁（了解）</h3><p>开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：MySQL高级篇笔记（四）锁机制</li>
+        <li>Post author：郑皓云</li>
+        <li>Create time：2020-09-06 11:55:20</li>
+        <li>
+            Post link：https://zhenghaoyun.cn/MySQL/MySQL高级篇笔记（四）锁机制
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/%E5%88%86%E5%B8%83%E5%BC%8F/%E6%B5%85%E8%B0%88%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E2%80%94%E2%80%94RPC"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">浅谈远程过程调用——RPC</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/MySQL/%E5%BF%AB%E9%80%9F%E7%90%86%E8%A7%A3%E8%84%8F%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E8%AF%BB"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">快速理解脏读、不可重复读和幻读</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'uffz9vWTIQhDc1YbAjAndspC-gzGzoHsz',
+                    appKey: 'KQwbThRfP3cQIJYoLHMIqXLX',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'zh-Hans'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '郑皓云';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2019</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">郑皓云</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81MySQL%E9%94%81%E6%9C%BA%E5%88%B6"><span class="nav-text">四、MySQL锁机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="nav-text">1. 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%AE%9A%E4%B9%89"><span class="nav-text">1.1. 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E7%94%9F%E6%B4%BB%E4%BE%8B%E5%AD%90"><span class="nav-text">1.2. 生活例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%94%81%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">2. 锁的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BB%8E%E5%AF%B9%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%88%86%E7%B1%BB"><span class="nav-text">2.1. 从对数据操作的类型分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E4%BB%8E%E5%AF%B9%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C%E7%9A%84%E9%A2%97%E7%B2%92%E5%BA%A6%E5%88%86%E7%B1%BB"><span class="nav-text">2.2. 从对数据操作的颗粒度分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%B8%89%E9%94%81"><span class="nav-text">3. 三锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E8%A1%A8%E9%94%81%EF%BC%88%E5%81%8F%E8%AF%BB%EF%BC%89"><span class="nav-text">3.1. 表锁（偏读）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-%E7%89%B9%E7%82%B9"><span class="nav-text">3.1.1. 特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="nav-text">3.1.2. 案例分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-3-%E5%88%86%E6%9E%90%E8%A1%A8%E9%94%81%E5%AE%9A"><span class="nav-text">3.1.3. 分析表锁定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%A1%8C%E9%94%81%EF%BC%88%E5%81%8F%E5%86%99%EF%BC%89"><span class="nav-text">3.2. 行锁（偏写）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-%E8%A1%8C%E9%94%81%E7%89%B9%E7%82%B9"><span class="nav-text">3.2.1. 行锁特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-%E4%BA%8B%E5%8A%A1%E7%89%B9%E7%82%B9"><span class="nav-text">3.2.2. 事务特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-%E5%B9%B6%E5%8F%91%E5%A4%84%E7%90%86%E4%BA%8B%E5%8A%A1%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">3.2.3. 并发处理事务带来的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-4-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-text">3.2.4. 事务隔离级别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90"><span class="nav-text">3.2.5. 案例分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-6-%E8%A1%8C%E9%94%81%E5%88%86%E6%9E%90"><span class="nav-text">3.2.6. 行锁分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-7-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9A%E5%A6%82%E4%BD%95%E9%94%81%E5%AE%9A%E4%B8%80%E8%A1%8C"><span class="nav-text">3.2.7. 面试题：如何锁定一行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-8-%E8%A1%8C%E9%94%81%E6%80%BB%E7%BB%93"><span class="nav-text">3.2.8. 行锁总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E9%A1%B5%E9%94%81%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-text">3.3. 页锁（了解）</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

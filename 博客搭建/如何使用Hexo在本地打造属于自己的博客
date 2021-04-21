@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="博客,编程,代码,Java,空间,记录">
+    <meta name="description" content="郑皓云的个人博客,博客,编程,代码,Java,空间,记录">
+    <meta name="author" content="郑皓云">
+    
+    <title>
+        
+            如何使用Hexo在本地打造属于自己的博客 |
+        
+        好运的云
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                好运的云
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">如何使用Hexo在本地打造属于自己的博客</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">郑皓云</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2020-04-15 16:20:20
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Hexo/">Hexo</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="Hexo是什么？"><a href="#Hexo是什么？" class="headerlink" title="Hexo是什么？"></a>Hexo是什么？</h2><p>Hexo是一个快速、简洁且高效的博客框架，它是一个基于Node.js制作的博客工具，我们可以使用Markdown编写文章，然后Hexo会帮我们生成静态页面。我们将静态页面上传到我们的服务器上，就形成了我们想要的博客。</p>
+<span id="more"></span>
+
+<h3 id="为什么快速、高效？"><a href="#为什么快速、高效？" class="headerlink" title="为什么快速、高效？"></a>为什么快速、高效？</h3><p>因为Hexo使用Markdown解析文章，在几秒内即可生成静态文件。</p>
+<h3 id="为什么简洁？"><a href="#为什么简洁？" class="headerlink" title="为什么简洁？"></a>为什么简洁？</h3><p>因为Hexo的主题库里面提供了数不尽的主题模板，我们可以很轻松的更换我们的主题，可以挑选一个自己喜欢的简洁主题。</p>
+<hr>
+<h2 id="Hexo快速上手"><a href="#Hexo快速上手" class="headerlink" title="Hexo快速上手"></a>Hexo快速上手</h2><p>本次安装Hexo是基于Windows系统，其他Mac和Linux用户的安装过程也差不多，而Windows其实还是坑最多的，一言不合就出问题。所以我推荐有条件的使用Mac和Linux安装Hexo，有很多东西可以直接通过终端安装，很方便。</p>
+<p>Let‘s go.</p>
+<h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p>如果你没有使用过Git也没有关系，去Git官网上下载一个Git就好，也不用学它的操作，因为我们安装Git的目的是使用它的Git bash，它可以使我们在windows系统上使用Linux的命令，非常的方便，Hexo写好文章也要利用Git上传。</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://gitforwindows.org/" >Git下载<i class="fas fa-external-link-alt"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600" >廖雪峰Git教程<i class="fas fa-external-link-alt"></i></a></p>
+<p>如果安装过程中遇到问题可以访问廖雪峰大佬的博客，里面有详细的教程。</p>
+<h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>Hexo是基于Node.js的，所以安装Node.js必不可少。</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://nodejs.org/en/download/" >Node.js下载<i class="fas fa-external-link-alt"></i></a></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96bc16c2a9a83be593649b.jpg"
+                      alt="Node.js下载版本选择" style="zoom:67%;" /
+                >
+
+<p>选择LTS 版本下载即可，Node.js具体安装过程本文不再阐述，若遇问题，可使用搜索引擎。</p>
+<p>安装完成后，打开Git Bash，使用<code>node -v</code>命令，如果输出Node版本号，则说明安装成功！</p>
+<h3 id="安装CNPM"><a href="#安装CNPM" class="headerlink" title="安装CNPM"></a>安装CNPM</h3><p>为什么使用cnpm而不是npm呢？因为使用npm安装插件是从国外服务器下载，受网络波动影响，经常出现异常。而淘宝团队研发的cnpm是一个完整的npm的国内镜像，所以我们使用cnpm。</p>
+<p>当然，我们首先得使用npm下载cnpm。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 后面跟的是淘宝的镜像源</span><br><span class="line">npm install cnpm -g –registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p><strong>推荐在windows的cmd（使用管理员身份打开）上输入npm和cnpm的指令，如果在Git Bash上使用，出现问题了你就重试2-3次，如果还是出现问题，你就去cmd上输入指令下载，就成功了，亲测有效！</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96d6a7c2a9a83be5a72b12.png"
+                      style="zoom: 67%;" /
+                >
+
+<center><div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">在Git Bash上使用npm时很多莫名的ERROR</div> </center>
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96d842c2a9a83be5a8b74f.jpg"
+                      style="zoom:67%;" /
+                >
+
+<center><div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">在Git Bash上使用cnpm时就舒服了很多，但是还是有很多小块块</div> </center>
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96d92fc2a9a83be5a9a002.jpg"
+                      style="zoom:67%;" /
+                >
+
+<center><div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">在cmd上使用cnpm就非常的舒适，而且出错率低！</div> </center>
+
+<p>如果出现问题，重试几次。</p>
+<p>安装完成后命令行输入<code>cnpm -v</code>查看是否安装成功。</p>
+<h3 id="※-安装Hexo"><a href="#※-安装Hexo" class="headerlink" title="※ 安装Hexo"></a>※ 安装Hexo</h3><p><strong>注意：除了使用cnpm下载的时候，我会去cmd上操作，其他指令我都是在Git Bash上操作的，因为Git Bash还是比cmd好用很多！</strong></p>
+<p>首先找个地方新建一个文件夹test（或者其他名字），<strong>然后<code>cd Blog</code>进入</strong>。</p>
+<p>去cmd上<strong>使用<code>cnpm install -g hexo-cli</code>下载Hexo</strong>，出现问题重试。</p>
+<p>依旧使用<code>hexo -v</code>查看版本。</p>
+<p><strong>使用<code>hexo init</code>初始化Hexo</strong>，这个操作可能耗费几分钟，耐心等待！</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96dca1c2a9a83be5ac42b1.jpg"
+                      style="zoom: 80%;" /
+                >
+
+<p>忽略<code>WARN  Failed to install dependencies. Please run &#39;npm install&#39; manually!</code></p>
+<hr>
+<p>初始化Hexo时<strong>可能出现的问题</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FATAL D:\XXX not empty, please run &#96;hexo init&#96; on an empty folder and then copy your files into it</span><br></pre></td></tr></table></figure>
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96db6dc2a9a83be5ab6c28.jpg"
+                      style="zoom: 80%;" /
+                >
+
+<p>删除XXX目录里的所有文件，再次执行<code>hexo init</code>就可以了。</p>
+<hr>
+<p>执行<code>cnpm install</code>，这个是为了下载之前下载失败的依赖。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96de41c2a9a83be5ad24fd.jpg"
+                      style="zoom: 67%;" /
+                >
+
+<p>以上操作完成后，指定文件夹的目录结构是这样的：</p>
+<p>随着更新迭代可能会有所改变，大体上一致即可。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96dec1c2a9a83be5ad6f94.jpg"
+                     
+                ></p>
+<ul>
+<li>node_modules: 依赖包</li>
+<li>public：存放生成的页面</li>
+<li>scaffolds：生成文章的一些模板</li>
+<li>source：用来存放你的文章</li>
+<li>themes：主题</li>
+<li><strong>_config.yml: 博客的配置文件</strong></li>
+</ul>
+<h3 id="启动Hexo"><a href="#启动Hexo" class="headerlink" title="启动Hexo"></a>启动Hexo</h3><p>第一步使用<code>hexo g</code>生成静态文件</p>
+<p>第二部使用<code>hexo s</code>启动服务</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96df90c2a9a83be5ade74d.jpg"
+                      style="zoom: 80%;" /
+                >
+
+
+
+<p>然后去浏览器输入 <a class="link"   target="_blank" rel="noopener" href="http://localhost:4000/" >http://localhost:4000<i class="fas fa-external-link-alt"></i></a> 就可以看到你创建的博客啦，使用Ctrl+C可以关闭服务！</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://pic.downk.cc/item/5e96e001c2a9a83be5ae35bf.jpg"
+                      style="zoom:80%;" /
+                >
+
+<p>至此，就大功告成了！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本教程中所搭建的博客只是一个雏形，之后可能需要完成以下步骤：</p>
+<ol>
+<li>修改_config.yml配置文件，满足自己的需求。</li>
+<li>去<a class="link"   target="_blank" rel="noopener" href="https://hexo.io/themes/" >Hexo主题库<i class="fas fa-external-link-alt"></i></a>挑选自己喜欢的主题</li>
+<li>修改主题的配置文件</li>
+<li>配置评论系统</li>
+<li>配置RSS订阅</li>
+<li>站点访问量、文章阅读量统计</li>
+<li>部署到服务器上（如GitHub、Gitee、Coding、云服务器），这里我推荐同时部署到GitHub和Coding上，实现国内外分流。</li>
+<li>绑定域名</li>
+<li>更改为Https</li>
+<li>百度与Google的SEO优化</li>
+</ol>
+<p>相信你一定有自己的需求，具体的可以阅读<a class="link"   target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/" >Hexo官方文档<i class="fas fa-external-link-alt"></i></a>找到自己想要的东西，Hexo官网是支持中文的，非常的方便！如果之后我有空的话，也会做上述操作的教程！</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：如何使用Hexo在本地打造属于自己的博客</li>
+        <li>Post author：郑皓云</li>
+        <li>Create time：2020-04-15 16:20:20</li>
+        <li>
+            Post link：https://zhenghaoyun.cn/博客搭建/如何使用Hexo在本地打造属于自己的博客
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%80%8E%E6%A0%B7%E5%86%99%E4%B8%80%E4%B8%AASingleton%EF%BC%9F"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">怎样写一个Singleton？</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/Java8%E6%96%B0%E7%89%B9%E6%80%A7/Java8%E6%96%B0%E7%89%B9%E6%80%A7%E4%B9%8BOptional"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Java8新特性之Optional</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'uffz9vWTIQhDc1YbAjAndspC-gzGzoHsz',
+                    appKey: 'KQwbThRfP3cQIJYoLHMIqXLX',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'zh-Hans'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '郑皓云';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2019</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">郑皓云</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">Hexo是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%AB%E9%80%9F%E3%80%81%E9%AB%98%E6%95%88%EF%BC%9F"><span class="nav-text">为什么快速、高效？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%AE%80%E6%B4%81%EF%BC%9F"><span class="nav-text">为什么简洁？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="nav-text">Hexo快速上手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Git"><span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Node-js"><span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85CNPM"><span class="nav-text">安装CNPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%BB-%E5%AE%89%E8%A3%85Hexo"><span class="nav-text">※ 安装Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8Hexo"><span class="nav-text">启动Hexo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

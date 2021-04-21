@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="博客,编程,代码,Java,空间,记录">
+    <meta name="description" content="郑皓云的个人博客,博客,编程,代码,Java,空间,记录">
+    <meta name="author" content="郑皓云">
+    
+    <title>
+        
+            MySQL高级篇笔记（二）索引优化分析 |
+        
+        好运的云
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                好运的云
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">MySQL高级篇笔记（二）索引优化分析</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">郑皓云</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2020-08-21 11:55:20
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/MySQL/">MySQL</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/">索引优化</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h3 id="1、性能下降、SQL慢、执行时间长、等待时间长的原因"><a href="#1、性能下降、SQL慢、执行时间长、等待时间长的原因" class="headerlink" title="1、性能下降、SQL慢、执行时间长、等待时间长的原因"></a>1、性能下降、SQL慢、执行时间长、等待时间长的原因</h3><ul>
+<li>查询语句写的差</li>
+<li>索引失效<ul>
+<li>单值索引：新建索引的语句只实施在一列上</li>
+<li>复合索引：在多个列上建立索引</li>
+</ul>
+</li>
+<li>关联查询太多join(设计缺陷或不得已的需求)</li>
+<li>服务器调优及各个参数设置(缓冲\线程数等)</li>
+</ul>
+<h3 id="2、索引简介"><a href="#2、索引简介" class="headerlink" title="2、索引简介"></a>2、索引简介</h3><h4 id="（1）索引是什么"><a href="#（1）索引是什么" class="headerlink" title="（1）索引是什么"></a>（1）索引是什么</h4><p>MySQL官方对索引的定义为：索引是帮助MySQL高效获取数据的数据结构，所以索引的本质是：<strong>数据结构</strong>，可以理解为排好序的快速查找数据结构</p>
+<blockquote>
+<p>索引的目的在于提高查询效率，可以类比字典，</p>
+<p>如果要查“mysql”这个单词，我们肯定需要定位到m字母，然后从下往下找到y字母，再找到剩下的sql。</p>
+<p>如果没有索引，那么你可能需要a—-z，如果我想找到Java开头的单词呢？或者Oracle开头的单词呢？<br>是不是觉得如果没有索引，这个事情根本无法完成？</p>
+</blockquote>
+<p>在数据之外，数据库系统还维护者满足特定查找算法的数据结构，这些数据结构以某种方式指向、引用数据，这样就可以在这些数据结构上实现高级查找算法，这种数据结构就是<strong>索引</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYwNDUxLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200731105450450"
+                ></p>
+<blockquote>
+<ol>
+<li>左边是数据表，一共有两列七条记录，最左边的是数据记录的物理地址</li>
+<li>为了加快 Col2 的查找，可以维护一个右边所示的二叉查找树，每个节点分别包含索引键值和一个指向对应数据记录物理地址的指针，这样就可以运用二叉查找在一定的复杂度内获取到相应数据，从而快速的检索出符合条件的记录</li>
+<li>一般来说索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上</li>
+</ol>
+</blockquote>
+<h4 id="（2）索引的优势与劣势"><a href="#（2）索引的优势与劣势" class="headerlink" title="（2）索引的优势与劣势"></a>（2）索引的优势与劣势</h4><p><strong>优势：</strong> </p>
+<ul>
+<li>类似图书馆对书本的检索，能够提高数据检索的效率，降低数据库的IO成本</li>
+<li>通过索引列对数据进行排序，降低数据排序的成本，降低了CPU的消耗</li>
+</ul>
+<p><strong>劣势：</strong> </p>
+<ul>
+<li>虽然索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，MySQL不仅要保存数据，还要保存一下索引文件每次更新添加了索引列的字段，都会调整因为更新所带来的键值变化后的索引信息（改数据还得改索引）</li>
+<li>实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录，所以索引列也是要占用空间<br>的（索引也占空间）</li>
+</ul>
+<h4 id="（3）MySQL索引分类"><a href="#（3）MySQL索引分类" class="headerlink" title="（3）MySQL索引分类"></a>（3）MySQL索引分类</h4><h5 id="a-单值索引"><a href="#a-单值索引" class="headerlink" title="a. 单值索引"></a>a. 单值索引</h5><p>即一个索引只包含单个列，一个表可以由多个单列索引</p>
+<h5 id="b-唯一索引"><a href="#b-唯一索引" class="headerlink" title="b. 唯一索引"></a>b. 唯一索引</h5><p>索引列的值必须唯一，但允许有空值</p>
+<h5 id="c-复合索引"><a href="#c-复合索引" class="headerlink" title="c. 复合索引"></a>c. 复合索引</h5><p>即一个索引包含多个列</p>
+<h5 id="d-基本语法"><a href="#d-基本语法" class="headerlink" title="d. 基本语法"></a>d. 基本语法</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYwOTQ3LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200731111859847"
+                ></p>
+<h4 id="（4）MySQL索引结构"><a href="#（4）MySQL索引结构" class="headerlink" title="（4）MySQL索引结构"></a>（4）MySQL索引结构</h4><p><strong>我们平常所说的索引，如果没有特别指明，都是指B树(多路搜索树，并不一定是二叉的)结构组织的索引</strong> 。其中聚集索引，次要索引，覆盖索引， 复合索引，前缀索引，唯一索引默认都是使用B+树索引，统称索引。当然，除了B+树这种类型的索引之外，还有哈希索引(hash index)等</p>
+<h5 id="a-BTree索引"><a href="#a-BTree索引" class="headerlink" title="a. BTree索引"></a>a. BTree索引</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYxMzEyLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200731113701252"
+                ></p>
+<p>MySQL使用的是Btree索引</p>
+<p><strong>初始化介绍：</strong></p>
+<p>一颗b树，黑框内的称之为一个磁盘块，每个磁盘块包含几个数据项（蓝色所示）和指针（黄色所示）</p>
+<p>如磁盘块 1 包含数据项 17 和 35，包含指针 P1、P2、P3， P1 表示小于 17 的磁盘块，P2 表示在 17 和 35 之间的磁盘块，P3 表示大于 35 的磁盘块。 真实的数据存在于叶子节点即 3、5、9、10、13、15、28、29、36、60、75、79、90、99。 <strong>非叶子节点只不存储真实的数据，只存储指引搜索方向的数据项，如 17、35 并不真实存在于数据表中</strong></p>
+<p><strong>查找过程：</strong></p>
+<p>如果要查找数据项 29，那么首先会把磁盘块 1 由磁盘加载到内存，此时发生一次 IO，在内存中用二分查找确定 29 在 17 和 35 之间，锁定磁盘块 1 的 P2 指针，内存时间因为非常短（相比磁盘的 IO）可以忽略不计，通过磁盘块 1 的 P2 指针的磁盘地址把磁盘块 3 由磁盘加载到内存，发生第二次 IO，29 在 26 和 30 之间，锁定磁盘块 3 的 P2 指 针，通过指针加载磁盘块 8 到内存，发生第三次 IO，同时内存中做二分查找找到 29，结束查询，总计三次 IO</p>
+<blockquote>
+<p>真实的情况是，3 层的 b+树可以表示上百万的数据，如果上百万的数据查找只需要三次 IO，性能提高将是巨大的， 如果没有索引，每个数据项都要发生一次 IO，那么总共需要百万次的 IO，显然成本非常非常高。</p>
+</blockquote>
+<h5 id="b-B-Tree索引"><a href="#b-B-Tree索引" class="headerlink" title="b. B+Tree索引"></a>b. B+Tree索引</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYxNjI1LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200820161403604"
+                ></p>
+<p>（1）B+跟B树不同B+树的非叶子节点不保存关键字记录的指针，只进行数据索引，这样使得B+树每个非叶子节点所能保存的关键字大大增加；<br>（2）B+树叶子节点保存了父节点的所有关键字记录的指针，所有数据地址必须要到叶子节点才能获取到。所以每次数据查询的次数都一样；<br>（3）B+树叶子节点的关键字从小到大有序排列，左边结尾数据都会保存右边节点开始数据的指针。</p>
+<blockquote>
+<p>因为B树不管叶子节点还是非叶子节点，都会保存数据，这样导致在非叶子节点中能保存的指针数量变少），指针少的情况下要保存大量数据，只能增加树的高度，导致IO操作变多，查询性能变低</p>
+</blockquote>
+<h5 id="c-full-text全文索引"><a href="#c-full-text全文索引" class="headerlink" title="c. full-text全文索引"></a>c. full-text全文索引</h5><p>全文索引（也称全文检索）是目前搜索引擎使用的一种关键技术。它能够利用<strong>分词技术</strong>等多种算法智能分析出文本文字中关键词的频率和重要性，然后按照一定的算法规则智能地筛选出我们想要的搜索结果</p>
+<h5 id="d-Hash索引"><a href="#d-Hash索引" class="headerlink" title="d. Hash索引"></a>d. Hash索引</h5><p>Hash索引只有Memory，NDB两种引擎支持，Memory引擎默认支持Hash索引，如果多个hash值相同，出现哈希碰撞，那么索引以链表方式存储<br>NoSql采用此中索引结构</p>
+<h4 id="（5）索引创建时机"><a href="#（5）索引创建时机" class="headerlink" title="（5）索引创建时机"></a>（5）索引创建时机</h4><h5 id="a-创建索引的情况"><a href="#a-创建索引的情况" class="headerlink" title="a. 创建索引的情况"></a>a. 创建索引的情况</h5><ul>
+<li><p>主键自动建立唯一索引</p>
+</li>
+<li><p>频繁作为查询条件的字段应该创建索引</p>
+</li>
+<li><p>查询中与其他表关联的字段，外键关系应该建立索引</p>
+</li>
+<li><p>单键/组合索引的选择问题， 组合索引性价比更高</p>
+</li>
+<li><p>查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度</p>
+</li>
+<li><p>查询中统计或者分组字段</p>
+</li>
+</ul>
+<h5 id="b-不适合创建索引的情况"><a href="#b-不适合创建索引的情况" class="headerlink" title="b. 不适合创建索引的情况"></a>b. 不适合创建索引的情况</h5><ul>
+<li><p>数据重复且分布平均的表字段，不应该为其建立索引（如“性别”字段只有男和女两种值，不应该建立索引，应该只为最经常查询和最经常排序的数据列建立索引）</p>
+</li>
+<li><p>表记录太少</p>
+</li>
+<li><p>经常增删改的表或者字段</p>
+</li>
+<li><p>Where 条件里用不到的字段不创建索引</p>
+</li>
+<li><p>过滤性不好的不适合建索引</p>
+</li>
+</ul>
+<h3 id="3、性能分析"><a href="#3、性能分析" class="headerlink" title="3、性能分析"></a>3、性能分析</h3><h4 id="（1）MySQL-Query-Optimizer"><a href="#（1）MySQL-Query-Optimizer" class="headerlink" title="（1）MySQL Query Optimizer"></a>（1）MySQL Query Optimizer</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTY0MzA2LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200820164306500"
+                ></p>
+<h4 id="（2）MySQL常见瓶颈"><a href="#（2）MySQL常见瓶颈" class="headerlink" title="（2）MySQL常见瓶颈"></a>（2）MySQL常见瓶颈</h4><h5 id="a-CPU"><a href="#a-CPU" class="headerlink" title="a. CPU"></a>a. CPU</h5><p>CPU饱和的时候，一般发生在数据装入内存或从磁盘中读取数据的时候</p>
+<h5 id="b-IO"><a href="#b-IO" class="headerlink" title="b. IO"></a>b. IO</h5><p>实例内存满足不了缓存数据或排序等需要，导致产生大量 物理 IO<br>查询执行效率低，扫描过多数据行</p>
+<h5 id="c-服务器"><a href="#c-服务器" class="headerlink" title="c. 服务器"></a>c. 服务器</h5><p>服务器的性能瓶颈，可以使用top、free、iostat和vmstat来查看系统的性能状态</p>
+<h4 id="（3）EXPLAIN-的使用"><a href="#（3）EXPLAIN-的使用" class="headerlink" title="（3）EXPLAIN 的使用"></a>（3）EXPLAIN 的使用</h4><blockquote>
+<p>概念</p>
+</blockquote>
+<p>使用 EXPLAIN 关键字可以模拟优化器执行 SQL 查询语句，从而知道 MySQL 是如何处理你的 SQL 语句的。分析你的查询语句或是表结构的性能瓶颈</p>
+<p>用法： Explain+SQL 语句</p>
+<p>Explain 执行后返回的信息：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQzNzQyLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200731143742855"
+                ></p>
+<blockquote>
+<p>Explain的作用</p>
+</blockquote>
+<p>表的读取顺序（id）<br>哪些索引可以使用（select_type）<br>数据读取操作的操作类型（possible_key）<br>哪些索引被实际使用(key)<br>表之间的引用<br>每张表有多少行被优化器查询（rows）</p>
+<h5 id="a-id"><a href="#a-id" class="headerlink" title="a. id"></a>a. id</h5><p>select 查询的序列号，包含一组数字，表示查询中执行 select 子句或操作表的顺序</p>
+<p>①id 相同，执行顺序由上至下</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQ0MTQ1LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200731144145586"
+                ></p>
+<p>注意此图中是t1、t3、t2</p>
+<p>②id 不同，如果是子查询，id 的序号会递增，id 值越大优先级越高，越先被执行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQ0NjI0LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200731144624316"
+                ></p>
+<p>③有相同也有不同</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQ0NzA1LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200731144705788"
+                ></p>
+<p>id 如果相同，可以认为是一组，从上往下顺序执行；在所有组中， id 值越大，优先级越高，越先执行</p>
+<p>衍生 = DERIVED（临时表）</p>
+<p>关注点：id 号每个号码，表示一趟独立的查询。一个 sql 的查询趟数越少越好</p>
+<h5 id="b-select-type"><a href="#b-select-type" class="headerlink" title="b. select_type"></a>b. select_type</h5><p>select_type 代表查询的类型，主要是用于区别普通查询、联合查询、子查询等的复杂查询</p>
+<table>
+<thead>
+<tr>
+<th>select_type 属性</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SIMPLE</td>
+<td>简单的 select 查询，查询中不包含子查询或者 UNION（简单的单表查询）</td>
+</tr>
+<tr>
+<td>PRIMARY</td>
+<td>查询中若包含任何复杂的子部分，最外层查询则被标记为 Primary</td>
+</tr>
+<tr>
+<td>DERIVED</td>
+<td>在 FROM 列表中包含的子查询被标记为 DERIVED(衍生)<br>MySQL 会递归执行这些子查询， 把结果放在临时表里</td>
+</tr>
+<tr>
+<td>SUBQUERY</td>
+<td>在SELECT或WHERE列表中包含了子查询</td>
+</tr>
+<tr>
+<td>DEPEDENT SUBQUERY</td>
+<td>在 SELECT 或 WHERE 列表中包含了子查询，子查询基于外层<br>都是 where 后面的条件，subquery 查询出来的是单个值，dependentsubquery 是一组值</td>
+</tr>
+<tr>
+<td>UNCACHEABLE SUBQUREY</td>
+<td>使用了@@来引用系统变量的子查询，当使用了@@来引用系统变量的时候，不会使用缓存</td>
+</tr>
+<tr>
+<td>UNION</td>
+<td>若第二个 SELECT 出现在 UNION 之后，则被标记为 UNION；若 UNION 包含在 FROM 子句的子查询中，外层 SELECT 将被标记为：DERIVED。</td>
+</tr>
+<tr>
+<td>UNION RESULT</td>
+<td>从 UNION 表获取结果的 SELECT</td>
+</tr>
+</tbody></table>
+<h5 id="c-table"><a href="#c-table" class="headerlink" title="c. table"></a>c. table</h5><p>这个数据是基于哪张表的</p>
+<h5 id="d-type"><a href="#d-type" class="headerlink" title="d. type"></a>d. type</h5><p>type是查询的访问类型。是较为重要的一个指标，结果值从最好到最坏一次是：</p>
+<blockquote>
+<p>system&gt;const&gt;eq_ref&gt;ref&gt;fulltext&gt;ref_or_null&gt;index_merge&gt;unique_subquery&gt;index_subquery&gt;range&gt;index&gt;ALL</p>
+</blockquote>
+<p>一般来说，得保证查询至少达到 range 级别，最好能达到 ref</p>
+<p>ALL表示全表扫描，所以结果值最差</p>
+<p>上面的比较关系比较难记，工作中常用的如下：</p>
+<blockquote>
+<p>system&gt;const&gt;eq_ref&gt;ref&gt;range&gt;index&gt;ALL</p>
+</blockquote>
+<p><strong>（1）system</strong></p>
+<p>表只有一行记录（等于系统表） ，这是 const 类型的特列，平时不会出现，这个也可以忽略不计，实际系统中几乎不可能出现</p>
+<p><strong>（2）const</strong><br>表示通过索引一次就找到了，const 用于比较 primarykey 或者 unique 索引。因为只匹配一行数据，所以很快</p>
+<p>因为where中查询条件为t1.id=1，所以该查询类型为const</p>
+<p>又因为这样查询出来的记录只有一条，所以上级查询为system</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg0NzAyLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200801184702595"
+                ></p>
+<p><strong>（4）eq_ref</strong></p>
+<p>唯一性索引扫描，对于每个索引键，表中只有一条记录与之匹配。常见于主键或唯一索引扫描。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NDE1LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200801185415187"
+                ></p>
+<p><strong>（5）ref</strong></p>
+<p>非唯一性索引扫描，返回匹配某个单独值的所有行。本质上也是一种索引访问，它返回所有匹配某个单独值的行，然而，它可能会找到多个符合条件的行，所以他应该属于查找和扫描的混合体。</p>
+<ul>
+<li>没用索引前：</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NTI1LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200801185525467"
+                ></p>
+<ul>
+<li>建立索引后：</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NTQ2LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200801185546633"
+                ></p>
+<p><strong>（6）range</strong></p>
+<p>只检索给定范围的行，使用一个索引来选择行。key 列显示使用了哪个索引一般就是在你的 where 语句中出现 了 between、&lt;、&gt;、in 等的查询这种范围扫描索引扫描比全表扫描要好，因为它只需要开始于索引的某一点，而结束于另一点，不用扫描全部索引</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NzAyLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200801185701967"
+                ></p>
+<p><strong>（7）index</strong></p>
+<p>出现index是sql使用了索引但是没有通过索引进行过滤，一般是使用了覆盖索引或者是利用索引进行了排序分组</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NzI5LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200801185729063"
+                ></p>
+<p><strong>（8）all</strong></p>
+<p>FullTableScan，将遍历<strong>全表</strong>以找到匹配的行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1ODAyLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200801185802368"
+                ></p>
+<h5 id="e-possible-keys"><a href="#e-possible-keys" class="headerlink" title="e. possible_keys"></a>e. possible_keys</h5><p>显示可能应用在这张表中的索引，一个或多个。查询涉及到的字段上若存在索引，则该索引将被列出，但不一定被查询实际使用</p>
+<p>如果该值为NULL，则表示未使用到索引</p>
+<h5 id="f-key"><a href="#f-key" class="headerlink" title="f. key"></a>f. key</h5><p>实际使用的索引。如果为NULL，则没有使用索引</p>
+<h5 id="g-key-len"><a href="#g-key-len" class="headerlink" title="g. key_len"></a>g. key_len</h5><p>表示索引中使用的字节数，可通过该列计算查询中使用的索引的长度。 key_len 字段能够帮你检查是否充分的利用上了索引。ken_len 越长，说明索引使用的越充分</p>
+<p><strong>如何计算：</strong></p>
+<p>①先看索引上字段的类型+长度比如 int=4; varchar(20)=20;char(20)=20</p>
+<p>②如果是 varchar 或者 char 这种字符串字段，视字符集要乘不同的值，比如 utf-8 要乘 3，GBK 要乘 2</p>
+<p>③varchar 这种动态字符串要加 2 个字节 </p>
+<p>④允许为空的字段要加 1 个字节 </p>
+<p>第一组：key_len=age 的字节长度+name 的字节长度=4+1 +(20*3+2)=5+62=67</p>
+<p>第二组：key_len=age 的字节长度=4+1=5</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTkwOTIxLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200801190921142"
+                ></p>
+<h5 id="h-ref"><a href="#h-ref" class="headerlink" title="h. ref"></a>h. ref</h5><p>显示索引的哪一列被使用了，如果可能的话，是一个常数。哪些列或常量被用于查找索引列上的值</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTkxNDAyLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200801191402036"
+                ></p>
+<h5 id="i-row"><a href="#i-row" class="headerlink" title="i. row"></a>i. row</h5><p>rows 列显示 MySQL 认为它执行查询时必须检查的行数，越少越好！</p>
+<h5 id="j-Extra"><a href="#j-Extra" class="headerlink" title="j. Extra"></a>j. Extra</h5><p>其他的额外重要的信息</p>
+<ul>
+<li><p><strong>Usingfilesort</strong>：说明 mysql 会对数据使用一个外部的索引排序，而不是按照表内的索引顺序进行读取。MySQL 中无法利用索引完成的排序操作称为“文件排序”</p>
+</li>
+<li><p><strong>Using temporary</strong>：使用了临时表来保存中间结果，MySQL在对查询结果排序时使用临时表，常见于排序 order by或者分组 group by</p>
+<ul>
+<li><strong>Using index</strong>： 代表表示相应的 select 操作中使用了覆盖索引(CoveringIndex)，避免访问了表的数据行，效率不错！ 如果同时出现 using where，表明索引被用来执行索引键值的查找；如果没有同时出现 using where，表明索引只是用来读取数据而非利用索引执行查找。</li>
+</ul>
+</li>
+<li><p><strong>Using where</strong>：表明使用了 where 过滤</p>
+</li>
+<li><p><strong>Using joinbuffer：</strong>使用了连接缓存（select * from emp,dept where emp.id=dept.id)</p>
+</li>
+<li><p><strong>impossible where</strong>：where 子句的值总是 false，不能用来获取任何元组</p>
+</li>
+<li><p><strong>select tables optimized away</strong>：在没有 GROUPBY 子句的情况下，基于索引优化 MIN/MAX 操作或者对于 MyISAM 存储引擎优化 COUNT(<em>)操<br>作，不必等到执行阶段再进行计算，查询执行计划生成的阶段即完成优化。*<em>myisam已经保存了记录的总数，直接返回结果，不需要再进行select查询，而innodb还需要全表扫描</em></em></p>
+</li>
+</ul>
+<h4 id="（4）热身案例"><a href="#（4）热身案例" class="headerlink" title="（4）热身案例"></a>（4）热身案例</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTY1MzAzLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200820165303222"
+                ></p>
+<h3 id="4、索引失效"><a href="#4、索引失效" class="headerlink" title="4、索引失效"></a>4、索引失效</h3><h4 id="（1）全值匹配"><a href="#（1）全值匹配" class="headerlink" title="（1）全值匹配"></a>（1）全值匹配</h4><p>建立索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX idx_age_deptid_name ON emp(age,deptid,NAME);</span><br></pre></td></tr></table></figure>
+
+<p>进行查询，分别使用1、2、3个索引，查看情况</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTA0MTQxLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803104141518"
+                ></p>
+<p>结论：需要查询的字段和建立的索引越匹配，精度越高，全值匹配查询的字段按照顺序在索引中都可以匹配到</p>
+<h4 id="（2）最佳左前缀法则"><a href="#（2）最佳左前缀法则" class="headerlink" title="（2）最佳左前缀法则"></a>（2）最佳左前缀法则</h4><p>查询字段与索引字段顺序的不同会导致，索引无法充分使用，甚至索引失效！</p>
+<p>原因：使用复合索引，需要遵循最佳左前缀法则，即如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。</p>
+<p><strong>结论：过滤条件要使用索引必须按照索引建立时的顺序，依次满足，一旦跳过某个字段，索引后面的字段都无法被使用</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTA0NjA1LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803104605017"
+                ></p>
+<h4 id="（3）不要在索引列上做任何计算"><a href="#（3）不要在索引列上做任何计算" class="headerlink" title="（3）不要在索引列上做任何计算"></a>（3）不要在索引列上做任何计算</h4><p>不在索引列上做任何操作（计算、函数、(自动 or 手动)类型转换） ，会导致索引失效而转向全表扫描。</p>
+<p>（1）在查询列上使用了函数</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTEwMjQzLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803110243254"
+                ></p>
+<p>（2）在查询列上做了转换 </p>
+<p>虽然都能查询出结果，因为Mysql自动做了隐式类型转换，但是字符串不加单引号索引失效</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTE0OTA0LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803114904209"
+                ></p>
+<h4 id="（4）索引列上不能有范围查询"><a href="#（4）索引列上不能有范围查询" class="headerlink" title="（4）索引列上不能有范围查询"></a>（4）索引列上不能有范围查询</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTEwNTM5LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803110539380"
+                ></p>
+<p>解决方案：将可能做范围查询的字段的索引顺序放在最后</p>
+<h4 id="（5）尽量使用覆盖索引"><a href="#（5）尽量使用覆盖索引" class="headerlink" title="（5）尽量使用覆盖索引"></a>（5）尽量使用覆盖索引</h4><p>即查询列和索引列一直，不要写 select * !</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExMDE4LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803111018498"
+                ></p>
+<h4 id="（6）使用不等于-或者-lt-gt-的时候"><a href="#（6）使用不等于-或者-lt-gt-的时候" class="headerlink" title="（6）使用不等于(!= 或者&lt;&gt;)的时候"></a>（6）使用不等于(!= 或者&lt;&gt;)的时候</h4><p>mysql 在使用不等于(!= 或者&lt;&gt;)时，有时会无法使用索引会导致全表扫描</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExMDU1LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803111055235"
+                ></p>
+<h4 id="（7）字段的is-not-null-和-is-null"><a href="#（7）字段的is-not-null-和-is-null" class="headerlink" title="（7）字段的is not null 和 is null"></a>（7）字段的is not null 和 is null</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExMTE4LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803111118245"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExNzA4LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803111708585"
+                ></p>
+<p>isnotnull 用不到索引，isnull 可以用到索引</p>
+<h4 id="（8）like的前后模糊匹配"><a href="#（8）like的前后模糊匹配" class="headerlink" title="（8）like的前后模糊匹配"></a>（8）like的前后模糊匹配</h4><p>前缀不能出现模糊匹配</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExODEzLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803111813716"
+                ></p>
+<blockquote>
+<p>如何解决%在前缀的时候导致的索引失效？</p>
+</blockquote>
+<p>使用覆盖索引，即建的索引和查询的字段尽量一致</p>
+<h4 id="（9）减少使用or"><a href="#（9）减少使用or" class="headerlink" title="（9）减少使用or"></a>（9）减少使用or</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExODUwLnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803111850277"
+                ></p>
+<p>使用 union all 或者 union 来替代：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTEyMDA4LnBuZw?x-oss-process=image/format,png"
+                      alt="image-20200803112008501"
+                ></p>
+<h4 id="（10）字符串不加单引号索引失效"><a href="#（10）字符串不加单引号索引失效" class="headerlink" title="（10）字符串不加单引号索引失效"></a>（10）字符串不加单引号索引失效</h4><p>底层进行转换使索引失效，使用了函数造成索引失效<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTY1ODA0LnBuZw?x-oss-process=image/format,png"
+                      alt="在这里插入图片描述"
+                ><br>例如：<br>select * from staffs where name=‘2000’<br>select * from staffs where name=2000<br>mysql都能查出来，mysql引擎会自动做类型转换，但是索引会失效</p>
+<h4 id="（11）结论"><a href="#（11）结论" class="headerlink" title="（11）结论"></a>（11）结论</h4><p>全职匹配我最爱，最左前缀要遵守；</p>
+<p>带头大哥不能死，中间兄弟不能断；</p>
+<p>索引列上少计算，范围之后全失效；</p>
+<p>LIKE 百分写最右，覆盖索引不写*； </p>
+<p>不等空值还有 OR，索引影响要注意； </p>
+<p>VAR 引号不可丢，SQL 优化有诀窍。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：MySQL高级篇笔记（二）索引优化分析</li>
+        <li>Post author：郑皓云</li>
+        <li>Create time：2020-08-21 11:55:20</li>
+        <li>
+            Post link：https://zhenghaoyun.cn/MySQL/MySQL高级篇笔记（二）索引优化分析
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%E6%9F%A5%E8%AF%A2%E6%88%AA%E5%8F%96%E5%88%86%E6%9E%90"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MySQL高级篇笔记（三）查询截取分析</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">MySQL高级篇笔记（一）MySQL存储引擎</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'uffz9vWTIQhDc1YbAjAndspC-gzGzoHsz',
+                    appKey: 'KQwbThRfP3cQIJYoLHMIqXLX',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '',
+                    lang: 'zh-Hans'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '郑皓云';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2019</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">郑皓云</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%80%A7%E8%83%BD%E4%B8%8B%E9%99%8D%E3%80%81SQL%E6%85%A2%E3%80%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E9%95%BF%E3%80%81%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4%E9%95%BF%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-text">1、性能下降、SQL慢、执行时间长、等待时间长的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E7%B4%A2%E5%BC%95%E7%AE%80%E4%BB%8B"><span class="nav-text">2、索引简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E7%B4%A2%E5%BC%95%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">（1）索引是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E5%8A%BF%E4%B8%8E%E5%8A%A3%E5%8A%BF"><span class="nav-text">（2）索引的优势与劣势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89MySQL%E7%B4%A2%E5%BC%95%E5%88%86%E7%B1%BB"><span class="nav-text">（3）MySQL索引分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-%E5%8D%95%E5%80%BC%E7%B4%A2%E5%BC%95"><span class="nav-text">a. 单值索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95"><span class="nav-text">b. 唯一索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-%E5%A4%8D%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-text">c. 复合索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-text">d. 基本语法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89MySQL%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84"><span class="nav-text">（4）MySQL索引结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-BTree%E7%B4%A2%E5%BC%95"><span class="nav-text">a. BTree索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-B-Tree%E7%B4%A2%E5%BC%95"><span class="nav-text">b. B+Tree索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-full-text%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95"><span class="nav-text">c. full-text全文索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-Hash%E7%B4%A2%E5%BC%95"><span class="nav-text">d. Hash索引</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%885%EF%BC%89%E7%B4%A2%E5%BC%95%E5%88%9B%E5%BB%BA%E6%97%B6%E6%9C%BA"><span class="nav-text">（5）索引创建时机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-text">a. 创建索引的情况</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-%E4%B8%8D%E9%80%82%E5%90%88%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-text">b. 不适合创建索引的情况</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-text">3、性能分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89MySQL-Query-Optimizer"><span class="nav-text">（1）MySQL Query Optimizer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89MySQL%E5%B8%B8%E8%A7%81%E7%93%B6%E9%A2%88"><span class="nav-text">（2）MySQL常见瓶颈</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-CPU"><span class="nav-text">a. CPU</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-IO"><span class="nav-text">b. IO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">c. 服务器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89EXPLAIN-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">（3）EXPLAIN 的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-id"><span class="nav-text">a. id</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-select-type"><span class="nav-text">b. select_type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-table"><span class="nav-text">c. table</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-type"><span class="nav-text">d. type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-possible-keys"><span class="nav-text">e. possible_keys</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#f-key"><span class="nav-text">f. key</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#g-key-len"><span class="nav-text">g. key_len</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#h-ref"><span class="nav-text">h. ref</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#i-row"><span class="nav-text">i. row</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#j-Extra"><span class="nav-text">j. Extra</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E7%83%AD%E8%BA%AB%E6%A1%88%E4%BE%8B"><span class="nav-text">（4）热身案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-text">4、索引失效</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%85%A8%E5%80%BC%E5%8C%B9%E9%85%8D"><span class="nav-text">（1）全值匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%9C%80%E4%BD%B3%E5%B7%A6%E5%89%8D%E7%BC%80%E6%B3%95%E5%88%99"><span class="nav-text">（2）最佳左前缀法则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E4%B8%8D%E8%A6%81%E5%9C%A8%E7%B4%A2%E5%BC%95%E5%88%97%E4%B8%8A%E5%81%9A%E4%BB%BB%E4%BD%95%E8%AE%A1%E7%AE%97"><span class="nav-text">（3）不要在索引列上做任何计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E7%B4%A2%E5%BC%95%E5%88%97%E4%B8%8A%E4%B8%8D%E8%83%BD%E6%9C%89%E8%8C%83%E5%9B%B4%E6%9F%A5%E8%AF%A2"><span class="nav-text">（4）索引列上不能有范围查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%885%EF%BC%89%E5%B0%BD%E9%87%8F%E4%BD%BF%E7%94%A8%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95"><span class="nav-text">（5）尽量使用覆盖索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%886%EF%BC%89%E4%BD%BF%E7%94%A8%E4%B8%8D%E7%AD%89%E4%BA%8E-%E6%88%96%E8%80%85-lt-gt-%E7%9A%84%E6%97%B6%E5%80%99"><span class="nav-text">（6）使用不等于(!&#x3D; 或者&lt;&gt;)的时候</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%887%EF%BC%89%E5%AD%97%E6%AE%B5%E7%9A%84is-not-null-%E5%92%8C-is-null"><span class="nav-text">（7）字段的is not null 和 is null</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%888%EF%BC%89like%E7%9A%84%E5%89%8D%E5%90%8E%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D"><span class="nav-text">（8）like的前后模糊匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%889%EF%BC%89%E5%87%8F%E5%B0%91%E4%BD%BF%E7%94%A8or"><span class="nav-text">（9）减少使用or</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%8810%EF%BC%89%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%8A%A0%E5%8D%95%E5%BC%95%E5%8F%B7%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88"><span class="nav-text">（10）字符串不加单引号索引失效</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%8811%EF%BC%89%E7%BB%93%E8%AE%BA"><span class="nav-text">（11）结论</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

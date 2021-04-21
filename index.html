@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="博客,编程,代码,Java,空间,记录">
+    <meta name="description" content="郑皓云的个人博客,博客,编程,代码,Java,空间,记录">
+    <meta name="author" content="郑皓云">
+    
+    <title>
+        
+        好运的云
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+        <div class="first-screen-container flex-center fade-in-down-animation">
+    <div class="content flex-center">
+        <div class="description">
+            Keep writing and Keep loving.
+        </div>
+        
+    </div>
+</div>
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content has-first-screen">
+        <div class="left">
+            <a class="logo-title" href="/">
+                好运的云
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class="active"
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="active"
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/Java%E5%9F%BA%E7%A1%80/%E4%BB%8E%E8%AE%BE%E8%AE%A1%E5%B1%82%E9%9D%A2%E4%B8%8A%E8%B0%88%E8%B0%88%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB">
+                        从设计层面上谈谈抽象类和接口的区别
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        为什么想谈谈抽象类和接口呢？
+当我百度抽象类和接口的区别时，网上会有一堆千篇一律的回答，就像下面：
+
+接口的方法默认是public，所有的方法在接口中不能有实现（JDK8开始方法可以实现，不过要增加static或者default修饰符）；而抽象类可以...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Oct 06 2020 22:02:20 GMT+0800">2020-10-06</span></span>
+        
+        
+    </div>
+
+    <a href="/Java%E5%9F%BA%E7%A1%80/%E4%BB%8E%E8%AE%BE%E8%AE%A1%E5%B1%82%E9%9D%A2%E4%B8%8A%E8%B0%88%E8%B0%88%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%85%B3%E4%BA%8E%E6%88%91%E5%AF%B9Socket%E7%9A%84%E6%9A%82%E6%97%B6%E7%90%86%E8%A7%A3">
+                        关于我对Socket的暂时理解
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        为什么说是对Socket的暂时理解呢，因为Socket这玩意真要深入了解那可以很深很深，其涉及到的TCP/IP协议栈里面包含了太多内容了，而我之前是对Socket一无所知的，上次面试有面试官问：“你会Socket编程吗？”， 我一脸懵逼直摇头。于是此...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Oct 02 2020 18:12:20 GMT+0800">2020-10-02</span></span>
+        
+        
+    </div>
+
+    <a href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%85%B3%E4%BA%8E%E6%88%91%E5%AF%B9Socket%E7%9A%84%E6%9A%82%E6%97%B6%E7%90%86%E8%A7%A3">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/%E5%88%86%E5%B8%83%E5%BC%8F/%E6%B5%85%E8%B0%88%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E2%80%94%E2%80%94RPC">
+                        浅谈远程过程调用——RPC
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        在复习SpringCloud的时候总是会遇到RPC这一词，但又不知道是何方神圣，上网冲浪了解了一下RPC，在此记录下对RPC的初步认识。
+1. 什么是RPC1.1 本地过程调用如果我们需要将本地的Student对象的age加1，那么就需要写一个Stu...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Sep 29 2020 22:02:20 GMT+0800">2020-09-29</span></span>
+        
+        
+    </div>
+
+    <a href="/%E5%88%86%E5%B8%83%E5%BC%8F/%E6%B5%85%E8%B0%88%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E2%80%94%E2%80%94RPC">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%E9%94%81%E6%9C%BA%E5%88%B6">
+                        MySQL高级篇笔记（四）锁机制
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        四、MySQL锁机制1. 概述1.1. 定义锁是计算机协调多个进程或线程并发访问某一资源的机制。
+在数据库中，除传统的计算资源（如CPU、RAM、I/O等）的争用以外，数据也是一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sun Sep 06 2020 11:55:20 GMT+0800">2020-09-06</span></span>
+        
+        
+    </div>
+
+    <a href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%E9%94%81%E6%9C%BA%E5%88%B6">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/MySQL/%E5%BF%AB%E9%80%9F%E7%90%86%E8%A7%A3%E8%84%8F%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E8%AF%BB">
+                        快速理解脏读、不可重复读和幻读
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        MySQL的InnoDB引擎是支持事务的，但是并发事务的处理又会带来以下问题：
+
+脏读
+不可重复读
+幻读
+
+一、脏读脏读指事务A读取到了事务B更新了但是未提交的数据，然后事务B由于某种错误发生回滚，那么事务A读取到的就是脏数据。
+具体的说，一个数据原...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Sep 04 2020 21:40:20 GMT+0800">2020-09-04</span></span>
+        
+        
+    </div>
+
+    <a href="/MySQL/%E5%BF%AB%E9%80%9F%E7%90%86%E8%A7%A3%E8%84%8F%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E8%AF%BB">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%E6%9F%A5%E8%AF%A2%E6%88%AA%E5%8F%96%E5%88%86%E6%9E%90">
+                        MySQL高级篇笔记（三）查询截取分析
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        三、查询截取分析1、查询优化（1）小表驱动大表即小的数据集驱动大的数据集
+1234select * from A where id in (select id from B)等价于：for select id from Bfor select * f...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Aug 29 2020 11:55:20 GMT+0800">2020-08-29</span></span>
+        
+        
+    </div>
+
+    <a href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%E6%9F%A5%E8%AF%A2%E6%88%AA%E5%8F%96%E5%88%86%E6%9E%90">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90">
+                        MySQL高级篇笔记（二）索引优化分析
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        1、性能下降、SQL慢、执行时间长、等待时间长的原因
+查询语句写的差
+索引失效
+单值索引：新建索引的语句只实施在一列上
+复合索引：在多个列上建立索引
+
+
+关联查询太多join(设计缺陷或不得已的需求)
+服务器调优及各个参数设置(缓冲\线程数等)
+
+2...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Aug 21 2020 11:55:20 GMT+0800">2020-08-21</span></span>
+        
+        
+    </div>
+
+    <a href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E">
+                        MySQL高级篇笔记（一）MySQL存储引擎
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        一、存储引擎介绍1、MyISAMMyISAM提供了大量的特性，包括全文索引、压缩、空间函数(GIS)等，但MyISAM 不支持事务和行级锁(MyISAM改表时会将整个表全锁住) ，有一个毫无疑问的缺陷就是崩溃后无法安全恢复MyISAM管理非事务表，所...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Thu Aug 20 2020 11:55:20 GMT+0800">2020-08-20</span></span>
+        
+        
+    </div>
+
+    <a href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/JVM/JVM%EF%BC%88%E4%B8%80%EF%BC%89%E5%86%85%E5%AD%98%E4%B8%8E%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AF%87">
+                        JVM（一）内存与垃圾回收篇
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p>JVM的学习笔记分为四个篇章：</p>
+<ol>
+<li>JVM（一）内存与垃圾回收篇</li>
+<li>JVM（二）字节码与类的加载篇</li>
+<li>JVM（三）性能监控与调优篇</li>
+<li>JVM（四）大厂面试篇</li>
+</ol>
+<p>学习视频来源：尚硅谷宋红康JVM教程</p>
+<p>本篇为JVM（一）内存与垃圾回收篇</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Jun 01 2020 15:32:00 GMT+0800">2020-06-01</span></span>
+        
+        
+    </div>
+
+    <a href="/JVM/JVM%EF%BC%88%E4%B8%80%EF%BC%89%E5%86%85%E5%AD%98%E4%B8%8E%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AF%87">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/Docker/Docker%E4%B8%80%E6%8E%A2%E7%A9%B6%E7%AB%9F">
+                        Docker一探究竟
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        <p>本篇是Docker学习笔记，基本上深入了解了Docker！</p>
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat May 30 2020 11:55:20 GMT+0800">2020-05-30</span></span>
+        
+        
+    </div>
+
+    <a href="/Docker/Docker%E4%B8%80%E6%8E%A2%E7%A9%B6%E7%AB%9F">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+    </ul>
+
+    <div class="home-paginator">
+        <div class="paginator">
+    
+
+    
+        <a class="next btn"
+           href="/page/2/"
+        >Next</a>
+    
+</div>
+
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2019</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">郑皓云</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts">
+    
+</div>
+
+
+
+</body>
+</html>
