@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="博客,编程,代码,Java,空间,记录">
     <meta name="description" content="郑皓云的个人博客,博客,编程,代码,Java,空间,记录">
-    <meta name="author" content="郑皓云">
+    <meta name="author" content="Hoven">
     
     <title>
         
@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="info">
                     <div class="author">
-                        <span class="name">郑皓云</span>
+                        <span class="name">Hoven</span>
                         
                     </div>
                     <div class="meta-info">
@@ -268,7 +268,7 @@
                 <div class="article-copyright-info-container">
     <ul>
         <li>Post title：解决idea卡在Resoving Maven dependencies的问题</li>
-        <li>Post author：郑皓云</li>
+        <li>Post author：Hoven</li>
         <li>Create time：2019-08-14 23:20:20</li>
         <li>
             Post link：https://zhenghaoyun.cn/idea/解决idea卡在Resoving Maven dependencies的问题
@@ -362,7 +362,7 @@
                 const getValineDomTimer = setInterval(() => {
                     const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
                     if (vcards.length > 0) {
-                        let author = '郑皓云';
+                        let author = 'Hoven';
 
                         if (author) {
                             for (let vcard of vcards) {
@@ -416,7 +416,7 @@
             
               <span>2019</span>&nbsp;-&nbsp;
             
-            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">郑皓云</a>
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Hoven</a>
         </div>
         
             <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
