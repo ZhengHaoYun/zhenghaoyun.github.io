@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -230,21 +230,11 @@
 
 <h3 id="安装FTPD"><a href="#安装FTPD" class="headerlink" title="安装FTPD"></a>安装FTPD</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install vsftpd</span><br></pre></td></tr></table></figure>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e9d72e5c2a9a83be5910c48.png"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5e9d72e5c2a9a83be5910c48.png"></p>
 <h3 id="增加新用户"><a href="#增加新用户" class="headerlink" title="增加新用户"></a>增加新用户</h3><p>增加新用户ftpuser并设置其密码为123456</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser ftpuser</span><br></pre></td></tr></table></figure>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e9d731bc2a9a83be591332d.png"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5e9d731bc2a9a83be591332d.png"></p>
 <h3 id="修改ftp配置文件"><a href="#修改ftp配置文件" class="headerlink" title="修改ftp配置文件"></a>修改ftp配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;vsftpd.conf </span><br></pre></td></tr></table></figure>
 
 <p>按下G跳到最后一行，在末尾增加以下内容：</p>
@@ -257,34 +247,14 @@
 <p>增加以下内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ftpuser</span><br><span class="line">zhenghaoyun			#这个你可以写另外一个用户，我这里写的是zhenghaoyun用户，也可以不写。</span><br></pre></td></tr></table></figure>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e9d7363c2a9a83be5917e01.png"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5e9d7363c2a9a83be5917e01.png"></p>
 <h3 id="重启ftp服务器"><a href="#重启ftp服务器" class="headerlink" title="重启ftp服务器"></a>重启ftp服务器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;init.d&#x2F;vsftpd restart</span><br></pre></td></tr></table></figure>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e9d7375c2a9a83be5918fa0.png"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5e9d7375c2a9a83be5918fa0.png"></p>
 <h3 id="开始测试"><a href="#开始测试" class="headerlink" title="开始测试"></a>开始测试</h3><p>在浏览器中输入ftp://你的IP地址  (如 <a class="link"   href="ftp://11.11.11.11/" >ftp://11.11.11.11<i class="fas fa-external-link-alt"></i></a>) 后弹出登录窗口</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e9d7384c2a9a83be5919e24.png"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5e9d7384c2a9a83be5919e24.png"></p>
 <p>输入ftpuser的账号密码即可成功访问</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e9d7393c2a9a83be591aecd.png"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5e9d7393c2a9a83be591aecd.png"></p>
 
         </div>
 
@@ -593,10 +563,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 

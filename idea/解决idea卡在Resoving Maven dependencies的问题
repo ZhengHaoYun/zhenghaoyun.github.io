@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -228,35 +228,10 @@
             <p>由于本人也是从eclipse转idea不久，今天在建spring initializr的maven project的时候就出现了Resoving Maven dependencies这个问题。</p>
 <span id="more"></span>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://img-blog.csdnimg.cn/20190814152226690.png"
-                      alt="在这里插入图片描述"
-                ></p>
+<p><img src="https://img-blog.csdnimg.cn/20190814152226690.png" alt="在这里插入图片描述"></p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>1.检查自己的maven项目配置，是否是使用自己本地的maven。因为如果没有默认配置maven，每次新建工程时候，maven的配置都会被初始化。</p>
-<p><strong>点击File-Other Settings-Default Settings</strong><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://img-blog.csdnimg.cn/20190814152609852.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hleVl1bg==,size_16,color_FFFFFF,t_70"
-                      alt="在这里插入图片描述"
-                ><br>    <strong>在弹出来的设置窗口搜索maven</strong><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://img-blog.csdnimg.cn/20190814152818512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hleVl1bg==,size_16,color_FFFFFF,t_70"
-                      alt="在这里插入图片描述"
-                ><br>    <strong>检查maven的配置是否正确</strong><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://img-blog.csdnimg.cn/2019081415290096.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hleVl1bg==,size_16,color_FFFFFF,t_70"
-                      alt="在这里插入图片描述"
-                ><br><strong>如果不正确，修改maven目录为自己的本地maven目录，并正确settings.xml即可解决问题。<br>前提是settings.xml内配置了阿里云的镜像仓库。</strong></p>
-<p>2.如果配置是正确的，且仍然卡在Resoving Maven dependencies。可以尝试以下解决方案。<br><strong>修改maven Importing的jvm参数, 默认为700多, 直接修改成 -Xms1024m -Xmx2048m</strong><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://img-blog.csdnimg.cn/20190814153334666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hleVl1bg==,size_16,color_FFFFFF,t_70"
-                      alt="在这里插入图片描述"
-                ></p>
+<p><strong>点击File-Other Settings-Default Settings</strong><br><img src="https://img-blog.csdnimg.cn/20190814152609852.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hleVl1bg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>    <strong>在弹出来的设置窗口搜索maven</strong><br><img src="https://img-blog.csdnimg.cn/20190814152818512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hleVl1bg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>    <strong>检查maven的配置是否正确</strong><br><img src="https://img-blog.csdnimg.cn/2019081415290096.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hleVl1bg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>如果不正确，修改maven目录为自己的本地maven目录，并正确settings.xml即可解决问题。<br>前提是settings.xml内配置了阿里云的镜像仓库。</strong></p>
+<p>2.如果配置是正确的，且仍然卡在Resoving Maven dependencies。可以尝试以下解决方案。<br><strong>修改maven Importing的jvm参数, 默认为700多, 直接修改成 -Xms1024m -Xmx2048m</strong><br><img src="https://img-blog.csdnimg.cn/20190814153334666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0hleVl1bg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>maven加载jar包过慢的因素有很多<br>1.正确配置maven目录下conf文件内的settings.xml文件，主要是要配置好阿里云的镜像仓库，方法可自行百度。<br>2.idea每次新建工程时都会初始化maven配置，可修改默认的maven配置解决问题。<br>3.修改maven Importing的jvm参数。<br>4.如果还未解决问题，欢迎留言！</p>
 
         </div>
@@ -566,10 +541,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 

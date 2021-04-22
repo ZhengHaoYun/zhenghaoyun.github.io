@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -234,26 +234,11 @@
 <p>简单的说，在Java8中，Lambda表达式就是一个函数式接口的实例。</p>
 <p>如<code>Runnable r2 = () -&gt; System.out.println(&quot;Hello Lambda!&quot;)</code>中，<code>=</code>右边的lambda表达式就是<code>Runnable</code>接口的实例。</p>
 <p>我们查看Runnable的源码，也可以发现它用<code>@FunctionalInterface</code>接口表明了这是一个函数式接口。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5ea56d8cc2a9a83be5f6d33d.png"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5ea56d8cc2a9a83be5f6d33d.png"></p>
 <p>也就是说，只要一个对象是函数式接口的实例，那么该对象就可以用lambda表达式来表示。</p>
 <h2 id="Java内置的函数式接口介绍及使用举例"><a href="#Java内置的函数式接口介绍及使用举例" class="headerlink" title="Java内置的函数式接口介绍及使用举例"></a>Java内置的函数式接口介绍及使用举例</h2><p>在java.util.function包下定义了Java 8的丰富的函数式接口。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5ea56da2c2a9a83be5f6ef5f.png"
-                     
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5ea56e84c2a9a83be5f7c6e0.jpg"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5ea56da2c2a9a83be5f6ef5f.png"></p>
+<p><img src="https://pic.downk.cc/item/5ea56e84c2a9a83be5f7c6e0.jpg"></p>
 <h3 id="Consumer接口使用举例"><a href="#Consumer接口使用举例" class="headerlink" title="Consumer接口使用举例"></a>Consumer接口使用举例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testConsumer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 常规写法</span></span><br><span class="line">    happyTime(<span class="number">500</span>, <span class="keyword">new</span> Consumer&lt;Double&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Double aDouble)</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;今天学些太累了，去天上人间买了瓶水，花了我&quot;</span> + aDouble);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//lambda写法</span></span><br><span class="line">    happyTime(<span class="number">500</span>, money -&gt; System.out.println(<span class="string">&quot;今天学些太累了，去天上人间买了瓶水，花了我&quot;</span> + money));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="Predicate接口使用举例"><a href="#Predicate接口使用举例" class="headerlink" title="Predicate接口使用举例"></a>Predicate接口使用举例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testPredicate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; original = Arrays.asList(<span class="string">&quot;北京&quot;</span>, <span class="string">&quot;南京&quot;</span>, <span class="string">&quot;天津&quot;</span>, <span class="string">&quot;东京&quot;</span>, <span class="string">&quot;普金&quot;</span>);</span><br><span class="line">    <span class="comment">// 常规写法</span></span><br><span class="line">    List&lt;String&gt; result1 = filterString(original, <span class="keyword">new</span> Predicate&lt;String&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">test</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> s.contains(<span class="string">&quot;京&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//lambda写法</span></span><br><span class="line">    List&lt;String&gt; result2 = filterString(original, s -&gt; s.contains(<span class="string">&quot;京&quot;</span>));</span><br><span class="line"></span><br><span class="line">    System.out.println(result1.equals(result2));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实现对字符串过滤的功能，过滤条件来源于对predicate中的test方法的重写。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">filterString</span><span class="params">(List&lt;String&gt; list, Predicate&lt;String&gt; predicate)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; filterList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String s : list) &#123;</span><br><span class="line">        <span class="keyword">if</span> (predicate.test(s)) &#123;</span><br><span class="line">            filterList.add(s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> filterList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -569,10 +554,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 

@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -224,20 +224,10 @@
             <p>空指针异常是程序中经常会遇到的异常，见怪不怪了，也非常好排错，但是这个异常还是非常的烦人，因为它一旦发生了，就会导致程序终止。于是Java8中引入了Optional，Optional<T>是一个容器类，它可以保存类型T的值，代表这个这个值存在。或者仅仅保存null，代表这个值不存在。原来用null表示一个值不存在，现在可以用Optional可以更好的表达这个概念，并且可以避免空指针异常。</p>
 <span id="more"></span>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5ea934cdc2a9a83be517ec19.jpg"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5ea934cdc2a9a83be517ec19.jpg"></p>
 <p>这是Optional的源码，可以看到其中有个value变量，就是用这个value来保存值，所以这个value可以为null，不会发生空指针异常。简而言之，Optional将原来的值进行了封装。</p>
 <h3 id="Optional的使用方法"><a href="#Optional的使用方法" class="headerlink" title="Optional的使用方法"></a>Optional的使用方法</h3><p>optional 提供了很多有用的方法，这样我们就不用显示的进行空值判断。具体的可以查看文档或者阅读源码，在这里我就其中的一部分作演示。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5eaabf4fc2a9a83be553156f.jpg"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5eaabf4fc2a9a83be553156f.jpg"></p>
 <center>图片来源于尚硅谷</center>
 
 <h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建一个Person对象</span></span><br><span class="line">    Person person = <span class="keyword">new</span> Person();</span><br><span class="line">    <span class="comment">// 使用Optional.of()创建一个Optional，此时of()内的参数必须不为null。</span></span><br><span class="line">    Optional&lt;Person&gt; personOptional1 = Optional.of(person);</span><br><span class="line">    <span class="comment">// 如果person为null</span></span><br><span class="line">    person = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 那就可以使用Optional.ofNullable()去创建一个Optional</span></span><br><span class="line">    Optional&lt;Person&gt; personOptional2 = Optional.ofNullable(person);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用get()可以获取到Person实例，前提是person不为null，否则抛出异常。</span></span><br><span class="line">    Person person1 = personOptional1.get();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果person为null的话，可以使用orElse(T t)，如果person为null，返回t指定的内容。</span></span><br><span class="line">    <span class="comment">// 比如说personOptional2内的person为null</span></span><br><span class="line">    Person person2 = personOptional2.orElse(<span class="keyword">new</span> Person(<span class="string">&quot;小红&quot;</span>));</span><br><span class="line">    String name = person2.getName();    <span class="comment">//小红</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -548,10 +538,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 

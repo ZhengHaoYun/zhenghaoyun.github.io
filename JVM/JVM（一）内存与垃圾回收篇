@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -265,19 +265,9 @@
 <li>自动内存管理</li>
 <li>自动垃圾回收功能</li>
 </ol>
-<h2 id="4-JVM的位置"><a href="#4-JVM的位置" class="headerlink" title="4. JVM的位置"></a>4. JVM的位置</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601160809.png"
-                      alt="Image"
-                ></p>
+<h2 id="4-JVM的位置"><a href="#4-JVM的位置" class="headerlink" title="4. JVM的位置"></a>4. JVM的位置</h2><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601160809.png" alt="Image"></p>
 <p>从图中可以看出JVM没有和硬件打交道，它是运行在操作系统之上的。</p>
-<h2 id="5-JVM的整体结构"><a href="#5-JVM的整体结构" class="headerlink" title="5. JVM的整体结构"></a>5. JVM的整体结构</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601161251.jpg"
-                      alt="img"
-                ></p>
+<h2 id="5-JVM的整体结构"><a href="#5-JVM的整体结构" class="headerlink" title="5. JVM的整体结构"></a>5. JVM的整体结构</h2><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601161251.jpg" alt="img"></p>
 <center>JVM整体架构图</center>
 
 <p>以上这个图为JVM整体架构图，之后的学习就是按照这个图来。</p>
@@ -287,12 +277,7 @@
 <li>方法区和堆是多线程共享的，Java堆、本地方法栈、程序计数器是每个线程独享的。</li>
 <li>执行引擎的作用：操作系统只能识别机器指令，不能识别字节码指令，所以执行引擎的作用是翻译字节码指令。</li>
 </ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601162424.png"
-                      alt="image-20200601162422306" style="zoom:50%;" /
-                >
+<img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601162424.png" alt="image-20200601162422306" style="zoom:50%;" />
 
 <center>JVM架构详细图</center>
 
@@ -335,20 +320,10 @@
 <li>操作系统错误导致Java虚拟机进程异常终止</li>
 <li>调用System的exit方法或者Runtime类的halt方法，并且Java安全管理器也允许这次exit或者halt操作。</li>
 </ol>
-<h1 id="二、类加载子系统"><a href="#二、类加载子系统" class="headerlink" title="二、类加载子系统"></a>二、类加载子系统</h1><h2 id="1-内存结构概述"><a href="#1-内存结构概述" class="headerlink" title="1. 内存结构概述"></a>1. 内存结构概述</h2><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601213922.png"
-                      alt="image-20200601213921809" style="zoom:50%;" /
-                >
+<h1 id="二、类加载子系统"><a href="#二、类加载子系统" class="headerlink" title="二、类加载子系统"></a>二、类加载子系统</h1><h2 id="1-内存结构概述"><a href="#1-内存结构概述" class="headerlink" title="1. 内存结构概述"></a>1. 内存结构概述</h2><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601213922.png" alt="image-20200601213921809" style="zoom:50%;" />
 
 <p>再来看看这张JVM架构细节图。通过这种图我们可以大概了解JVM的内存结构。</p>
-<h2 id="2-类加载子系统的作用"><a href="#2-类加载子系统的作用" class="headerlink" title="2. 类加载子系统的作用"></a>2. 类加载子系统的作用</h2><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601214118.png"
-                      alt="image-20200601214117793" style="zoom：80%;" /
-                >
+<h2 id="2-类加载子系统的作用"><a href="#2-类加载子系统的作用" class="headerlink" title="2. 类加载子系统的作用"></a>2. 类加载子系统的作用</h2><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200601214118.png" alt="image-20200601214117793" style="zoom：80%;" />
 
 <ol>
 <li>类加载子系统负责从文件系统或 网络中加载clss文件，class文件在文件开头有特定的文件标识（CAFEBABE（咖啡宝贝？），后面会提到）。</li>
@@ -356,22 +331,12 @@
 <li>加载的类信息被存放于一块称为方法区的内存空间中，字节码文件是物理磁盘上的一个文件，类的加载器将字节码文件加载到内存中，生成Class的实例。</li>
 <li>除了类的本身信息外，方法区中还会存放运行时常量池信息，可能还包括字符串字面量和数字常量（这部分常量信息是Class文件中常量池部分的内存映射）</li>
 </ol>
-<h2 id="3-类加载器ClassLoader角色"><a href="#3-类加载器ClassLoader角色" class="headerlink" title="3. 类加载器ClassLoader角色"></a>3. 类加载器ClassLoader角色</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603164236.png"
-                      alt="Image"
-                ></p>
+<h2 id="3-类加载器ClassLoader角色"><a href="#3-类加载器ClassLoader角色" class="headerlink" title="3. 类加载器ClassLoader角色"></a>3. 类加载器ClassLoader角色</h2><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603164236.png" alt="Image"></p>
 <ul>
 <li>getClassLoader()获取加载去</li>
 <li>Car Class调用构造器进行实例化，实例化出car1、car2、car3</li>
 </ul>
-<h2 id="4-类的加载过程"><a href="#4-类的加载过程" class="headerlink" title="4. 类的加载过程"></a>4. 类的加载过程</h2><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603164519.png"
-                      alt="image-20200603164515825" style="zoom:50%;" /
-                >
+<h2 id="4-类的加载过程"><a href="#4-类的加载过程" class="headerlink" title="4. 类的加载过程"></a>4. 类的加载过程</h2><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603164519.png" alt="image-20200603164515825" style="zoom:50%;" />
 
 <p>HelloLoader是一个类，目的是调用main()方法。</p>
 <ol>
@@ -381,22 +346,12 @@
 <li>初始化</li>
 <li>调用main()</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603172437.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603172437.png" alt="img"></p>
 <center>类加载过程图</center>
 
 <p>这个图是类的加载总过程，其中也有个加载，不过这个加载是类的加载过程中的一个“加载”过程，注意不要混淆。</p>
 <p>接下来来讲讲具体的过程</p>
-<h3 id="（1）加载"><a href="#（1）加载" class="headerlink" title="（1）加载"></a>（1）加载</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603172514.png"
-                      alt="Image"
-                ></p>
+<h3 id="（1）加载"><a href="#（1）加载" class="headerlink" title="（1）加载"></a>（1）加载</h3><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603172514.png" alt="Image"></p>
 <p><strong>补充：加载.class的方式</strong></p>
 <ul>
 <li>从本地系统中加载</li>
@@ -407,12 +362,7 @@
 <li>从专有数据库提取，比较少见</li>
 <li>从加密文件中获取，反编译的保护措施</li>
 </ul>
-<h3 id="（2）链接"><a href="#（2）链接" class="headerlink" title="（2）链接"></a>（2）链接</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603215648.png"
-                      alt="Image"
-                ></p>
+<h3 id="（2）链接"><a href="#（2）链接" class="headerlink" title="（2）链接"></a>（2）链接</h3><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603215648.png" alt="Image"></p>
 <p><strong>验证</strong></p>
 <p>检查class文件的头部是否有<code>cafebaby</code>的标识等等，用特定的软件可以看见。</p>
 <p><strong>准备</strong></p>
@@ -428,22 +378,12 @@
 <li>在这里简要的阐述，后面会详细学习。</li>
 <li>往往<strong>初始化</strong>之后执行</li>
 </ol>
-<h3 id="（3）初始化"><a href="#（3）初始化" class="headerlink" title="（3）初始化"></a>（3）初始化</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603220717.png"
-                      alt="Image"
-                ></p>
+<h3 id="（3）初始化"><a href="#（3）初始化" class="headerlink" title="（3）初始化"></a>（3）初始化</h3><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603220717.png" alt="Image"></p>
 <p><strong>补充说明：</strong></p>
 <ol>
 <li>clinit()是类的构造器方法，它会完成所有类变量的赋值动作和执行静态代码块。</li>
 </ol>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603222050.png"
-                      alt="image-20200603222050037" style="zoom：67%;" /
-                >
+<img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200603222050.png" alt="image-20200603222050037" style="zoom：67%;" />
 
 <ol start="2">
 <li>如果没有静态变量和静态代码块，就不会有clinit方法。</li>
@@ -456,12 +396,7 @@
 <li><p>从概念上来讲，自定义类加载器一般指的是程序中由开发人员自定义的一类类加载器，但是java虚拟机规范却没有这么定义，而是<strong>将所有派生于抽象类ClassLoader的类加载器都划分为自定义类加载器</strong>。</p>
 </li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604121847.png"
-                      alt="Image"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604121847.png" alt="Image"></p>
 <ol start="3">
 <li>上面的蓝色框内为引导类加载器，下面的蓝色框内皆为自定义类加载器。查看源码可以看到ExtClassLoader和AppClassLoader都派生于ClassLoader，所以他们都是自定义类加载器。</li>
 <li>注意上图中的加载器划分关系为包含关系，并不是继承关系。</li>
@@ -500,12 +435,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 虚拟机自带加载器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderTest1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;********启动类加载器*********&quot;</span>);</span><br><span class="line">        URL[] urls = sun.misc.Launcher.getBootstrapClassPath().getURLs();</span><br><span class="line">        <span class="comment">//获取BootStrapClassLoader能够加载的api路径</span></span><br><span class="line">        <span class="keyword">for</span> (URL e:urls)&#123;</span><br><span class="line">            System.out.println(e.toExternalForm());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//从上面的路径中随意选择一个类 看看他的类加载器是什么</span></span><br><span class="line">        <span class="comment">//Provider位于 /jdk1.8.0_171.jdk/Contents/Home/jre/lib/jsse.jar 下，引导类加载器加载它</span></span><br><span class="line">        ClassLoader classLoader = Provider.class.getClassLoader();</span><br><span class="line">        System.out.println(classLoader);<span class="comment">//null</span></span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;********拓展类加载器********&quot;</span>);</span><br><span class="line">        String extDirs = System.getProperty(<span class="string">&quot;java.ext.dirs&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (String path ：extDirs.split(<span class="string">&quot;;&quot;</span>))&#123;</span><br><span class="line">            System.out.println(path);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//从上面的路径中随意选择一个类 看看他的类加载器是什么:拓展类加载器</span></span><br><span class="line">        ClassLoader classLoader1 = CurveDB.class.getClassLoader();</span><br><span class="line">        System.out.println(classLoader1);<span class="comment">//sun.misc.Launcher$ExtClassLoader@4dc63996</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>知识扩展：启动类加载器BootStrapClassLoader能够加载的api路径有</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604221415.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604221415.png" alt="img"></p>
 <p>最近看java.util.concurrent包的内容，发现java.time.*、java.util.*、java.nio.*、java.lang.*、java.text.*、java.sql.*、java.math.*等等都在rt.jar包下。</p>
 <h3 id="（3）用户自定义类加载器"><a href="#（3）用户自定义类加载器" class="headerlink" title="（3）用户自定义类加载器"></a>（3）用户自定义类加载器</h3><blockquote>
 <p>为什么要自定义类加载器</p>
@@ -523,76 +453,31 @@
 <blockquote>
 <p>怎么去自定义类加载器呢？</p>
 </blockquote>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604221442.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604221442.png" alt="img"></p>
 <h3 id="（4）关于ClassLoader"><a href="#（4）关于ClassLoader" class="headerlink" title="（4）关于ClassLoader"></a>（4）关于ClassLoader</h3><p>ClassLoader类，它是一个抽象类，其后所有的类加载器都继承自ClassLoader（不包括启动类加载器）</p>
 <p><strong>ClassLoader的常用方法</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604221757.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604221757.png" alt="img"></p>
 <p>其中有一个是loadClass，一个是findClass。调用了findClass()后再调用defineClass()的效果等效于直接调用loadClass()。</p>
 <p><strong>如何获取ClassLoader</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604222006.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604222006.png" alt="img"></p>
 <p><strong>代码示例</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604222021.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604222021.png" alt="img"></p>
 <h2 id="6-双亲委派机制"><a href="#6-双亲委派机制" class="headerlink" title="6. 双亲委派机制"></a>6. 双亲委派机制</h2><h3 id="（1）原理"><a href="#（1）原理" class="headerlink" title="（1）原理"></a>（1）原理</h3><p>Java虚拟机加载某个类的Class文件时，采用的是<strong>双亲委派机制。</strong>那么什么是双亲委派机制呢？也就是把请求交给父类去处理，父类再交给父类的父类处理，以此类推，直至没有父类为止。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604222410.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604222410.png" alt="img"></p>
 <p>举一个很形象的例子：当桌子上有一个苹果的时候，出于礼仪，儿子会问妈妈要不要吃苹果，妈妈又会问奶奶要不要吃苹果，如果奶奶要吃，那这个苹果就给奶奶吃了。如果奶奶不吃，妈妈再决定吃不吃这个苹果，依次类推。</p>
 <h3 id="（2）双亲委派机制示例"><a href="#（2）双亲委派机制示例" class="headerlink" title="（2）双亲委派机制示例"></a>（2）双亲委派机制示例</h3><h4 id="保护程序安全"><a href="#保护程序安全" class="headerlink" title="保护程序安全"></a>保护程序安全</h4><p>如图，虽然我们自定义了一个java.lang包下的String尝试覆盖核心类库中的String，但是由于双亲委派机制，启动加载器会加载java核心类库的String类（BootStrap启动类加载器只加载包名为java、javax、sun等开头的类），而核心类库中的String并没有main方法</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604223048.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604223048.png" alt="img"></p>
 <h4 id="双亲委派机制在SPI中的应用"><a href="#双亲委派机制在SPI中的应用" class="headerlink" title="双亲委派机制在SPI中的应用"></a>双亲委派机制在SPI中的应用</h4><p>1.某个应用程序由双亲委派机制找到引导类加载器，首先调用rt.jar包中的SPI核心，但由于SPI核心当中有各种各样的接口需要被实现（这里指具体的服务提供商），这里我们已JDBC.jar为例，jdbc.jar可以为我们提供具体的实现。</p>
 <p>2.那么这时我们需要反向委托，找到线程上下文类加载器去加载jdbc.jar</p>
 <p>3.线程上下文类加载器属于系统类加载器</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604223146.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604223146.png" alt="img"></p>
 <h3 id="（3）双亲委派机制的优势"><a href="#（3）双亲委派机制的优势" class="headerlink" title="（3）双亲委派机制的优势"></a>（3）双亲委派机制的优势</h3><p>1.避免类的重复加载，如上面String类的例子。</p>
 <p>2.保护程序安全，防止核心API被随意修改</p>
 <p>启动类加载器可以抢在标准扩展类装载器之前去装载类，而标准扩展类装载器可以抢在类路径加载器之前去装载那个类，类路径装载器又可以抢在自定义类加载器之前去加载它。所以Java虚拟机先从最可信的Java核心API查找类型，这是为了防止不可靠的类扮演被信任的类，试想一 下，网络上有个名叫java.lang.Integer的类，它是某个黑客为了想混进java.lang包所起的名字，实际上里面含有恶意代码，但是这种伎俩在双亲模式加载体系结构下是行不通的，因为类加载器在加载它的时候，它首先启用双亲委派机制，这样一直向上委托，直到启动类加载器，而启动类加载器在java.lang（jdk中的核心库）包里发现了这个名字的类，所以它就直接加载java.lang的Integer类，然后将这个类返回，所以自始至终我们伪装的 java.lang.Integer的类是不会被加载的。</p>
 <p>3.保证核心API包的访问权限</p>
 <p>但是如果这个移动代码不是去试图替换一个被信任的类（就是前面说的那种情况），而是想在一个被信任的包中插入一个全新的类型，情况会怎样呢？比如我们自己定义个一个名为 java.lang.Virus的类，试图将它伪装到java核心库里面的java.lang包下，但是执行main()方法的时候，却报错了，提示没有访问权限，试想如果成功了，我们是不是可以去破坏引导类加载器。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604223837.png"
-                      alt="img"
-                ></p>
-<h2 id="7-沙箱安全机制"><a href="#7-沙箱安全机制" class="headerlink" title="7. 沙箱安全机制"></a>7. 沙箱安全机制</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604224001.png"
-                      alt="Image"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604223837.png" alt="img"></p>
+<h2 id="7-沙箱安全机制"><a href="#7-沙箱安全机制" class="headerlink" title="7. 沙箱安全机制"></a>7. 沙箱安全机制</h2><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604224001.png" alt="Image"></p>
 <h2 id="8-类的主动使用与被动使用"><a href="#8-类的主动使用与被动使用" class="headerlink" title="8. 类的主动使用与被动使用"></a>8. 类的主动使用与被动使用</h2><p><strong>java程序对类的使用方式分为：主动使用和被动使用，即是否调用了clinit()方法</strong></p>
 <p>主动使用在类加载系统中的第三阶段initialization即初始化阶段调用了clinit()方法</p>
 <p>而被动使用不会去调用</p>
@@ -619,12 +504,7 @@
 <p>即使类的完整类名一致，同时要求加载这个类的ClassLoader（指ClassLoader实例对象）必须相同；是引导类加载器、还是定义类加载器</p>
 <p>2.换句话说，在jvm中，即使这两个类对象（class对象）来源同一个Class文件，被同一个虚拟机所加载，但只要加载它们的ClassLoader实例对象不同，那么这两个类对象也是不相等的.</p>
 <p>3.对类加载器的引用，JVM必须知道一个类型是有启动类加载器加载的还是由用户类加载器加载的。如果一个类型由用户类加载器加载的，那么jvm会<strong>将这个类加载器的一个引用作为类型信息的一部分保存在方法区中</strong>。当解析一个类型到另一个类型的引用的时候，JVM需要保证两个类型的加载器是相同的。</p>
-<h1 id="三、运行时数据区"><a href="#三、运行时数据区" class="headerlink" title="三、运行时数据区"></a>三、运行时数据区</h1><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604225107.png"
-                      alt="img"
-                ></p>
+<h1 id="三、运行时数据区"><a href="#三、运行时数据区" class="headerlink" title="三、运行时数据区"></a>三、运行时数据区</h1><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604225107.png" alt="img"></p>
 <p>运行时数据区就是蓝色框内的内容，接下来开始这部分的学习。内存是非常重要的系统资源，是硬盘和cpu的中间仓库及桥梁，承载着操作系统和应用程序的实时运行。JVM内存布局规定了JAVA在运行过程中内存申请、分配、管理的策略，保证了JVM的高效稳定运行。<strong>不同的jvm对于内存的划分方式和管理机制存在着部分差异</strong>（对于Hotspot主要指方法区）</p>
 <p>JDK8的<strong>元数据区+JIT编译产物</strong> 就是JDK8以前的<strong>方法区</strong></p>
 <blockquote>
@@ -635,12 +515,7 @@
 <p>Every Java application has a single instance of class Runtime that allows the application to interface with theenvironment in which the application is running. The current runtime can be obtained from the getRuntime method.</p>
 <p>每个Java应用程序都有一个Runtime类的实例，该实例允许该应用程序与运行该应用程序的环境进行交互。 当前运行时可以从getRuntime方法获得。</p>
 <h2 id="1-Java内存分区介绍"><a href="#1-Java内存分区介绍" class="headerlink" title="1. Java内存分区介绍"></a>1. Java内存分区介绍</h2><p>java虚拟机定了了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线程对应的数据区域会随着线程开始和结束而创建和销毁。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604225307.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604225307.png" alt="img"></p>
 <p>如图，灰色的区域为单独线程私有的，红色的为多个线程共享的。</p>
 <blockquote>
 <p>Java中的线程与进程</p>
@@ -651,12 +526,7 @@
 <li><p>线程间共享：堆、堆外内存（方法区、永久代或元空间、代码缓存）</p>
 </li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604225618.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200604225618.png" alt="img"></p>
 <p>图片说明：严格对照Java内存分区</p>
 <p>PC即程序计数器</p>
 <p>VMS即虚拟机栈</p>
@@ -680,12 +550,7 @@
 <h2 id="2-程序计数器"><a href="#2-程序计数器" class="headerlink" title="2. 程序计数器"></a>2. 程序计数器</h2><p>JVM中的程序计数寄存器（Program Counter Register）中，Register的命名源于CPU的寄存器，寄存器存储指令相关的现场信息。CPU只有把数据装载到寄存器才能够运行。JVM中的PC寄存器是对物理PC寄存器的一种抽象模拟。</p>
 <p>一个线程对应一个 JVM Stack。JVM Stack 中包含一组 Stack Frame。当 JVM 调用一个 Java 方法时，它从对应类的类型信息中得到此方法的局部变量区和操作数栈的大小，并据此分配栈帧内存，然后压入 JVM 栈中。</p>
 <p>在活动线程中，只有位于栈顶的栈帧才是有效的，称为当前栈帧，与这个栈帧相关联的方法称为当前方法。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605105745.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605105745.png" alt="img"></p>
 <h3 id="（1）作用"><a href="#（1）作用" class="headerlink" title="（1）作用"></a>（1）作用</h3><p>PC寄存器是用来存储指向下一条指令的地址，也即将将要执行的指令代码。由执行引擎读取下一条指令。</p>
 <ol>
 <li><p>它是一块很小的内存空间，几乎可以忽略不计。也是运行速度最快的存储区域</p>
@@ -701,12 +566,7 @@
 <li><p>它是唯一一个在java虚拟机规范中<strong>没有规定任何OOM（Out Of Memery）情况</strong>的区域,而且没有垃圾回收</p>
 </li>
 </ol>
-<h3 id="（2）举例说明"><a href="#（2）举例说明" class="headerlink" title="（2）举例说明"></a>（2）举例说明</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605114858.png"
-                      alt="img"
-                ></p>
+<h3 id="（2）举例说明"><a href="#（2）举例说明" class="headerlink" title="（2）举例说明"></a>（2）举例说明</h3><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605114858.png" alt="img"></p>
 <p>如图，数字是指令偏移地址，指令后面的#2、#3啊等等是常量池的地址。如#2对应的就是常量池的String abc，#3对应的PrintStream。</p>
 <h3 id="（3）相关问题"><a href="#（3）相关问题" class="headerlink" title="（3）相关问题"></a>（3）相关问题</h3><blockquote>
 <p> 使用PC寄存器存储字节码指令地址有什么用呢（为什么使用PC寄存器记录当前线程的执行地址呢）</p>
@@ -722,12 +582,7 @@
 <h2 id="3-虚拟机栈"><a href="#3-虚拟机栈" class="headerlink" title="3. 虚拟机栈"></a>3. 虚拟机栈</h2><h3 id="（1）虚拟机背景"><a href="#（1）虚拟机背景" class="headerlink" title="（1）虚拟机背景"></a>（1）虚拟机背景</h3><p>由于跨平台性的设计，java的指令都是根据栈来设计的。不同平台CPU架构不同，所以不能设计为基于寄存器的。<br>根据栈设计的<strong>优点是跨平台，指令集小，编译器容易实现，缺点是性能下降，实现同样的功能需要更多的指令。</strong></p>
 <blockquote>
 <p>内存中的堆与栈</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605173935.png"
-                      alt="Image"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605173935.png" alt="Image"></p>
 <p>1.栈解决程序的运行问题，即程序如何执行，或者说如何处理数据。堆解决的是数据存储的问题，即数据怎么放、放在哪儿。</p>
 <p>2.一般来讲，对象主要都是放在堆空间的，是运行时数据区比较大的一块</p>
 <p>3.栈空间存放基本数据类型的局部变量，以及引用数据类型的对象的引用</p>
@@ -738,12 +593,7 @@
 <p> Java虚拟机栈是什么</p>
 </blockquote>
 <p>java虚拟机栈（Java Virtual Machine Stack），早期也叫Java栈。 每个线程在创建时都会创建一个虚拟机栈，其内部保存一个个的栈帧（Stack Frame），对应这个一次次的java方法调用。它是线程私有的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605174503.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605174503.png" alt="img"></p>
 <blockquote>
 <p> 虚拟机栈的作用</p>
 </blockquote>
@@ -777,12 +627,7 @@
 <p>8.不同线程中所包含的栈帧是不允许相互引用的，即不可能在另一个栈帧中引用另外一个线程的栈帧</p>
 <p>9.如果当前方法调用了其他方法，方法返回之际，当前栈帧会传回此方法的执行结果给前一个栈帧，接着，虚拟机会丢弃当前栈帧，使得前一个栈帧重新成为当前栈帧</p>
 <p>10.Java方法有两种返回函数的方式，<strong>一种是正常的函数返回，使用return指令；另外一种是抛出异常。不管使用哪种方式，都会导致栈帧被弹出。</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605180921.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200605180921.png" alt="img"></p>
 <p><strong>代码演示：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 栈帧</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackFrameTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StackFrameTest test = <span class="keyword">new</span> StackFrameTest();</span><br><span class="line">        test.method1();</span><br><span class="line">        <span class="comment">//输出 method1（）和method2（）都作为当前栈帧出现了两次，method3（）一次</span></span><br><span class="line"><span class="comment">//        method1()开始执行。。。</span></span><br><span class="line"><span class="comment">//        method2()开始执行。。。</span></span><br><span class="line"><span class="comment">//        method3()开始执行。。。</span></span><br><span class="line"><span class="comment">//        method3()执行结束。。。</span></span><br><span class="line"><span class="comment">//        method2()执行结束。。。</span></span><br><span class="line"><span class="comment">//        method1()执行结束。。。</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;method1()开始执行。。。&quot;</span>);</span><br><span class="line">        method2();</span><br><span class="line">        System.out.println(<span class="string">&quot;method1()执行结束。。。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">method2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;method2()开始执行。。。&quot;</span>);</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">int</span> m = (<span class="keyword">int</span>) method3();</span><br><span class="line">        System.out.println(<span class="string">&quot;method2()执行结束。。。&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> i+m;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">method3</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;method3()开始执行。。。&quot;</span>);</span><br><span class="line">        <span class="keyword">double</span> j = <span class="number">20.0</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;method3()执行结束。。。&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> j;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -792,19 +637,9 @@
 <p>3.动态链接（Dynamic Linking）(或执行”运行时常量池”的方法引用)—-深入理解Java多态特性必读！！</p>
 <p>4.方法返回地址（Return Adress）（或方法正常退出或者异常退出的定义）</p>
 <p>5.一些附加信息</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606144912.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606144912.png" alt="img"></p>
 <p>其中部分参考书目上，称方法返回地址、动态链接、附加信息为帧数据区。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606145038.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606145038.png" alt="img"></p>
 <h4 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h4><p>1.局部变量表也被称之为局部变量数组或本地变量表</p>
 <p><strong>2.定义为一个数字数组，主要用于存储方法参数和定义在方法体内的局部变量</strong>这些数据类型包括各类基本数据类型、对象引用（reference），以及returnAddressleixing</p>
 <p>3.由于局部变量表是建立在线程的栈上，是线程私有的数据，因此不存在数据安全问题</p>
@@ -814,33 +649,13 @@
 <blockquote>
 <p>查看帧的局部变量表</p>
 </blockquote>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606155050.png"
-                      alt="img"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606155202.png"
-                      alt="image-20200606155202155"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606160026.png"
-                      alt="image-20200606160025218"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606155050.png" alt="img"></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606155202.png" alt="image-20200606155202155"></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606160026.png" alt="image-20200606160025218"></p>
 <p>StartPC：变量开始作用的起始行（声明的下一行）</p>
 <p>Length：有效的长度</p>
 <p>Index：局部变量的索引，有四个局部变量，分别是0、1、2、3。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606160407.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606160407.png" alt="img"></p>
 <blockquote>
 <p>变量槽slot的理解与演示</p>
 </blockquote>
@@ -854,30 +669,15 @@
 <li><p>long和double则占据两个slot。</p>
 </li>
 </ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606160759.png"
-                      alt="img" style="zoom:50%;" /
-                >
+<img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606160759.png" alt="img" style="zoom:50%;" />
 
 <p>5.JVM会为局部变量表中的每一个slot都分配一个访问索引，通过这个索引即可成功访问到局部变量表中指定的局部变量值</p>
 <p>6.当一个实例方法被调用的时候，它的方法参数和方法体内部定义的局部变量将会按照声明顺序被复制到局部变量表中的每一个slot上</p>
 <p><strong>7.如果需要访问局部变量表中一个64bit的局部变量值时，只需要使用前一个索引即可。</strong>（比如：访问long或者double类型变量）</p>
 <p>8.如果当前帧是由构造方法或者实例方法创建的（意思是当前帧所对应的方法是构造器方法或者是普通的实例方法），那么<strong>该对象引用this将会存放在index为0的slot处</strong>,其余的参数按照参数表顺序排列。</p>
 <p>9.静态方法中不能引用this，是因为静态方法所对应的栈帧当中的局部变量表中不存在this</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606162106.png"
-                     
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606162126.png"
-                     
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606162106.png"></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606162126.png"></p>
 <p>通过index我们可以发现b、c、d都占了两个槽位，因为他们都是64位的变量！</p>
 <blockquote>
 <p>slot的重复利用</p>
@@ -927,12 +727,7 @@
 <li><p>比如：执行复制、交换、求和等操作</p>
 </li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606164511.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606164511.png" alt="img"></p>
 <blockquote>
 <p>操作数栈特点</p>
 </blockquote>
@@ -953,41 +748,16 @@
 <blockquote>
 <p>操作数栈代码追踪</p>
 </blockquote>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170228.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170228.png" alt="img"></p>
 <p>①15入栈；②存储15，15进入局部变量表</p>
 <p>注意：局部变量表的0号位被this占用，所以15从局部变量表1号开始。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170251.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170251.png" alt="img"></p>
 <p>③压入8进入操作数栈；④8出栈，存储8进入局部变量表；</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170339.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170339.png" alt="img"></p>
 <p>⑤从局部变量表中把索引为1和2的是数据取出来，放到操作数栈；⑥iadd相加操作</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170419.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170419.png" alt="img"></p>
 <p>⑦iadd操作结果23出栈⑧将23存储在局部变量表索引为3的位置上istore_3。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170439.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606170439.png" alt="img"></p>
 <blockquote>
 <p>栈顶缓存技术ToS(Top-of-Stack Cashing)</p>
 </blockquote>
@@ -999,34 +769,19 @@
 <p>什么是运行时常量池</p>
 </blockquote>
 <p>运行时常量池位于方法区（注意： JDK1.7 及之后版本的 JVM 已经将运行时常量池从方法区中移了出来，在 Java 堆（Heap）中开辟了一块区域存放运行时常量池。）</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606213344.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606213344.png" alt="img"></p>
 <blockquote>
 <p>常量池的作用是什么</p>
 </blockquote>
 <p>常量池的作用，就是为了提供一些符号和常量，便于指令的识别。</p>
 <p>下面提供一张测试类的运行时字节码文件格式。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606213453.png"
-                      alt="image-20200606213452872"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606213453.png" alt="image-20200606213452872"></p>
 <blockquote>
 <p>动态链接</p>
 </blockquote>
 <p>1.每一个栈帧内部都包含一个指向运行时常量池Constant pool或该栈帧所属方法的引用。包含这个引用的目的就是为了支持当前方法的代码能够实现动态链接。比如invokedynamic指令</p>
 <p>2.在Java源文件被编译成字节码文件中时，所有的变量和方法引用都作为符号引用（symbolic Refenrence）保存在class字节码文件（javap反编译查看）的常量池里。比如：描述一个方法调用了另外的其他方法时，就是通过常量池中指向方法的符号引用来表示的，那么<strong>动态链接的作用就是为了将这些符号引用（#）最终转换为调用方法的直接引用。</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606214126.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606214126.png" alt="img"></p>
 <blockquote>
 <p>方法的调用（重要）</p>
 </blockquote>
@@ -1093,12 +848,7 @@
 <li>每个类中都有一个虚方法表，表中存放着各个方法的实际入口。</li>
 <li>那么虚方法表什么时候被创建？ 虚方法表会在类加载的链接阶段被创建 并开始初始化，类的变量初始值准备完成之后，jvm会把该类的虚方法表也初始化完毕。</li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606222935.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606222935.png" alt="img"></p>
 <p>如果是自己的方法，就指向自己，如果是父类的或者Object类型的，就指向父类或者Object。</p>
 <h4 id="方法返回地址"><a href="#方法返回地址" class="headerlink" title="方法返回地址"></a>方法返回地址</h4><ul>
 <li>存放调用该方法的PC寄存器的值。</li>
@@ -1120,27 +870,12 @@
 <li>在字节码指令中，返回指令包含ireturn（当返回值是boolena、byte、char、short和int类型时使用）、lreturn、freturn、dreturn以及areturn(引用类型的)</li>
 <li>另外还有一个return指令供声明为void的方法、实例初始化方法、类和接口的初始化方法使用</li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606224313.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606224313.png" alt="img"></p>
 <p>2.在方法执行的过程中遇到了异常（Exception），并且这个异常没有在方法内进行处理，也就是只要在本方法的异常表中<strong>没有搜素到匹配的异常处理器（try-catch)<strong>，就会导致方法退出，简称</strong>异常完成出口</strong><br>而如果存在方法执行过程中抛出异常时的<strong>异常处理</strong>，它会存储在一个异常处理表，方便在发生异常的时候找到处理异常的代码。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606224518.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606224518.png" alt="img"></p>
 <p>method1发生异常，method2进行处理。</p>
 <p>在method2中可以看到字节码当中的异常处理表：下表的行号不是上图的代码的行号，而是其对应字节码当中的行号。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606224604.png"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200606224604.png" alt="img"></p>
 <p> 在字节码当中的4<del>11行是存在异常的代码行号，对应Java中70</del>73行，11代表字节码中能够处理该异常的位置是第11行也就是上图中的第72行。</p>
 <h4 id="一些附加信息"><a href="#一些附加信息" class="headerlink" title="一些附加信息"></a>一些附加信息</h4><p>栈帧中还允许携带与java虚拟机实现相关的一些附加信息。例如，对程序调试提供支持的信息。（很多资料都忽略了附加信息）</p>
 <h3 id="（6）虚拟机栈的五道面试题"><a href="#（6）虚拟机栈的五道面试题" class="headerlink" title="（6）虚拟机栈的五道面试题"></a>（6）虚拟机栈的五道面试题</h3><blockquote>
@@ -1178,12 +913,7 @@
 </ol>
 </blockquote>
 <p>如果局部变量不是方法的形参或者不是作为方法的返回值，那么它就是线程安全的。</p>
-<h2 id="4-本地方法栈"><a href="#4-本地方法栈" class="headerlink" title="4. 本地方法栈"></a>4. 本地方法栈</h2><h3 id="（1）本地方法概述"><a href="#（1）本地方法概述" class="headerlink" title="（1）本地方法概述"></a>（1）本地方法概述</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200914105226.png"
-                      alt="img"
-                ></p>
+<h2 id="4-本地方法栈"><a href="#4-本地方法栈" class="headerlink" title="4. 本地方法栈"></a>4. 本地方法栈</h2><h3 id="（1）本地方法概述"><a href="#（1）本地方法概述" class="headerlink" title="（1）本地方法概述"></a>（1）本地方法概述</h3><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200914105226.png" alt="img"></p>
 <p>简单来讲，<strong>一个Native Method就是一个java调用非java代码的接口</strong>，一个Native Method 是这样一个java方法：该方法的底层实现由非Java语言实现，比如C。这个特征并非java特有，很多其他的编程语言都有这一机制，比如在C++ 中，你可以用extern “C” 告知C++ 编译器去调用一个C的函数。<br>在定义一个native method时，并不提供实现体（有些像定义一个Java interface），因为其实现体是由非java语言在外面实现的。<br>本地接口的作用是融合不同的编程语言为java所用，它的初衷是融合C/C++程序。<br>标识符native可以与其他所有的java标识符连用，但是abstract除外（因为抽象方法没有方法体）。</p>
 <p><strong>代码示例</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本地方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span>  <span class="class"><span class="keyword">class</span> <span class="title">IHaveNatives</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//abstract 没有方法体</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">abstractMethod</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//native 和 abstract不能共存，native是有方法体的，由C语言来实现</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">Native1</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">native</span> <span class="keyword">static</span> <span class="keyword">public</span> <span class="keyword">long</span> <span class="title">Native2</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">native</span> <span class="keyword">synchronized</span> <span class="keyword">private</span> <span class="keyword">float</span> <span class="title">Native3</span><span class="params">(Object o)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">native</span> <span class="keyword">void</span> <span class="title">Native4</span><span class="params">(<span class="keyword">int</span>[] array)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1201,12 +931,7 @@
 <p>现状</p>
 </blockquote>
 <p>现在的Java已经非常强大了，目前该方法的是用越来越少了，除非是与硬件有关的应用，比如通过java程序驱动打印机或者java系统管理生产设备，在企业级应用已经比较少见。因为现在的异构领域间的通信很发达，比如可以使用Socket通信，也可以是用Web Service等等，不多做介绍。</p>
-<h3 id="（2）本地方法栈概述"><a href="#（2）本地方法栈概述" class="headerlink" title="（2）本地方法栈概述"></a>（2）本地方法栈概述</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200608222608.png"
-                      alt="img"
-                ></p>
+<h3 id="（2）本地方法栈概述"><a href="#（2）本地方法栈概述" class="headerlink" title="（2）本地方法栈概述"></a>（2）本地方法栈概述</h3><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200608222608.png" alt="img"></p>
 <ol>
 <li><p>Java虚拟机栈用于管理Java方法的调用，而本地方法栈用于管理本地方法（一般非Java实现的方法）的调用。</p>
 </li>
@@ -1251,41 +976,16 @@
 <li>堆，是GC ( Garbage Collection, 垃圾收集器)执行垃圾回收的重点区域。</li>
 <li>在方法结束后，堆中的对象不会马上被移除，仅仅在垃圾收集的时候才会被移除。</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610173835"
-                      alt="image-20200523213852303"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610173835" alt="image-20200523213852303"></p>
 <p>如上图代码，s1、s2是main方法里面的局部变量，s1、s2指向堆中创建的两个对象。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610173917"
-                      alt="image-20200523213906307"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610173917" alt="image-20200523213906307"></p>
 <p>注意：当main方法结束后，这两个对象不会被立即回收！</p>
 <p>main方法结束后，s1，s2就被弹出栈，堆中的s1，s2实例就没有被引用了，当GC进行判断的时候，发现s1,s2没有被引用，就判断为垃圾.<strong>如果栈中的引用刚弹出，堆中的对象就被回收，那么GC的频率将特别高！</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610174050"
-                      alt="image-20200523214532877"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610174050" alt="image-20200523214532877"></p>
 <center>创建对象的字节码指令</center>
 
-<h4 id="内存细分"><a href="#内存细分" class="headerlink" title="内存细分"></a>内存细分</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610174211"
-                      alt="img"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610174353"
-                      alt="image-20200523214917451"
-                ></p>
+<h4 id="内存细分"><a href="#内存细分" class="headerlink" title="内存细分"></a>内存细分</h4><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610174211" alt="img"></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610174353" alt="image-20200523214917451"></p>
 <h3 id="（2）设置堆内存大小与OOM"><a href="#（2）设置堆内存大小与OOM" class="headerlink" title="（2）设置堆内存大小与OOM"></a>（2）设置堆内存大小与OOM</h3><h4 id="堆内存"><a href="#堆内存" class="headerlink" title="堆内存"></a>堆内存</h4><ol>
 <li>Java堆区用于存储Java对象实例，那么堆的大小在JVM启动时就已经设定好了，大家可以通过选项”-XmX”和”-Xms”来进行设置。<ul>
 <li>“-Xms”用于表示堆区（<strong>年轻代+老年代（不包括元空间）</strong>）的起始内存**，等价于-XX：Ini tialHeapSize</li>
@@ -1300,12 +1000,7 @@
 <blockquote>
 <p>运行结果</p>
 </blockquote>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610211628.png"
-                      alt="image-20200610211628051"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610211628.png" alt="image-20200610211628051"></p>
 <blockquote>
 <p>问题：为什么通过两种方式得到的系统内存大小不一致？（我的电脑内存是8G，按道理计算出来的系统内存大小也是8G）</p>
 </blockquote>
@@ -1316,12 +1011,7 @@
 <ol>
 <li>设置初始堆内存大小与最大内存大小</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610211004.png"
-                      alt="image-20200610211003917"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610211004.png" alt="image-20200610211003917"></p>
 <blockquote>
 <p>问题：为什么将初始堆内存和最大的堆内存设置成相同的值？</p>
 </blockquote>
@@ -1334,12 +1024,7 @@
 <blockquote>
 <p>问题：为什么比我们设置的600m小呢？</p>
 </blockquote>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200914110437.png"
-                      alt="image-20200914110436721"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200914110437.png" alt="image-20200914110436721"></p>
 <ol>
 <li>原理</li>
 </ol>
@@ -1354,28 +1039,13 @@
 <p>我们计算总堆空间大小：（25600+153600+409600）÷1024=575，刚好是我们通过代码计算出来的堆空间大小。</p>
 <p>如果将两个幸存区大小都加进去，那就是（25600+25600+153600+409600）÷1024=600，是我们所设置的堆空间的大小。</p>
 <p>从而得出结论：永远有一个幸存区是不能被使用的，所以最大堆内存没有包含这一部分。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610221323.png"
-                      alt="image-20200610221322956"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610221323.png" alt="image-20200610221322956"></p>
 <p>（3）另外一种方式证明：</p>
 <p>1）去掉休眠的代码</p>
 <p>2）增加参数</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610222306.png"
-                      alt="image-20200610222306548"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610222306.png" alt="image-20200610222306548"></p>
 <p>3）重新运行程序，打印结果如下：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610222600.png"
-                      alt="image-20200610222559969"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610222600.png" alt="image-20200610222559969"></p>
 <h4 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h4><p>OOM - Out of Memory，内存溢出。</p>
 <ol>
 <li>代码：在堆区新建很多对象，形成OOM场景。</li>
@@ -1386,49 +1056,24 @@
 <li><p>运行</p>
 </li>
 <li><p>打开jvisualvm，可以看到Old在逐渐上升！</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610223936.png"
-                      alt="image-20200610223936140"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610223936.png" alt="image-20200610223936140"></p>
 </li>
 <li><p>当Old满了的时候，就会出现OOM，再返回IDEA，发现控制台也确实报了OOM。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610224022.png"
-                      alt="image-20200610224021882"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610224022.png" alt="image-20200610224021882"></p>
 </li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610224127.png"
-                      alt="image-20200610224127107"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610224127.png" alt="image-20200610224127107"></p>
 <ol start="5">
 <li>查看抽样器，可以查看OOM的原因：byte[]太多。</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610224232.png"
-                      alt="image-20200610224232596"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200610224232.png" alt="image-20200610224232596"></p>
 <h3 id="（3）年轻代与老年代"><a href="#（3）年轻代与老年代" class="headerlink" title="（3）年轻代与老年代"></a>（3）年轻代与老年代</h3><p>存储在JVM中的Java对象可以被划分为两类:</p>
 <ul>
 <li>一类是生命周期较短的瞬时对象，这类对象的创建和消亡都非常迅速</li>
 <li>另外一类对象的生命周期却非常长，在某些服端的情况下还能够与JVM的生命周期保持一致。</li>
 </ul>
 <p>Java堆区进一步细分的话， 可以划分为<strong>年轻代</strong>(YoungGen)和<strong>老年代</strong>(OldGen)<br>其中年轻代又可以划分为<strong>Eden空间</strong>、<strong>Survivor0</strong>空间和<strong>Survivor1</strong>空间 (有时也叫做from区、to区)。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614220215.jpg"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614220215.jpg" alt="img"></p>
 <h4 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h4><p><strong>新生代与老年代的比例</strong></p>
 <p>我们可以自行配置新生代与老年代在堆结构的占比。</p>
 <ul>
@@ -1444,38 +1089,18 @@
 <p>问题：默认是8:1:1，但是我们通过jvisualvm查看的时候，发现真实情况不是如此！</p>
 </blockquote>
 <p>真实情况是6:1:1，原因是这中间存在一个东西：<strong>自适应的机制</strong>。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614221025.png"
-                      alt="image-20200614221024839" style="zoom：67%;" /
-                >
+<img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614221025.png" alt="image-20200614221024839" style="zoom：67%;" />
 
 <blockquote>
 <p>解决方案一：-XX:-UseAdaptiveSizePolicy：关闭自适应的内存分配策略（无效！）</p>
 </blockquote>
 <p>-UseAdaptiveSizePolicy表示关闭自适应机制，+UseAdaptiveSizePolicy表示开启自适应机制。我们设置好-XX:-UseAdaptiveSizePolicy这个参数后，发现还是无效！还是6:1:1！</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614221254.png"
-                      alt="image-20200614221254586"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614221254.png" alt="image-20200614221254586"></p>
 <blockquote>
 <p>解决方案二：用到-XX:SurvivorRatio=8，表示8:1:1，显式声明后有效！</p>
 </blockquote>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614221505.png"
-                      alt="image-20200614221505280"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614221516"
-                      alt="image-20200524112228284"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614221505.png" alt="image-20200614221505280"></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200614221516" alt="image-20200524112228284"></p>
 <blockquote>
 <p>补充知识：</p>
 </blockquote>
@@ -1499,35 +1124,20 @@
 <ul>
 <li>注意：当Eden区满了出发Minor GC的时候，Minor GC也会回收幸存者0区的无效对象。</li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200615115201.png"
-                      alt="image-20200615115014074"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200615115201.png" alt="image-20200615115014074"></p>
 <p>红色的是需要进行回收的，绿色的表示不需要回收，从图中可以看到，它被移入S0。</p>
 </li>
 <li><p>如果Eden区又满了，再次触发MinorGC，然后回收Eden区与幸存者0区的无效对象，那么幸存者0区有效的对象就不会被回收，我们会将它移动到幸存者1区。</p>
 </li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200615115341.png"
-                      alt="image-20200615115340461"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200615115341.png" alt="image-20200615115340461"></p>
 <p>​    Eden区满了，又进行一次Minor GC，是放在S0还是S1呢？是放在S1当中。因为S1为空，就称为to（表示空）。将Eden的绿色对象放入s1中后，此时S0中的绿色对象也要进行判断，当发现这俩还被占用，还不能被销毁，就把S0区的也放入S1区并增长为2。此时S0空了变为to区，s1变为from区，以此类推。</p>
 <blockquote>
 <p>什么时候能去老年代呢？</p>
 </blockquote>
 <p>可以设置参数-XX:MaxTenuringThreshold=<N>，默认是15。</p>
 <p>什么意思呢？每个在新生代的对象有一个计数值，在垃圾回收的时候，如果他活下来了，他的计数值就会加1，当达到15的时候，它就会被移动到老年区。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200615115937.png"
-                      alt="image-20200615115937322"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200615115937.png" alt="image-20200615115937322"></p>
 <p>Eden又满了，就继续放入S0，S1进行判断，1号还用就放入S0。我们发现S1中有两个已经达到15了，就晋升至老年代，放入Old，此时就不进行判断它了。只有当有柱子再进入老年代的时候才进行判断。15称为阈值（临界值，默认的）</p>
 <p>注意：<strong>幸存者区不会主动触发GC，它会被动回收</strong>！原因是：Eden区满时触发YGC，Eden触发GC的时候会将Eden与S区（属于被动）一起进行垃圾回收。</p>
 <p>老年代一般很少有垃圾回收机制，当内存不足时，触发GC：Major GC，进行老年区的内<br>存清理。</p>
@@ -1542,12 +1152,7 @@
 <blockquote>
 <p>对象分配的特殊情况</p>
 </blockquote>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618105633"
-                      alt="image-20200524145910809"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618105633" alt="image-20200524145910809"></p>
 <p>通过图片可以很清楚的了解当Eden区放不下对象的时候，会怎么办。</p>
 <p>需要注意的是：</p>
 <ul>
@@ -1625,12 +1230,7 @@
 </ul>
 </li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618145216"
-                      alt="image-20200527161159646"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618145216" alt="image-20200527161159646"></p>
 <ul>
 <li>其实不分代完全可以，<strong>分代的唯一理由就是优化GC性能</strong>。如果没有分代，那所有的对象都在一块，就如同把一个学校的人都关在一个教室。GC的 候要找到哪些对象没用，这样就会对堆的所有区域进行扫描。而很多对象都是朝生夕死的，如果分代的话，把新创建的对象放到某一地方，当GC的时候先把这块存储“朝生夕死”对象的区域进行回收，这样就会腾出很大的空间出来。</li>
 </ul>
@@ -1641,12 +1241,7 @@
 <p>​    ➢尽量避免程序中出现过多的大对象</p>
 <p>● 长期存活的对象分配到老年代</p>
 <p>● 动态对象年龄判断<br>    ➢如果Survivor 区中相同年龄的所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象可以直接进入老年代，无须等到MaxTenuringThreshold中要求的年龄。</p>
-<p>● 空间分配担保<br>    ➢ -XX：HandlePromotionFailure<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618154954"
-                      alt="image-20200527164220614"
-                ><br>如图所示，新建一个20M的对象，Eden区为16M，放不下，直接放到老年代。</p>
+<p>● 空间分配担保<br>    ➢ -XX：HandlePromotionFailure<br><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618154954" alt="image-20200527164220614"><br>如图所示，新建一个20M的对象，Eden区为16M，放不下，直接放到老年代。</p>
 <h3 id="（8）为对象分配内存：TLAB"><a href="#（8）为对象分配内存：TLAB" class="headerlink" title="（8）为对象分配内存：TLAB"></a>（8）为对象分配内存：TLAB</h3><blockquote>
 <p> 为什么有TLAB（Thread Local Allocation Buffer ）？</p>
 </blockquote>
@@ -1661,12 +1256,7 @@
 <ul>
 <li>从内存模型而不是垃圾收集的角度，对Eden区域继续进行划分，JVM为<br>每个线程分配了一个私有缓存区域，它包含在Eden空间内。</li>
 <li>多线程同时分配内存时，使用TLAB可以避免一系列的非线程安全问题，同时还能够提升内存分配的吞吐量，因此我们可以将这种内存分配方式称之为快速分配策略。</li>
-<li>据说所有OpenJDK衍生出来的JVM都提供了TLAB的设计。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618155604"
-                      alt="image-20200527164854508"
-                ></li>
+<li>据说所有OpenJDK衍生出来的JVM都提供了TLAB的设计。<br><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618155604" alt="image-20200527164854508"></li>
 </ul>
 <blockquote>
 <p>TLAB的说明：</p>
@@ -1679,12 +1269,7 @@
 <li>默认情况下，TLAB空间的内存非常小，**仅占有整个Eden空间的1%**，当然我们可以通过选项“-XX:TLABWasteTargetPercent”设置TLAB空间所占用Eden空间的百分比大小。</li>
 <li>一旦对象在TLAB空间分配内存失败时，JVM就会尝试着通过<strong>使用加锁机制</strong>确保数据操作的原子性，从而直接在Eden空间中分配内存。</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618160009"
-                      alt="image-20200527170706159"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200618160009" alt="image-20200527170706159"></p>
 <h3 id="（9）小结堆空间的参数设置"><a href="#（9）小结堆空间的参数设置" class="headerlink" title="（9）小结堆空间的参数设置"></a>（9）小结堆空间的参数设置</h3><p>官网说明</p>
 <ul>
 <li><p>-XX：+PrintFlagsInitial：查看所有的参数的默认初始值</p>
@@ -1763,55 +1348,25 @@
 <li>线程同步的代价是相当高的，同步的后果是降低并发性和性能。</li>
 <li>在动态编译同步块的时候，JIT编译器可以借助逃逸分析来判断同步块所使用的锁对象是否只能够被一个线程访问而没有被发布到其他线程。如果没有，那么JIT编译器在编译这个同步块的时候就会取消对这部分代码的同步。这样就能大大提高并发性和性能。这个取消同步的过程就叫同步省略，也叫锁消除。</li>
 </ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619152221"
-                      alt="image-20200528133246945" style="zoom:50%;" /
-                >
+<img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619152221" alt="image-20200528133246945" style="zoom:50%;" />
 
 <p>但是我们查看字节码文件，会发现同步代码块的字节码还是存在的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619152351"
-                      alt="image-20200528134535753"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619152351" alt="image-20200528134535753"></p>
 <blockquote>
 <p>代码优化：逃逸分析之标量替换</p>
 </blockquote>
 <p><strong>标量</strong>是指一个无法分解成更小的数据的数据。Java中的原始数据类型就是标量。相对的，可以再分解的叫做<strong>聚合量，Java中的对象就是聚合量。</strong></p>
 <p>在JIT阶段，如果经过逃逸分析，发现一个对象不会被外界访问的话，那么经过JIT优化，就会把这个对象拆解成若干个其中包含的若干个成员变量来替代。这个过程就是标量替换。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619152903.png"
-                      alt="image-20200619152903517"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619152912"
-                      alt="image-20200528134905654"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619152903.png" alt="image-20200619152903517"></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619152912" alt="image-20200528134905654"></p>
 <p>用两个标量去替换了原来的对象，就不需要在堆上给对象分配空间了，直接在栈中的局部变量表分配空间就好了，也就没有了GC，因为虚拟机栈是没有垃圾回收的。</p>
 <blockquote>
 <p>总结</p>
 </blockquote>
 <p>关于逃逸分析，可能会使用到以下参数：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619153753.png"
-                      alt="image-20200619153753537"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619153753.png" alt="image-20200619153753537"></p>
 <p>注意-server可以省略掉，因为我的JVM本身就是在Server模式的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619153931.png"
-                      alt="image-20200619153931366"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619153931.png" alt="image-20200619153931366"></p>
 <p><strong>开发中能使用局部变量的，就不要使用在方法外定义。</strong>从而避免逃逸。</p>
 <p>关于逃逸分析的论文在1999年就已经发表了，但直到JDK 1.6才有实现，而且这项技术到如今也<strong>不成熟</strong>。<br>其根本原因就是无法保证逃逸分析的性能消耗一定能高于他的消耗。虽然经过逃逸分析可以做标量替换、栈上分配、和锁消除。但是<strong>逃逸分析自身也是需要进行一系列复杂的分析的，这其实也是一个相对耗时的过程。</strong><br>一个极端的例子，就是经过逃逸分析之后，发现没有一个对象是不逃逸的。那这个逃逸分析的过程就白白浪费掉了。<br>虽然这项技术并不十分成熟，但是它也是即时编译器优化技术中一个十分重要的手段。<br>注意到有一些观点，认为通过逃逸分析，JVM会在栈上分配那些不会逃逸的对象，这在理论上是可行的，但是取决于JVM设计者的选择。据所知，<strong>Oracle Hotspot JVM中并未这么做，这一点在逃逸分析相关的文档里已经说明，所以可以明确所有的对象实例都是创建在堆上</strong>。</p>
 <p>目前很多书籍还是基于JDK 7以前的版本，JDK已经发生了很大变化，字符串常量和静态变量曾经都被分配在永久代上，而永久代已经被元数据区取代。但是，字符串常量和静态变量并不是被转移到元数据区，而是直接在堆上分配，所以这一点同样符合前面一点的结论:对象实例都是分配在堆上。</p>
@@ -1822,33 +1377,13 @@
 <li>当GC只发生在年轻代中，回收年轻代对象的行为被称为MinorGC。当GC发生在老年代时则被称为MajorGC或者FullGC。 一般的，MinorGC的发生频率要比MajorGC高很多，即老年代中垃圾回收发生的频率将大大低于年轻代。</li>
 </ul>
 <hr>
-<h2 id="6-方法区"><a href="#6-方法区" class="headerlink" title="6. 方法区"></a>6. 方法区</h2><h3 id="（1）栈、堆、方法区的交互关系"><a href="#（1）栈、堆、方法区的交互关系" class="headerlink" title="（1）栈、堆、方法区的交互关系"></a>（1）栈、堆、方法区的交互关系</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619171053"
-                      alt="image-20200604135724895"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619171229.png"
-                      alt="image-20200619171228915"
-                ></p>
+<h2 id="6-方法区"><a href="#6-方法区" class="headerlink" title="6. 方法区"></a>6. 方法区</h2><h3 id="（1）栈、堆、方法区的交互关系"><a href="#（1）栈、堆、方法区的交互关系" class="headerlink" title="（1）栈、堆、方法区的交互关系"></a>（1）栈、堆、方法区的交互关系</h3><p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619171053" alt="image-20200604135724895"></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619171229.png" alt="image-20200619171228915"></p>
 <p>Jdk 1.8之后用元空间取代了永久代（方法区的实现，方法区是一种规范，永久代是方法区的实现）</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619172614"
-                      alt="image-20200604145945327"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619172614" alt="image-20200604145945327"></p>
 <p>上图已经很清晰明了了！</p>
 <h3 id="（2）方法区的理解"><a href="#（2）方法区的理解" class="headerlink" title="（2）方法区的理解"></a>（2）方法区的理解</h3><p><a class="link"   target="_blank" rel="noopener" href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5.4" >官方文档地址<i class="fas fa-external-link-alt"></i></a></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619172857.png"
-                      alt="image-20200619172857191"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619172857.png" alt="image-20200619172857191"></p>
 <center>官方文档对方法区的解释</center>
 
 
@@ -1868,12 +1403,7 @@
 </blockquote>
 <p>《Java虚拟机规范》中明确说明:“尽管所有的方法区在逻辑上是属于堆的一部分，但一些简单的实现可能不会选择去进行垃圾收集或者进行压缩。”但对于HotSpotJVM而言，方法区还有一个别名叫做Non-Heap (非堆)，目的就是要和堆分开。</p>
 <p>所以，方法区看做是一块独立于Java堆的内存空间。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619174517"
-                      alt="image-20200604152637450"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619174517" alt="image-20200604152637450"></p>
 <blockquote>
 <p>方法区的基本理解</p>
 </blockquote>
@@ -1895,19 +1425,9 @@
 </ul>
 </li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619175839"
-                      alt="image-20200604154937740"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619175839" alt="image-20200604154937740"></p>
 <p>而到了JDK 8，终于完全废弃了永久代的概念，改用与JRockit、J9一样在<strong>本地</strong><br><strong>内存中</strong>实现的元空间(Metaspace)来代替。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619175917"
-                      alt="image-20200604155221247"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200619175917" alt="image-20200604155221247"></p>
 <p>元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代最大的区别在于：<strong>元空间不在虚拟机设置的内存中，而是使用本地内存。</strong></p>
 <p>永久代、元空间二者并不只是名字变了，内部结构也调整了。</p>
 <p>根据《Java虚拟机规范》的规定，如果方法区无法满足新的内存分配需求时，将抛出OOM异常。</p>
@@ -2219,10 +1739,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 

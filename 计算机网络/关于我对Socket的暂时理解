@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -223,12 +223,7 @@
         <div class="article-content markdown-body">
             <p>为什么说是对Socket的暂时理解呢，因为Socket这玩意真要深入了解那可以很深很深，其涉及到的TCP/IP协议栈里面包含了太多内容了，而我之前是对Socket一无所知的，上次面试有面试官问：“你会Socket编程吗？”， 我一脸懵逼直摇头。于是此次，用这次博文，记录下自己对Socket的暂时理解，希望以后能在工作中通过这门技术去完成某项工作，然后在实践和尝试中去加深对Socket的理解。</p>
 <h1 id="1-Socket原理"><a href="#1-Socket原理" class="headerlink" title="1. Socket原理"></a>1. Socket原理</h1><p>要写网络程序就必须要用到Socket，甚至有句话说“一切皆Socket”，听起来夸张，其实事实如此。敲了那么多代码，其实很多地方都使用到了Socket，但是我以前一直觉得Socket是个遥远且深奥的东西，所以未曾去了解过它。</p>
-<h2 id="1-1-Sokcet的位置"><a href="#1-1-Sokcet的位置" class="headerlink" title="1.1 Sokcet的位置"></a>1.1 Sokcet的位置</h2><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002154703.jpeg"
-                      alt="img" style="zoom: 80%;" /
-                >
+<h2 id="1-1-Sokcet的位置"><a href="#1-1-Sokcet的位置" class="headerlink" title="1.1 Sokcet的位置"></a>1.1 Sokcet的位置</h2><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002154703.jpeg" alt="img" style="zoom: 80%;" />
 
 <p>通过此图我们可以看到，Socket就如同一道门，从应用层通往传输层，处在应用层的用户进程不需要知道传输层发生了什么，他们只需要知道如何去开启Socket这道门即可。</p>
 <p>所以，Socket是应用层与TCP/IP协议族通信的中间软件抽象层，Socket是一组接口，它把复杂的TCP/IP协议族隐藏在Socket这道门后面，对于用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议。</p>
@@ -237,40 +232,20 @@
 <blockquote>
 <p> 通信时其中一个网络应用程序将要传输的一段信息写入它所在主机的 Socket中，该 Socket通过与网络接口卡相连的传输介质将这段信息送到另外一台主机的 Socket中，使对方能够接收到这段信息。 Socket是由IP地址和端口结合的，提供向应用层进程传送数据包的机制</p>
 </blockquote>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002160113.jpeg"
-                      alt="img"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002160113.jpeg" alt="img"></p>
 <p>简单的来说，Socket是对TCP/IP协议的封装，Socket本身只是一个调用接口（API），方便程序员用Socket使用TCP/IP协议栈。</p>
 <h1 id="2-Socket工作流程"><a href="#2-Socket工作流程" class="headerlink" title="2. Socket工作流程"></a>2. Socket工作流程</h1><p>Socket的工作流程分为两个部分：</p>
 <ul>
 <li>服务端需要建立 socket 来监听指定的地址，等待客户端连接</li>
 <li>客户端则需要建立 socket 并与服务端的 socket 地址进行连接</li>
 </ul>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002173653.jpeg"
-                      alt="img" style="zoom:150%;" /
-                >
+<img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002173653.jpeg" alt="img" style="zoom:150%;" />
 
 <p>这图展示的就是建立 TCP/IP 连接的过程，经典的叫法为“<strong>三次握手</strong>”的过程。顾名思义，这个过程中来回产生了三次网络通信。</p>
 <p>建立连接后就可以进行数据传输了！</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002174114.png"
-                      alt="image-20201002174113494"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002174114.png" alt="image-20201002174113494"></p>
 <p>传输的过程涉及到数据 Copy，不过这些 Copy 是必不可少的。其中的发送缓冲区和接收缓冲区就是套接字缓存 (socket buffer)。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002174229.png"
-                      alt="image-20201002174228848"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20201002174229.png" alt="image-20201002174228848"></p>
 <p>连接使用完之后需要关闭，不过 TCP/IP 连接关闭过程比创建更复杂一些，次数多了一次，这就是经典的“<strong>四次握手</strong>”过程。</p>
 <h1 id="3-Socket的基本操作"><a href="#3-Socket的基本操作" class="headerlink" title="3. Socket的基本操作"></a>3. Socket的基本操作</h1><p>Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。我的理解就是Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关</p>
 <h2 id="3-1-socket"><a href="#3-1-socket" class="headerlink" title="3.1. socket()"></a>3.1. socket()</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int socket(int domain, int type, int protocol);</span><br></pre></td></tr></table></figure>
@@ -638,10 +613,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 

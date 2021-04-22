@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -238,12 +238,7 @@
 <p>如果没有索引，那么你可能需要a—-z，如果我想找到Java开头的单词呢？或者Oracle开头的单词呢？<br>是不是觉得如果没有索引，这个事情根本无法完成？</p>
 </blockquote>
 <p>在数据之外，数据库系统还维护者满足特定查找算法的数据结构，这些数据结构以某种方式指向、引用数据，这样就可以在这些数据结构上实现高级查找算法，这种数据结构就是<strong>索引</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYwNDUxLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200731105450450"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYwNDUxLnBuZw?x-oss-process=image/format,png" alt="image-20200731105450450"></p>
 <blockquote>
 <ol>
 <li>左边是数据表，一共有两列七条记录，最左边的是数据记录的物理地址</li>
@@ -264,19 +259,9 @@
 <h4 id="（3）MySQL索引分类"><a href="#（3）MySQL索引分类" class="headerlink" title="（3）MySQL索引分类"></a>（3）MySQL索引分类</h4><h5 id="a-单值索引"><a href="#a-单值索引" class="headerlink" title="a. 单值索引"></a>a. 单值索引</h5><p>即一个索引只包含单个列，一个表可以由多个单列索引</p>
 <h5 id="b-唯一索引"><a href="#b-唯一索引" class="headerlink" title="b. 唯一索引"></a>b. 唯一索引</h5><p>索引列的值必须唯一，但允许有空值</p>
 <h5 id="c-复合索引"><a href="#c-复合索引" class="headerlink" title="c. 复合索引"></a>c. 复合索引</h5><p>即一个索引包含多个列</p>
-<h5 id="d-基本语法"><a href="#d-基本语法" class="headerlink" title="d. 基本语法"></a>d. 基本语法</h5><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYwOTQ3LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200731111859847"
-                ></p>
+<h5 id="d-基本语法"><a href="#d-基本语法" class="headerlink" title="d. 基本语法"></a>d. 基本语法</h5><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYwOTQ3LnBuZw?x-oss-process=image/format,png" alt="image-20200731111859847"></p>
 <h4 id="（4）MySQL索引结构"><a href="#（4）MySQL索引结构" class="headerlink" title="（4）MySQL索引结构"></a>（4）MySQL索引结构</h4><p><strong>我们平常所说的索引，如果没有特别指明，都是指B树(多路搜索树，并不一定是二叉的)结构组织的索引</strong> 。其中聚集索引，次要索引，覆盖索引， 复合索引，前缀索引，唯一索引默认都是使用B+树索引，统称索引。当然，除了B+树这种类型的索引之外，还有哈希索引(hash index)等</p>
-<h5 id="a-BTree索引"><a href="#a-BTree索引" class="headerlink" title="a. BTree索引"></a>a. BTree索引</h5><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYxMzEyLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200731113701252"
-                ></p>
+<h5 id="a-BTree索引"><a href="#a-BTree索引" class="headerlink" title="a. BTree索引"></a>a. BTree索引</h5><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYxMzEyLnBuZw?x-oss-process=image/format,png" alt="image-20200731113701252"></p>
 <p>MySQL使用的是Btree索引</p>
 <p><strong>初始化介绍：</strong></p>
 <p>一颗b树，黑框内的称之为一个磁盘块，每个磁盘块包含几个数据项（蓝色所示）和指针（黄色所示）</p>
@@ -286,12 +271,7 @@
 <blockquote>
 <p>真实的情况是，3 层的 b+树可以表示上百万的数据，如果上百万的数据查找只需要三次 IO，性能提高将是巨大的， 如果没有索引，每个数据项都要发生一次 IO，那么总共需要百万次的 IO，显然成本非常非常高。</p>
 </blockquote>
-<h5 id="b-B-Tree索引"><a href="#b-B-Tree索引" class="headerlink" title="b. B+Tree索引"></a>b. B+Tree索引</h5><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYxNjI1LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200820161403604"
-                ></p>
+<h5 id="b-B-Tree索引"><a href="#b-B-Tree索引" class="headerlink" title="b. B+Tree索引"></a>b. B+Tree索引</h5><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTYxNjI1LnBuZw?x-oss-process=image/format,png" alt="image-20200820161403604"></p>
 <p>（1）B+跟B树不同B+树的非叶子节点不保存关键字记录的指针，只进行数据索引，这样使得B+树每个非叶子节点所能保存的关键字大大增加；<br>（2）B+树叶子节点保存了父节点的所有关键字记录的指针，所有数据地址必须要到叶子节点才能获取到。所以每次数据查询的次数都一样；<br>（3）B+树叶子节点的关键字从小到大有序排列，左边结尾数据都会保存右边节点开始数据的指针。</p>
 <blockquote>
 <p>因为B树不管叶子节点还是非叶子节点，都会保存数据，这样导致在非叶子节点中能保存的指针数量变少），指针少的情况下要保存大量数据，只能增加树的高度，导致IO操作变多，查询性能变低</p>
@@ -324,12 +304,7 @@
 <li><p>过滤性不好的不适合建索引</p>
 </li>
 </ul>
-<h3 id="3、性能分析"><a href="#3、性能分析" class="headerlink" title="3、性能分析"></a>3、性能分析</h3><h4 id="（1）MySQL-Query-Optimizer"><a href="#（1）MySQL-Query-Optimizer" class="headerlink" title="（1）MySQL Query Optimizer"></a>（1）MySQL Query Optimizer</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTY0MzA2LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200820164306500"
-                ></p>
+<h3 id="3、性能分析"><a href="#3、性能分析" class="headerlink" title="3、性能分析"></a>3、性能分析</h3><h4 id="（1）MySQL-Query-Optimizer"><a href="#（1）MySQL-Query-Optimizer" class="headerlink" title="（1）MySQL Query Optimizer"></a>（1）MySQL Query Optimizer</h4><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTY0MzA2LnBuZw?x-oss-process=image/format,png" alt="image-20200820164306500"></p>
 <h4 id="（2）MySQL常见瓶颈"><a href="#（2）MySQL常见瓶颈" class="headerlink" title="（2）MySQL常见瓶颈"></a>（2）MySQL常见瓶颈</h4><h5 id="a-CPU"><a href="#a-CPU" class="headerlink" title="a. CPU"></a>a. CPU</h5><p>CPU饱和的时候，一般发生在数据装入内存或从磁盘中读取数据的时候</p>
 <h5 id="b-IO"><a href="#b-IO" class="headerlink" title="b. IO"></a>b. IO</h5><p>实例内存满足不了缓存数据或排序等需要，导致产生大量 物理 IO<br>查询执行效率低，扫描过多数据行</p>
 <h5 id="c-服务器"><a href="#c-服务器" class="headerlink" title="c. 服务器"></a>c. 服务器</h5><p>服务器的性能瓶颈，可以使用top、free、iostat和vmstat来查看系统的性能状态</p>
@@ -339,39 +314,19 @@
 <p>使用 EXPLAIN 关键字可以模拟优化器执行 SQL 查询语句，从而知道 MySQL 是如何处理你的 SQL 语句的。分析你的查询语句或是表结构的性能瓶颈</p>
 <p>用法： Explain+SQL 语句</p>
 <p>Explain 执行后返回的信息：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQzNzQyLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200731143742855"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQzNzQyLnBuZw?x-oss-process=image/format,png" alt="image-20200731143742855"></p>
 <blockquote>
 <p>Explain的作用</p>
 </blockquote>
 <p>表的读取顺序（id）<br>哪些索引可以使用（select_type）<br>数据读取操作的操作类型（possible_key）<br>哪些索引被实际使用(key)<br>表之间的引用<br>每张表有多少行被优化器查询（rows）</p>
 <h5 id="a-id"><a href="#a-id" class="headerlink" title="a. id"></a>a. id</h5><p>select 查询的序列号，包含一组数字，表示查询中执行 select 子句或操作表的顺序</p>
 <p>①id 相同，执行顺序由上至下</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQ0MTQ1LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200731144145586"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQ0MTQ1LnBuZw?x-oss-process=image/format,png" alt="image-20200731144145586"></p>
 <p>注意此图中是t1、t3、t2</p>
 <p>②id 不同，如果是子查询，id 的序号会递增，id 值越大优先级越高，越先被执行</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQ0NjI0LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200731144624316"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQ0NjI0LnBuZw?x-oss-process=image/format,png" alt="image-20200731144624316"></p>
 <p>③有相同也有不同</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQ0NzA1LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200731144705788"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwNzMxMTQ0NzA1LnBuZw?x-oss-process=image/format,png" alt="image-20200731144705788"></p>
 <p>id 如果相同，可以认为是一组，从上往下顺序执行；在所有组中， id 值越大，优先级越高，越先执行</p>
 <p>衍生 = DERIVED（临时表）</p>
 <p>关注点：id 号每个号码，表示一趟独立的查询。一个 sql 的查询趟数越少越好</p>
@@ -432,64 +387,29 @@
 <p><strong>（2）const</strong><br>表示通过索引一次就找到了，const 用于比较 primarykey 或者 unique 索引。因为只匹配一行数据，所以很快</p>
 <p>因为where中查询条件为t1.id=1，所以该查询类型为const</p>
 <p>又因为这样查询出来的记录只有一条，所以上级查询为system</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg0NzAyLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200801184702595"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg0NzAyLnBuZw?x-oss-process=image/format,png" alt="image-20200801184702595"></p>
 <p><strong>（4）eq_ref</strong></p>
 <p>唯一性索引扫描，对于每个索引键，表中只有一条记录与之匹配。常见于主键或唯一索引扫描。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NDE1LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200801185415187"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NDE1LnBuZw?x-oss-process=image/format,png" alt="image-20200801185415187"></p>
 <p><strong>（5）ref</strong></p>
 <p>非唯一性索引扫描，返回匹配某个单独值的所有行。本质上也是一种索引访问，它返回所有匹配某个单独值的行，然而，它可能会找到多个符合条件的行，所以他应该属于查找和扫描的混合体。</p>
 <ul>
 <li>没用索引前：</li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NTI1LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200801185525467"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NTI1LnBuZw?x-oss-process=image/format,png" alt="image-20200801185525467"></p>
 <ul>
 <li>建立索引后：</li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NTQ2LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200801185546633"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NTQ2LnBuZw?x-oss-process=image/format,png" alt="image-20200801185546633"></p>
 <p><strong>（6）range</strong></p>
 <p>只检索给定范围的行，使用一个索引来选择行。key 列显示使用了哪个索引一般就是在你的 where 语句中出现 了 between、&lt;、&gt;、in 等的查询这种范围扫描索引扫描比全表扫描要好，因为它只需要开始于索引的某一点，而结束于另一点，不用扫描全部索引</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NzAyLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200801185701967"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NzAyLnBuZw?x-oss-process=image/format,png" alt="image-20200801185701967"></p>
 <p><strong>（7）index</strong></p>
 <p>出现index是sql使用了索引但是没有通过索引进行过滤，一般是使用了覆盖索引或者是利用索引进行了排序分组</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NzI5LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200801185729063"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1NzI5LnBuZw?x-oss-process=image/format,png" alt="image-20200801185729063"></p>
 <p><strong>（8）all</strong></p>
 <p>FullTableScan，将遍历<strong>全表</strong>以找到匹配的行</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1ODAyLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200801185802368"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTg1ODAyLnBuZw?x-oss-process=image/format,png" alt="image-20200801185802368"></p>
 <h5 id="e-possible-keys"><a href="#e-possible-keys" class="headerlink" title="e. possible_keys"></a>e. possible_keys</h5><p>显示可能应用在这张表中的索引，一个或多个。查询涉及到的字段上若存在索引，则该索引将被列出，但不一定被查询实际使用</p>
 <p>如果该值为NULL，则表示未使用到索引</p>
 <h5 id="f-key"><a href="#f-key" class="headerlink" title="f. key"></a>f. key</h5><p>实际使用的索引。如果为NULL，则没有使用索引</p>
@@ -501,19 +421,9 @@
 <p>④允许为空的字段要加 1 个字节 </p>
 <p>第一组：key_len=age 的字节长度+name 的字节长度=4+1 +(20*3+2)=5+62=67</p>
 <p>第二组：key_len=age 的字节长度=4+1=5</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTkwOTIxLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200801190921142"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTkwOTIxLnBuZw?x-oss-process=image/format,png" alt="image-20200801190921142"></p>
 <h5 id="h-ref"><a href="#h-ref" class="headerlink" title="h. ref"></a>h. ref</h5><p>显示索引的哪一列被使用了，如果可能的话，是一个常数。哪些列或常量被用于查找索引列上的值</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTkxNDAyLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200801191402036"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAxMTkxNDAyLnBuZw?x-oss-process=image/format,png" alt="image-20200801191402036"></p>
 <h5 id="i-row"><a href="#i-row" class="headerlink" title="i. row"></a>i. row</h5><p>rows 列显示 MySQL 认为它执行查询时必须检查的行数，越少越好！</p>
 <h5 id="j-Extra"><a href="#j-Extra" class="headerlink" title="j. Extra"></a>j. Extra</h5><p>其他的额外重要的信息</p>
 <ul>
@@ -533,112 +443,42 @@
 <li><p><strong>select tables optimized away</strong>：在没有 GROUPBY 子句的情况下，基于索引优化 MIN/MAX 操作或者对于 MyISAM 存储引擎优化 COUNT(<em>)操<br>作，不必等到执行阶段再进行计算，查询执行计划生成的阶段即完成优化。*<em>myisam已经保存了记录的总数，直接返回结果，不需要再进行select查询，而innodb还需要全表扫描</em></em></p>
 </li>
 </ul>
-<h4 id="（4）热身案例"><a href="#（4）热身案例" class="headerlink" title="（4）热身案例"></a>（4）热身案例</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTY1MzAzLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200820165303222"
-                ></p>
+<h4 id="（4）热身案例"><a href="#（4）热身案例" class="headerlink" title="（4）热身案例"></a>（4）热身案例</h4><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTY1MzAzLnBuZw?x-oss-process=image/format,png" alt="image-20200820165303222"></p>
 <h3 id="4、索引失效"><a href="#4、索引失效" class="headerlink" title="4、索引失效"></a>4、索引失效</h3><h4 id="（1）全值匹配"><a href="#（1）全值匹配" class="headerlink" title="（1）全值匹配"></a>（1）全值匹配</h4><p>建立索引</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX idx_age_deptid_name ON emp(age,deptid,NAME);</span><br></pre></td></tr></table></figure>
 
 <p>进行查询，分别使用1、2、3个索引，查看情况</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTA0MTQxLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803104141518"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTA0MTQxLnBuZw?x-oss-process=image/format,png" alt="image-20200803104141518"></p>
 <p>结论：需要查询的字段和建立的索引越匹配，精度越高，全值匹配查询的字段按照顺序在索引中都可以匹配到</p>
 <h4 id="（2）最佳左前缀法则"><a href="#（2）最佳左前缀法则" class="headerlink" title="（2）最佳左前缀法则"></a>（2）最佳左前缀法则</h4><p>查询字段与索引字段顺序的不同会导致，索引无法充分使用，甚至索引失效！</p>
 <p>原因：使用复合索引，需要遵循最佳左前缀法则，即如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。</p>
 <p><strong>结论：过滤条件要使用索引必须按照索引建立时的顺序，依次满足，一旦跳过某个字段，索引后面的字段都无法被使用</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTA0NjA1LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803104605017"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTA0NjA1LnBuZw?x-oss-process=image/format,png" alt="image-20200803104605017"></p>
 <h4 id="（3）不要在索引列上做任何计算"><a href="#（3）不要在索引列上做任何计算" class="headerlink" title="（3）不要在索引列上做任何计算"></a>（3）不要在索引列上做任何计算</h4><p>不在索引列上做任何操作（计算、函数、(自动 or 手动)类型转换） ，会导致索引失效而转向全表扫描。</p>
 <p>（1）在查询列上使用了函数</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTEwMjQzLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803110243254"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTEwMjQzLnBuZw?x-oss-process=image/format,png" alt="image-20200803110243254"></p>
 <p>（2）在查询列上做了转换 </p>
 <p>虽然都能查询出结果，因为Mysql自动做了隐式类型转换，但是字符串不加单引号索引失效</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTE0OTA0LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803114904209"
-                ></p>
-<h4 id="（4）索引列上不能有范围查询"><a href="#（4）索引列上不能有范围查询" class="headerlink" title="（4）索引列上不能有范围查询"></a>（4）索引列上不能有范围查询</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTEwNTM5LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803110539380"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTE0OTA0LnBuZw?x-oss-process=image/format,png" alt="image-20200803114904209"></p>
+<h4 id="（4）索引列上不能有范围查询"><a href="#（4）索引列上不能有范围查询" class="headerlink" title="（4）索引列上不能有范围查询"></a>（4）索引列上不能有范围查询</h4><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTEwNTM5LnBuZw?x-oss-process=image/format,png" alt="image-20200803110539380"></p>
 <p>解决方案：将可能做范围查询的字段的索引顺序放在最后</p>
 <h4 id="（5）尽量使用覆盖索引"><a href="#（5）尽量使用覆盖索引" class="headerlink" title="（5）尽量使用覆盖索引"></a>（5）尽量使用覆盖索引</h4><p>即查询列和索引列一直，不要写 select * !</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExMDE4LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803111018498"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExMDE4LnBuZw?x-oss-process=image/format,png" alt="image-20200803111018498"></p>
 <h4 id="（6）使用不等于-或者-lt-gt-的时候"><a href="#（6）使用不等于-或者-lt-gt-的时候" class="headerlink" title="（6）使用不等于(!= 或者&lt;&gt;)的时候"></a>（6）使用不等于(!= 或者&lt;&gt;)的时候</h4><p>mysql 在使用不等于(!= 或者&lt;&gt;)时，有时会无法使用索引会导致全表扫描</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExMDU1LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803111055235"
-                ></p>
-<h4 id="（7）字段的is-not-null-和-is-null"><a href="#（7）字段的is-not-null-和-is-null" class="headerlink" title="（7）字段的is not null 和 is null"></a>（7）字段的is not null 和 is null</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExMTE4LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803111118245"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExNzA4LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803111708585"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExMDU1LnBuZw?x-oss-process=image/format,png" alt="image-20200803111055235"></p>
+<h4 id="（7）字段的is-not-null-和-is-null"><a href="#（7）字段的is-not-null-和-is-null" class="headerlink" title="（7）字段的is not null 和 is null"></a>（7）字段的is not null 和 is null</h4><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExMTE4LnBuZw?x-oss-process=image/format,png" alt="image-20200803111118245"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExNzA4LnBuZw?x-oss-process=image/format,png" alt="image-20200803111708585"></p>
 <p>isnotnull 用不到索引，isnull 可以用到索引</p>
 <h4 id="（8）like的前后模糊匹配"><a href="#（8）like的前后模糊匹配" class="headerlink" title="（8）like的前后模糊匹配"></a>（8）like的前后模糊匹配</h4><p>前缀不能出现模糊匹配</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExODEzLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803111813716"
-                ></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExODEzLnBuZw?x-oss-process=image/format,png" alt="image-20200803111813716"></p>
 <blockquote>
 <p>如何解决%在前缀的时候导致的索引失效？</p>
 </blockquote>
 <p>使用覆盖索引，即建的索引和查询的字段尽量一致</p>
-<h4 id="（9）减少使用or"><a href="#（9）减少使用or" class="headerlink" title="（9）减少使用or"></a>（9）减少使用or</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExODUwLnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803111850277"
-                ></p>
+<h4 id="（9）减少使用or"><a href="#（9）减少使用or" class="headerlink" title="（9）减少使用or"></a>（9）减少使用or</h4><p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTExODUwLnBuZw?x-oss-process=image/format,png" alt="image-20200803111850277"></p>
 <p>使用 union all 或者 union 来替代：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTEyMDA4LnBuZw?x-oss-process=image/format,png"
-                      alt="image-20200803112008501"
-                ></p>
-<h4 id="（10）字符串不加单引号索引失效"><a href="#（10）字符串不加单引号索引失效" class="headerlink" title="（10）字符串不加单引号索引失效"></a>（10）字符串不加单引号索引失效</h4><p>底层进行转换使索引失效，使用了函数造成索引失效<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTY1ODA0LnBuZw?x-oss-process=image/format,png"
-                      alt="在这里插入图片描述"
-                ><br>例如：<br>select * from staffs where name=‘2000’<br>select * from staffs where name=2000<br>mysql都能查出来，mysql引擎会自动做类型转换，但是索引会失效</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODAzMTEyMDA4LnBuZw?x-oss-process=image/format,png" alt="image-20200803112008501"></p>
+<h4 id="（10）字符串不加单引号索引失效"><a href="#（10）字符串不加单引号索引失效" class="headerlink" title="（10）字符串不加单引号索引失效"></a>（10）字符串不加单引号索引失效</h4><p>底层进行转换使索引失效，使用了函数造成索引失效<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly96aGVuZ2hhb3l1bi5vc3MtY24tYmVpamluZy5hbGl5dW5jcy5jb20vaW1nLzIwMjAwODIwMTY1ODA0LnBuZw?x-oss-process=image/format,png" alt="在这里插入图片描述"><br>例如：<br>select * from staffs where name=‘2000’<br>select * from staffs where name=2000<br>mysql都能查出来，mysql引擎会自动做类型转换，但是索引会失效</p>
 <h4 id="（11）结论"><a href="#（11）结论" class="headerlink" title="（11）结论"></a>（11）结论</h4><p>全职匹配我最爱，最左前缀要遵守；</p>
 <p>带头大哥不能死，中间兄弟不能断；</p>
 <p>索引列上少计算，范围之后全失效；</p>
@@ -953,10 +793,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 

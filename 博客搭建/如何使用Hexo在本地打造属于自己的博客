@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -234,12 +234,7 @@
 <p>如果安装过程中遇到问题可以访问廖雪峰大佬的博客，里面有详细的教程。</p>
 <h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>Hexo是基于Node.js的，所以安装Node.js必不可少。</p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://nodejs.org/en/download/" >Node.js下载<i class="fas fa-external-link-alt"></i></a></p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96bc16c2a9a83be593649b.jpg"
-                      alt="Node.js下载版本选择" style="zoom:67%;" /
-                >
+<img src="https://pic.downk.cc/item/5e96bc16c2a9a83be593649b.jpg" alt="Node.js下载版本选择" style="zoom:67%;" />
 
 <p>选择LTS 版本下载即可，Node.js具体安装过程本文不再阐述，若遇问题，可使用搜索引擎。</p>
 <p>安装完成后，打开Git Bash，使用<code>node -v</code>命令，如果输出Node版本号，则说明安装成功！</p>
@@ -248,30 +243,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 后面跟的是淘宝的镜像源</span><br><span class="line">npm install cnpm -g –registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
 
 <p><strong>推荐在windows的cmd（使用管理员身份打开）上输入npm和cnpm的指令，如果在Git Bash上使用，出现问题了你就重试2-3次，如果还是出现问题，你就去cmd上输入指令下载，就成功了，亲测有效！</strong></p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96d6a7c2a9a83be5a72b12.png"
-                      style="zoom: 67%;" /
-                >
+<img src="https://pic.downk.cc/item/5e96d6a7c2a9a83be5a72b12.png" style="zoom: 67%;" />
 
 <center><div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">在Git Bash上使用npm时很多莫名的ERROR</div> </center>
 
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96d842c2a9a83be5a8b74f.jpg"
-                      style="zoom:67%;" /
-                >
+<img src="https://pic.downk.cc/item/5e96d842c2a9a83be5a8b74f.jpg" style="zoom:67%;" />
 
 <center><div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">在Git Bash上使用cnpm时就舒服了很多，但是还是有很多小块块</div> </center>
 
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96d92fc2a9a83be5a9a002.jpg"
-                      style="zoom:67%;" /
-                >
+<img src="https://pic.downk.cc/item/5e96d92fc2a9a83be5a9a002.jpg" style="zoom:67%;" />
 
 <center><div style="color:orange; border-bottom: 1px solid #d9d9d9;    display: inline-block;    color: #999;    padding: 2px;">在cmd上使用cnpm就非常的舒适，而且出错率低！</div> </center>
 
@@ -282,43 +262,23 @@
 <p>去cmd上<strong>使用<code>cnpm install -g hexo-cli</code>下载Hexo</strong>，出现问题重试。</p>
 <p>依旧使用<code>hexo -v</code>查看版本。</p>
 <p><strong>使用<code>hexo init</code>初始化Hexo</strong>，这个操作可能耗费几分钟，耐心等待！</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96dca1c2a9a83be5ac42b1.jpg"
-                      style="zoom: 80%;" /
-                >
+<img src="https://pic.downk.cc/item/5e96dca1c2a9a83be5ac42b1.jpg" style="zoom: 80%;" />
 
 <p>忽略<code>WARN  Failed to install dependencies. Please run &#39;npm install&#39; manually!</code></p>
 <hr>
 <p>初始化Hexo时<strong>可能出现的问题</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FATAL D:\XXX not empty, please run &#96;hexo init&#96; on an empty folder and then copy your files into it</span><br></pre></td></tr></table></figure>
 
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96db6dc2a9a83be5ab6c28.jpg"
-                      style="zoom: 80%;" /
-                >
+<img src="https://pic.downk.cc/item/5e96db6dc2a9a83be5ab6c28.jpg" style="zoom: 80%;" />
 
 <p>删除XXX目录里的所有文件，再次执行<code>hexo init</code>就可以了。</p>
 <hr>
 <p>执行<code>cnpm install</code>，这个是为了下载之前下载失败的依赖。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96de41c2a9a83be5ad24fd.jpg"
-                      style="zoom: 67%;" /
-                >
+<img src="https://pic.downk.cc/item/5e96de41c2a9a83be5ad24fd.jpg" style="zoom: 67%;" />
 
 <p>以上操作完成后，指定文件夹的目录结构是这样的：</p>
 <p>随着更新迭代可能会有所改变，大体上一致即可。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96dec1c2a9a83be5ad6f94.jpg"
-                     
-                ></p>
+<p><img src="https://pic.downk.cc/item/5e96dec1c2a9a83be5ad6f94.jpg"></p>
 <ul>
 <li>node_modules: 依赖包</li>
 <li>public：存放生成的页面</li>
@@ -329,22 +289,12 @@
 </ul>
 <h3 id="启动Hexo"><a href="#启动Hexo" class="headerlink" title="启动Hexo"></a>启动Hexo</h3><p>第一步使用<code>hexo g</code>生成静态文件</p>
 <p>第二部使用<code>hexo s</code>启动服务</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96df90c2a9a83be5ade74d.jpg"
-                      style="zoom: 80%;" /
-                >
+<img src="https://pic.downk.cc/item/5e96df90c2a9a83be5ade74d.jpg" style="zoom: 80%;" />
 
 
 
 <p>然后去浏览器输入 <a class="link"   target="_blank" rel="noopener" href="http://localhost:4000/" >http://localhost:4000<i class="fas fa-external-link-alt"></i></a> 就可以看到你创建的博客啦，使用Ctrl+C可以关闭服务！</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://pic.downk.cc/item/5e96e001c2a9a83be5ae35bf.jpg"
-                      style="zoom:80%;" /
-                >
+<img src="https://pic.downk.cc/item/5e96e001c2a9a83be5ae35bf.jpg" style="zoom:80%;" />
 
 <p>至此，就大功告成了！</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本教程中所搭建的博客只是一个雏形，之后可能需要完成以下步骤：</p>
@@ -669,10 +619,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 

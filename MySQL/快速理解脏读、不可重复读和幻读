@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -229,29 +229,14 @@
 </ul>
 <h1 id="一、脏读"><a href="#一、脏读" class="headerlink" title="一、脏读"></a>一、脏读</h1><p>脏读指事务A读取到了事务B更新了但是未提交的数据，然后事务B由于某种错误发生回滚，那么事务A读取到的就是脏数据。</p>
 <p>具体的说，一个数据原本是干净的，但是事务B将它进行修改使得其不再干净，此时事务A读取到事务B修改后的数据，也就是脏数据，称为脏读，后来事务B由于良心发现又将数据回滚为最初的样子，而事务A不知道事务B进行了回滚操作，最终事务A读取到的是脏数据，称为脏读。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904212523.png"
-                      alt="image-20200904212452020"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904212523.png" alt="image-20200904212452020"></p>
 <p><strong>结论：读取未提交的数据！</strong></p>
 <h1 id="二、不可重复读"><a href="#二、不可重复读" class="headerlink" title="二、不可重复读"></a>二、不可重复读</h1><p>不可重复读指在数据库访问时，一个事务在前后两次相同的访问中却读到了不同的数据内容。</p>
 <p>比如说事务A的执行周期较长，事务A在第一次读取某个数据时，此数据的值为100，读取完成后，事务A又去执行其他的事情，在这个过程中，事务B将这个数据的值修改为200，然后事务A做完其他的事情后，又来读取这个数据的值，发现这个值和第一次所读取的值不相同，这种现象称为不可重复读。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904213000.png"
-                      alt="image-20200904212959873"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904213000.png" alt="image-20200904212959873"></p>
 <p><strong>结论：前后多次读取，数据内容不一致！</strong></p>
 <h1 id="三、幻读"><a href="#三、幻读" class="headerlink" title="三、幻读"></a>三、幻读</h1><p>幻读指的是事务A在查询完记录总数后，事务B执行了新增数据的操作，事务A再次查询记录总数，发现两次查询的结果不一致，平白无故的多了几条记录，这种现象称为幻读。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904213415.png"
-                      alt="image-20200904213414876"
-                ></p>
+<p><img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200904213415.png" alt="image-20200904213414876"></p>
 <h1 id="四、不可重复度和幻读的区别"><a href="#四、不可重复度和幻读的区别" class="headerlink" title="四、不可重复度和幻读的区别"></a>四、不可重复度和幻读的区别</h1><p>幻读和不可重复读的本质是一样的，两者都表现为两次读取的结果不一致。但是不可重复读指的是两次读取同一条记录的值不同，而幻读指的是两次读取的记录数量不同。</p>
 <p><strong>不可重复读重点在于update和delete，而幻读的重点在于insert。</strong></p>
 <p>如果使用锁机制来实现这两种隔离级别，在不可重复读中，事务A第一次读取到数据后，就将这些数据加行锁，其它事务无法修改这些数据，就可以实现可重复读了。但这种方法却无法锁住新增的数据，所以当事务A先前读取了数据，或者修改了全部数据，事务B还是可以新增数据并提交，这时事务A就会 发现莫名其妙多了一条之前没有的数据，这就是幻读，不能通过行锁来避免。需要Serializable隔离级别 ，读用读锁，写用写锁，读锁和写锁互斥，这么做可以有效的避免幻读、不可重复读、脏读等问题，但会极大的降低数据库的并发能力。</p>
@@ -564,10 +549,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 

@@ -23,7 +23,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -226,30 +226,15 @@
 
 <h1 id="初识JUC"><a href="#初识JUC" class="headerlink" title="初识JUC"></a>初识JUC</h1><h2 id="JUC概述"><a href="#JUC概述" class="headerlink" title="JUC概述"></a>JUC概述</h2><p>JUC是Java中<code>java.util.concurrent</code>包中线程的高级应用，简称JUC，业内人士都读作钩优C~虽然我也不知道这个读法哪来打，但是我看的教程里面都是这么读的哈哈哈…</p>
 <p>JUC是从<code>JAVA 1.5</code>开始出现的，在此包中增加了在并发编程中的实用工具类，如<code>BlockingQueue</code>、<code>Callable</code>呀等等，还提供了线程池、异步IO和轻量级任务框架等等。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/07/yvLhFpmz63gZBCj.png"
-                     
-                ></p>
+<p><img src="https://i.loli.net/2020/05/07/yvLhFpmz63gZBCj.png"></p>
 <p>在学习JUC之前，需要先了解下线程与进程的区别，并发与并行的区别。</p>
 <h2 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h2><p>线程：程序执行的最小单位，是CPU调度的最小单位。</p>
 <p>进程：操作系统分配资源的最小单位。</p>
 <p>这样一说真的很抽象，必须打点比方才能迅速又深刻的记住二者的区别。</p>
 <p>打开windows任务管理器，可以看到线程比进程的数量多出几倍，可以大胆的猜测进程与线程是父子关系，一个进程包括多个线程。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/07/v6pFyMqZiGDHw2X.png"
-                      alt="image-20200507215629871"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/07/v6pFyMqZiGDHw2X.png" alt="image-20200507215629871"></p>
 <p>接下来引用知乎上的一个形象的比喻：</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/07/Qk6BbXo9FLuC72t.png"
-                      alt="image-20200507215953786" style="zoom:80%;" /
-                >
+<img src="https://i.loli.net/2020/05/07/Qk6BbXo9FLuC72t.png" alt="image-20200507215953786" style="zoom:80%;" />
 
 <center>图片来源于知乎</center>
 
@@ -257,40 +242,20 @@
 <p>不过我认为对于线程和进程可以有更深层次的理解，本人对线程与进程的理解也仅限于此，望日后有空可以深究。</p>
 <hr>
 <h3 id="JAVA是否可以开启线程？"><a href="#JAVA是否可以开启线程？" class="headerlink" title="JAVA是否可以开启线程？"></a>JAVA是否可以开启线程？</h3><p>答案是开不了，来看看源码吧！</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/07/pfjTX4FPNWxCMZa.png"
-                      alt="image-20200507223222900"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/07/pfjTX4FPNWxCMZa.png" alt="image-20200507223222900"></p>
 <p>从关键字<code>native</code>中可以看出Thread源码中查看到Java启动线程的方法是调用的本地方法，所以Java是没本事自己开启线程的！</p>
 <hr>
 <h3 id="线程的几种状态"><a href="#线程的几种状态" class="headerlink" title="线程的几种状态"></a>线程的几种状态</h3><p>再次通过源码说事</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/07/MxNhmFlYbzGSe6w.png"
-                      alt="image-20200507223438570"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/07/MxNhmFlYbzGSe6w.png" alt="image-20200507223438570"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">State</span> </span>&#123;    </span><br><span class="line">	<span class="comment">// 新生    </span></span><br><span class="line">	NEW,</span><br><span class="line">	<span class="comment">// 运行    </span></span><br><span class="line">	RUNNABLE,</span><br><span class="line">    <span class="comment">// 阻塞    </span></span><br><span class="line">    BLOCKED,        </span><br><span class="line">    <span class="comment">// 等待，死死地等    </span></span><br><span class="line">    WAITING,</span><br><span class="line">    <span class="comment">// 超时等待    </span></span><br><span class="line">    TIMED_WAITING,</span><br><span class="line">    <span class="comment">// 终止    </span></span><br><span class="line">    TERMINATED; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h2><p>并发：指两个或多个事件在很短的时间间隔内交替发生。</p>
 <p>并行：指两个或多个事件在同一时刻同时执行。</p>
 <p>如果觉得还是有点模糊，再看下面两张图，这样就不难理解了吧。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/16/T4JbGu3woe98VfM.png"
-                      alt="image-20200507221751892"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/16/T4JbGu3woe98VfM.png" alt="image-20200507221751892"></p>
 <center>并发</center>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/16/uc52y93RhTjDnQ4.png"
-                      alt="image-20200507221734140"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/16/uc52y93RhTjDnQ4.png" alt="image-20200507221734140"></p>
 <center>并行</center>
 
 <p>更具体的说并发就是一个处理器一次只能执行一个进程，但是它飞快的切换进程（也就是分配给每个进程的时间片很短，不，是非常短！），形成一种它同时在处理多个进程的错觉。</p>
@@ -299,12 +264,7 @@
 <hr>
 <p>并发编程的实质就是充分利用CPU资源，就好比企业要挣钱，就要提高效率，就要找一个厉害的人去顶替三个不厉害的人，人员减少了，但是技术成本也提高了。</p>
 <h1 id="Lock锁"><a href="#Lock锁" class="headerlink" title="Lock锁"></a>Lock锁</h1><p>在没学习JUC之前，要做到同步互斥，就要使用到<code>synchronized</code>。现在可以使用JUC内的LOCK接口。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/07/92z3cVRivdOW4t8.png"
-                      alt="image-20200507230349274"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/07/92z3cVRivdOW4t8.png" alt="image-20200507230349274"></p>
 <p>LOCK接口是JUC包内的一个接口，它有三个实现类：</p>
 <ul>
 <li>ReentrantLock：可重入锁</li>
@@ -324,29 +284,14 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Ticket ticket = <span class="keyword">new</span> Ticket();</span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">40</span>; i++) ticket.sale();</span><br><span class="line">    &#125;, <span class="string">&quot;A&quot;</span>).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">40</span>; i++) ticket.sale();</span><br><span class="line">    &#125;, <span class="string">&quot;B&quot;</span>).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">40</span>; i++) ticket.sale();</span><br><span class="line">    &#125;, <span class="string">&quot;C&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>最后输出的结果有序且正确：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/hwytfrnJHcVZlzu.png"
-                      alt="image-20200508000012987"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/hwytfrnJHcVZlzu.png" alt="image-20200508000012987"></p>
 <h2 id="Lock锁介绍"><a href="#Lock锁介绍" class="headerlink" title="Lock锁介绍"></a>Lock锁介绍</h2><p>然后再使用LOCK来上锁试试吧，LOCK接口最常用的实现类就是<strong>可重入锁</strong>（ReentrantLock），查看<code>ReentrantLock</code>源码可以看到有两种构造方法，默认的无参构造是<code>new NonfairSync()</code>，这个东西叫做非公平锁，第二种构造方法传入一个布尔值，这个布尔值决定是创建<code>FairSync</code>（公平锁）还是<code>NonfairSync</code>（非公平锁）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/24/sOEApzy9ol2tZCH.png"
-                      alt="image-20200508000145805"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/24/sOEApzy9ol2tZCH.png" alt="image-20200508000145805"></p>
 <h3 id="公平锁与非公平锁"><a href="#公平锁与非公平锁" class="headerlink" title="公平锁与非公平锁"></a>公平锁与非公平锁</h3><p>那么什么是公平锁与非公平锁？</p>
 <p>公平锁：当某个线程拿到锁的时候，其他线程就得等待，这些等待的线程按到的顺序序排着长队，当锁释放的时候，排在队伍前面的线程就先去拿锁。</p>
 <p>非公平锁：就是非常的不公平，当锁释放的时候，等待的线程可以进行插队。</p>
 <h3 id="ReentrantLock的使用"><a href="#ReentrantLock的使用" class="headerlink" title="ReentrantLock的使用"></a>ReentrantLock的使用</h3><p>查看官方文档</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/oyThIsKv3B8ltqe.png"
-                      alt="image-20200508001641852"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/oyThIsKv3B8ltqe.png" alt="image-20200508001641852"></p>
 <p>大概的意思就是先定义可重入锁，然后在方法中用try-catch-finally包围起来，try和finally必须要有，finally块中需要将锁进行解锁，代码实现如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ticket</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">30</span>;</span><br><span class="line">    Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sale</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (num &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                num--;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">&quot;卖出了第&quot;</span> + (<span class="number">30</span> - num) + <span class="string">&quot;票\t还剩&quot;</span> + num + <span class="string">&quot;张票&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">// 无论如何都要进行解锁</span></span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -376,72 +321,32 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestPC</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Data data = <span class="keyword">new</span> Data();</span><br><span class="line">        <span class="comment">// A进程负责生产，B进程负责消费。</span></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    data.increment();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;A&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    data.decrement();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;B&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 资源类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Data</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用synchronized对方法加锁，保证每次只能有一个线程进入。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//如果 num 不为0，就没有生产（增加）的必要了。</span></span><br><span class="line">            <span class="comment">//线程等待，同时wait()方法会释放掉锁。</span></span><br><span class="line">            <span class="keyword">this</span>.wait();</span><br><span class="line">        &#125;</span><br><span class="line">        num++;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot;&gt;&gt;&quot;</span> + num);</span><br><span class="line">        <span class="comment">// 将num++后可唤醒在decrement()方法中等待的线程，让其去num--。</span></span><br><span class="line">        <span class="keyword">this</span>.notifyAll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// decrement的思路和increment差不多</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">decrement</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (num == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.wait();</span><br><span class="line">        &#125;</span><br><span class="line">        num--;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot;&gt;&gt;&quot;</span> + num);</span><br><span class="line">        <span class="keyword">this</span>.notifyAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>通过输出结果可以看到资源一直维持在0与1。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/A2qlIkaOLYPevBj.png"
-                      alt="image-20200508175242801"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/A2qlIkaOLYPevBj.png" alt="image-20200508175242801"></p>
 <h3 id="虚假唤醒问题"><a href="#虚假唤醒问题" class="headerlink" title="虚假唤醒问题"></a>虚假唤醒问题</h3><p>上面的代码其实是有问题的，注意到我是使用<code>if (num != 0)</code>去判断资源的数目的，这就会存在一个问题：<strong>虚假唤醒</strong>。</p>
 <h4 id="问题重现"><a href="#问题重现" class="headerlink" title="问题重现"></a>问题重现</h4><p>之前只有一个A进程和一个B进程，现在我再增加一个C进行，让它去生产。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            data.increment();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="string">&quot;C&quot;</span>).start();</span><br></pre></td></tr></table></figure>
 
 <p>再次运行，通过输出结果可以看到资源的数目乱套了！它不再维持0和1这里两个数字，反而增加到10以上了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/e8FW9ojwPJvbTD4.png"
-                      alt="image-20200508175916400"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/e8FW9ojwPJvbTD4.png" alt="image-20200508175916400"></p>
 <h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>这就是因为是使用<code>if (num != 0)</code>的原因，假设此时的num为1，那么A和C进程就会等待。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/NguHmJqX5t4Y63A.png"
-                      alt="image-20200508181751879"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/NguHmJqX5t4Y63A.png" alt="image-20200508181751879"></p>
 <p>有同学会说，不是使用了synchronized来保证只有一个线程会进入吗，那A和C怎么会一起在等待，是这样的没错，但是使用wait()后，线程就会释放掉锁，那么其他进程就也可以进入此方法。假如A先进来，然后进行wait()，释放掉锁，C抢到锁，再次进来，也发现num != 0，于是A和C就一起在此等待了。</p>
 <p>这个时候A和C都在等待，B抢到锁开始做消费的操作，num–后，B唤醒其他的所有进程。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/aQCoigjkzNrFswP.png"
-                      alt="image-20200508180507682"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/aQCoigjkzNrFswP.png" alt="image-20200508180507682"></p>
 <p>A和C被唤醒，A和C也开始争夺锁，假如A抢到锁，继续执行下面的代码，A将num+1，并且唤醒其他进程，C抢到锁，那C也会将num+1，这个时候num就变成2了，这就是虚假唤醒问题。</p>
 <h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>首先看看官方文档对于虚假唤醒的解释和解决吧~</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/HIGVTESKdA1qBkF.png"
-                      alt="image-20200508175645521"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/HIGVTESKdA1qBkF.png" alt="image-20200508175645521"></p>
 <center>官方文档中对于虚假唤醒的解决方案</center>
 
 <p>只要将if换成while就可以了！这是因为if只会进行一次判断，线程被唤醒后就继续执行下面的代码，而while会多次判断，直至不满足while(条件)的条件后，线程才能走出while，所以当处于等待中的A和C被唤醒后，假设A抢到锁，它还是会去判断num是否为0，C抢到锁，也会去判断。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用synchronized对方法加锁，保证每次只能有一个线程进入。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">//如果 num 不为0，就没有生产（增加）的必要了。</span></span><br><span class="line">        <span class="comment">//线程等待，同时wait()方法会释放掉锁。</span></span><br><span class="line">        <span class="keyword">this</span>.wait();</span><br><span class="line">    &#125;</span><br><span class="line">    num++;</span><br><span class="line">    System.out.println(Thread.currentThread().getName() + <span class="string">&quot;&gt;&gt;&quot;</span> + num);</span><br><span class="line">    <span class="comment">// 将num++后可唤醒在decrement()方法中等待的线程，让其去num--。</span></span><br><span class="line">    <span class="keyword">this</span>.notifyAll();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// decrement的思路和increment差不多</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">decrement</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (num == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.wait();</span><br><span class="line">    &#125;</span><br><span class="line">    num--;</span><br><span class="line">    System.out.println(Thread.currentThread().getName() + <span class="string">&quot;&gt;&gt;&quot;</span> + num);</span><br><span class="line">    <span class="keyword">this</span>.notifyAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>再次执行，发现结果很美好。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/PrA3VBNmYOxM8IT.png"
-                      alt="image-20200508182210561"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/PrA3VBNmYOxM8IT.png" alt="image-20200508182210561"></p>
 <h2 id="JUC版本的实现"><a href="#JUC版本的实现" class="headerlink" title="JUC版本的实现"></a>JUC版本的实现</h2><p>看官方文档可以发现Lock可以调用newCondition()方法得到一个Condition对象，这个Condition就是负责对线程的监控。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/fykKhbaJFIVHQOE.png"
-                      alt="image-20200508183824433"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/fykKhbaJFIVHQOE.png" alt="image-20200508183824433"></p>
 <p>再来看看Condition的API吧</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/sfZ5TA8nwBNtzI4.png"
-                      alt="image-20200508183918001"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/sfZ5TA8nwBNtzI4.png" alt="image-20200508183918001"></p>
 <p>直接上代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用Lock和Condition实现生产者消费者问题</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Data</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> Condition condition = lock.newCondition();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (num != <span class="number">0</span>) &#123;</span><br><span class="line">                condition.await();</span><br><span class="line">            &#125;</span><br><span class="line">            num++;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;&gt;&gt;&quot;</span> + num);</span><br><span class="line">            condition.signalAll();  <span class="comment">//唤醒所有</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">decrement</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (num == <span class="number">0</span>) &#123;</span><br><span class="line">                condition.await();</span><br><span class="line">            &#125;</span><br><span class="line">            num--;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;&gt;&gt;&quot;</span> + num);</span><br><span class="line">            condition.signalAll();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -457,12 +362,7 @@
 <p>main方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Data data = <span class="keyword">new</span> Data();</span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            data.printA();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="string">&quot;A&quot;</span>).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            data.printB();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="string">&quot;B&quot;</span>).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            data.printC();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="string">&quot;C&quot;</span>).start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/08/wdIoNKM5XPU2pmG.png"
-                      alt="image-20200508185149073"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/08/wdIoNKM5XPU2pmG.png" alt="image-20200508185149073"></p>
 <p>可以看到实现了A-&gt;B-&gt;C的有序工作。</p>
 <h1 id="8锁现象"><a href="#8锁现象" class="headerlink" title="8锁现象"></a>8锁现象</h1><p>不知道大家在使用锁的时候有没有想过锁究竟是什么？它到底锁的是什么？这次通过8锁现象可以对锁来一次深层次的了解。</p>
 <p>8锁现象就是关于锁的8种问题</p>
@@ -505,12 +405,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1. arraylist线程不完全</span></span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">50</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            list.add(UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">5</span>));</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上面的代码就是一边读一边写，最终运行结果如下：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/09/FSCwWNGjQplE9rT.png"
-                      alt="image-20200509162857657"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/09/FSCwWNGjQplE9rT.png" alt="image-20200509162857657"></p>
 <h3 id="解决方案一：Vector"><a href="#解决方案一：Vector" class="headerlink" title="解决方案一：Vector"></a>解决方案一：Vector</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> Vector&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">50</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            list.add(UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">5</span>));</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>使用Vector就不会发生并发修改异常，原因是：</p>
@@ -536,34 +431,14 @@
 <li><code>Runnable</code>使用run()，<code>Callable</code>使用call()。</li>
 </ul>
 <h2 id="Callable使用"><a href="#Callable使用" class="headerlink" title="Callable使用"></a>Callable使用</h2><p>但是<code>Thread</code>的构造方法中，<code>Callable</code>是不能作为参数的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/09/3XRrjeP85B9ipnY.png"
-                      alt="image-20200509212857843"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/09/3XRrjeP85B9ipnY.png" alt="image-20200509212857843"></p>
 <p>这里要使用到<code>FutureTask</code>，它是<code>Runnable</code>接口的一个实现类，同时它的构造方法<code>FutureTask(Callable&lt;V&gt; callable) </code>可以接受<code>Callable</code>。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/09/zmd4BfsG6Uranlt.png"
-                      alt="image-20200509213156120"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/09/AkQZPLzmJUjiqou.png"
-                      alt="image-20200509213132794"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/09/zmd4BfsG6Uranlt.png" alt="image-20200509213156120"></p>
+<p><img src="https://i.loli.net/2020/05/09/AkQZPLzmJUjiqou.png" alt="image-20200509213132794"></p>
 <p>所以可以通过以下代码使用<code>Callable</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个线程将1024作为返回值</span></span><br><span class="line">FutureTask futureTask = <span class="keyword">new</span> FutureTask(() -&gt; <span class="number">1024</span>);</span><br><span class="line">Thread thread = <span class="keyword">new</span> Thread(futureTask);</span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure>
 
-<h2 id="FutureTask的方法介绍"><a href="#FutureTask的方法介绍" class="headerlink" title="FutureTask的方法介绍"></a>FutureTask的方法介绍</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/09/zocUWSda62wDiIj.png"
-                      alt="image-20200509213539438"
-                ></p>
+<h2 id="FutureTask的方法介绍"><a href="#FutureTask的方法介绍" class="headerlink" title="FutureTask的方法介绍"></a>FutureTask的方法介绍</h2><p><img src="https://i.loli.net/2020/05/09/zocUWSda62wDiIj.png" alt="image-20200509213539438"></p>
 <p>需要注意的是get()会一直等待计算完成，也就是如果计算一直没完成可能会产生阻塞。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个线程将1024作为返回值</span></span><br><span class="line">FutureTask futureTask = <span class="keyword">new</span> FutureTask(() -&gt; <span class="number">1024</span>);</span><br><span class="line">Thread thread = <span class="keyword">new</span> Thread(futureTask);</span><br><span class="line">thread.start();</span><br><span class="line">Integer num = (Integer)futureTask.get();</span><br><span class="line">System.out.println(num.toString());</span><br></pre></td></tr></table></figure>
 
@@ -572,12 +447,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1. arraylist线程不完全</span></span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">50</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            list.add(UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">5</span>));</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上面的代码就是一边读一边写，最终运行结果如下：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/09/FSCwWNGjQplE9rT.png"
-                      alt="image-20200509162857657"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/09/FSCwWNGjQplE9rT.png" alt="image-20200509162857657"></p>
 <h3 id="解决方案一：Vector-1"><a href="#解决方案一：Vector-1" class="headerlink" title="解决方案一：Vector"></a>解决方案一：Vector</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> Vector&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">50</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            list.add(UUID.randomUUID().toString().substring(<span class="number">0</span>, <span class="number">5</span>));</span><br><span class="line">            System.out.println(list);</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>使用Vector就不会发生并发修改异常，原因是：</p>
@@ -599,19 +469,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.HashSet 会发生并发修改异常</span></span><br><span class="line">Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.synchronizedSet</span></span><br><span class="line">set = Collections.synchronizedSet(<span class="keyword">new</span> HashSet&lt;&gt;());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.CopyOnWriteArraySet</span></span><br><span class="line">set = <span class="keyword">new</span> CopyOnWriteArraySet&lt;&gt;();</span><br></pre></td></tr></table></figure>
 
 <h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p>回顾Map基本操作</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200912210905.png"
-                      alt="image-20200912210801561" style="zoom:80%;" /
-                >
+<img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200912210905.png" alt="image-20200912210801561" style="zoom:80%;" />
 
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200912210900.png"
-                      alt="image-20200912210900098" style="zoom:80%;" /
-                >
+<img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20200912210900.png" alt="image-20200912210900098" style="zoom:80%;" />
 
 
 
@@ -623,22 +483,12 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 假设有6个人，驾驶员需要等待6个人都上车后，再启动车辆。</span></span><br><span class="line">    CountDownLatch countDownLatch = <span class="keyword">new</span> CountDownLatch(<span class="number">6</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;上车了&quot;</span>);</span><br><span class="line">            <span class="comment">// 每上一个人，将6减掉1。</span></span><br><span class="line">            countDownLatch.countDown();</span><br><span class="line">        &#125;, i + <span class="string">&quot;&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// await()方法的作用是只有当6不断减1减到0的时候，才会执行接下来的代码，不然会一直在此等待。</span></span><br><span class="line">        <span class="comment">// 就好比驾驶员一直在等待所有人上车</span></span><br><span class="line">        countDownLatch.await();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 所有人都上车了，启动车辆！</span></span><br><span class="line">    System.out.println(<span class="string">&quot;驾驶员发车&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>运行结果就是当6个人都上车后，驾驶员才会发车。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/09/BMeYxzNsIXEmRfF.png"
-                      alt="image-20200509215325091"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/09/BMeYxzNsIXEmRfF.png" alt="image-20200509215325091"></p>
 <h2 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h2><p>CyclicBarrier 的作用和 CountDownLatch 差不太多，就是使用方法有点差距。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 这个里面的第二个参数是最后要执行的，等待所有条件满足后才会执行。</span></span><br><span class="line">    CyclicBarrier cyclicBarrier = <span class="keyword">new</span> CyclicBarrier(<span class="number">6</span>,()-&gt;&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;大家都进来了，发车吧！&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">6</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">3</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 进来了&quot;</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 每个人进入车后要awiat()，表示自己已经进来了，等待其他人上车</span></span><br><span class="line">                <span class="comment">// 当所有人都调用了awiat()后，驾驶员就会发车。</span></span><br><span class="line">                cyclicBarrier.await();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (BrokenBarrierException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, i + <span class="string">&quot;&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>最后输出结果：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/09/BV4dtgITkeiofFU.png"
-                      alt="image-20200509220118382"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/09/BV4dtgITkeiofFU.png" alt="image-20200509220118382"></p>
 <h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p>Semaphore就是信号量，有操作系统基础的应该很好理解。</p>
 <p>我们可以通过Semaphore去限制操作某个资源的线程的数量。</p>
 <p>比如说桌上有两个苹果，那么Semaphore为2，当妈妈拿了一个，Semaphore减1，爸爸也可以拿，Semaphore减1，这个时候Semaphore为0，这你就不能拿了，只能等爷爷再削个苹果放桌上，Semaphore加1，你就可以拿苹果了。</p>
@@ -652,29 +502,14 @@
 <li>写锁（独占锁）</li>
 </ul>
 <p>两种方法去获取锁</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/09/x1tNZXiG4VsmOye.png"
-                      alt="image-20200509223654884"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/09/x1tNZXiG4VsmOye.png" alt="image-20200509223654884"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReadWriteLock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantReadWriteLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestReadWriteLock</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyCacheLock myCache = <span class="keyword">new</span> MyCacheLock();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">40</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> temp = i;</span><br><span class="line">            <span class="keyword">new</span> Thread(() -&gt; myCache.write(temp + <span class="string">&quot;&quot;</span>, temp + <span class="string">&quot;&quot;</span>), String.valueOf(i)).start();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">40</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> temp = i;</span><br><span class="line">            <span class="keyword">new</span> Thread(() -&gt; myCache.read(temp + <span class="string">&quot;&quot;</span>), String.valueOf(i)).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyCacheLock</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span>  ReadWriteLock readWriteLock = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String key, Object value)</span> </span>&#123;</span><br><span class="line">        readWriteLock.writeLock().lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;写入&quot;</span> + key);</span><br><span class="line">            map.put(key, value);</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;-写入OK&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            readWriteLock.writeLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        readWriteLock.readLock().lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;读取&quot;</span> + key);</span><br><span class="line">           map.get(key);</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;-读取OK&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            readWriteLock.readLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>加读锁的作用是保证在读的时候，其他线程不能写，因为读锁和写锁是互斥的。如果不加读锁，可能在读的时候，其他线程就能写，而加了读锁，其他线程就不能加写锁了。</p>
 <h1 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h1><p>阻塞队列和队列是一样的，讲究FIFO的原则，但是多了<code>阻塞</code>二字，意思是当队列满了的时候，就必须阻塞等待。</p>
 <h2 id="阻塞队列的实现类"><a href="#阻塞队列的实现类" class="headerlink" title="阻塞队列的实现类"></a>阻塞队列的实现类</h2><p>阻塞队列是一个接口，有以下实现类：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/10/dwuSiIM6U439cKW.png"
-                      alt="image-20200510154958476"
-                ></p>
-<h2 id="阻塞队列的地位"><a href="#阻塞队列的地位" class="headerlink" title="阻塞队列的地位"></a>阻塞队列的地位</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/10/YCZLWAtJ9euVg1c.png"
-                      alt="image-20200510155056890"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/10/dwuSiIM6U439cKW.png" alt="image-20200510154958476"></p>
+<h2 id="阻塞队列的地位"><a href="#阻塞队列的地位" class="headerlink" title="阻塞队列的地位"></a>阻塞队列的地位</h2><p><img src="https://i.loli.net/2020/05/10/YCZLWAtJ9euVg1c.png" alt="image-20200510155056890"></p>
 <h2 id="阻塞队列的使用"><a href="#阻塞队列的使用" class="headerlink" title="阻塞队列的使用"></a>阻塞队列的使用</h2><p>在并发编程和线程池中，阻塞队列会被使用到。</p>
 <p>阻塞队列有四组添加和移除的方法，每一组的功能都不同，总结如下表：</p>
 <table>
@@ -737,23 +572,13 @@
 <p>使用线程池的好处是减少在创建和销毁线程上所花的时间以及系统资源的开销，解决资<br>源不足的问题。如果不使用线程池，有可能造成系统创建大量同类线程而导致消耗完内存或者 “过度切换”的问题。 ——引用自阿里巴巴开发手册</p>
 </blockquote>
 <h2 id="线程池三大方法"><a href="#线程池三大方法" class="headerlink" title="线程池三大方法"></a>线程池三大方法</h2><p>阿里巴巴开发手册中这样写道：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/12/nKa231siHRlVmq7.png"
-                      alt="image-20200512161036004"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/12/nKa231siHRlVmq7.png" alt="image-20200512161036004"></p>
 <p>可见要创建线程池推荐使用ThreadPoolExecutor，但是我先使用下Executors，好让我了解下Executors的弊端。</p>
 <h3 id="newSingleThreadExecutor"><a href="#newSingleThreadExecutor" class="headerlink" title="newSingleThreadExecutor()"></a>newSingleThreadExecutor()</h3><p>这个方法可以创建在线程池中创建一个单一线程。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ExecutorService threadPool = Executors.newSingleThreadExecutor();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            threadPool.execute(() -&gt; System.out.println(Thread.currentThread().getName()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">//用完后线程池要关闭</span></span><br><span class="line">        threadPool.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>运行后：</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/12/MpL7hHk3xqDB1uR.png"
-                      alt="image-20200512161407287"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/12/MpL7hHk3xqDB1uR.png" alt="image-20200512161407287"></p>
 <p>可以看到一直是同一个线程。</p>
 <h3 id="newFixedThreadPool-…"><a href="#newFixedThreadPool-…" class="headerlink" title="newFixedThreadPool(…)"></a>newFixedThreadPool(…)</h3><p>在线程池中创建固定数量的线程池。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ExecutorService threadPool = Executors.newFixedThreadPool(<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</span><br><span class="line">            threadPool.execute(() -&gt; System.out.println(Thread.currentThread().getName()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="comment">//用完后线程池要关闭</span></span><br><span class="line">        threadPool.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -780,12 +605,7 @@
 <li>如果5个窗口都有人在，候客区也坐满了，还是有人进来，那就得去处理这个人，是让他离开还是给他找个地方等，这就叫做RejectedExecutionHandler（拒绝策略）</li>
 <li>keepAliveTime表示如果银行等了keepAliveTime的时间，还是没有人来办理业务，银行就会将临时开放的三个窗口给关闭，也就是释放线程池。</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/12/zFk3lbcjpwoaLYh.png"
-                      alt="image-20200512175120673"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/12/zFk3lbcjpwoaLYh.png" alt="image-20200512175120673"></p>
 <center>图示</center>
 
 <h2 id="四种拒绝策略"><a href="#四种拒绝策略" class="headerlink" title="四种拒绝策略"></a>四种拒绝策略</h2><ul>
@@ -809,29 +629,14 @@
 <p>因为IO线程非常占用资源，而我们设置最大线程数量大于IO线程数量，就可以避免线程阻塞。</p>
 <h1 id="ForkJoin详解"><a href="#ForkJoin详解" class="headerlink" title="ForkJoin详解"></a>ForkJoin详解</h1><p>ForkJoin中文名叫做分支合并，ForkJoin是在JDK1.7出现的，它主要用作在大数据量时并行执行效率，提高效率。</p>
 <h2 id="ForkJoin思想"><a href="#ForkJoin思想" class="headerlink" title="ForkJoin思想"></a>ForkJoin思想</h2><p>它的思想是将一个大任务分割成若干个小任务，最终汇总每个小任务的结果得到这个大任务的结果。类似于分治法。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/13/v4dEieLXKPZNTpu.png"
-                      alt="image-20200513142115803"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/13/v4dEieLXKPZNTpu.png" alt="image-20200513142115803"></p>
 <h2 id="ForkJoin特点：工作窃取"><a href="#ForkJoin特点：工作窃取" class="headerlink" title="ForkJoin特点：工作窃取"></a>ForkJoin特点：工作窃取</h2><p>如图A和B线程处理两个任务，当B比A先处理完时，它可以从另一头开始去处理A的任务。A和B的任务是一个双端队列，所以B可以从另外一头进入。这就是工作窃取。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/13/rHRcn2pz5j16IKZ.png"
-                      alt="image-20200513142256555"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/13/rHRcn2pz5j16IKZ.png" alt="image-20200513142256555"></p>
 <h2 id="ForkJoin使用"><a href="#ForkJoin使用" class="headerlink" title="ForkJoin使用"></a>ForkJoin使用</h2><h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><ol>
 <li>ForkJoinPool</li>
 </ol>
 <p>ForkJoinPool用来存放一个个任务</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/13/JBhIo6vaQEKzufS.png"
-                      alt="image-20200513214414430"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/13/JBhIo6vaQEKzufS.png" alt="image-20200513214414430"></p>
 <ol start="2">
 <li>ForkJoinTask</li>
 </ol>
@@ -856,43 +661,23 @@
 <ol start="3">
 <li>运行结果</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/13/dyWP5As98wxIjqg.png"
-                      alt="image-20200513220808233"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/13/dyWP5As98wxIjqg.png" alt="image-20200513220808233"></p>
 <ol start="4">
 <li>使用Stream流去计算会更加块</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//使用Stream流去计算</span></span><br><span class="line">    <span class="keyword">long</span> startTime = System.currentTimeMillis();</span><br><span class="line">    LongStream stream = LongStream.rangeClosed(<span class="number">0L</span>, <span class="number">1_0000_0000</span>);</span><br><span class="line">    <span class="keyword">long</span> sum = stream.parallel().reduce(Long::sum).getAsLong();</span><br><span class="line">    <span class="keyword">long</span> endTime = System.currentTimeMillis();</span><br><span class="line">    System.out.println(<span class="string">&quot;结果是：&quot;</span> + sum + <span class="string">&quot;，所耗时间为：&quot;</span> + (endTime - startTime));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/13/qSnTLb9EJYasMQx.png"
-                      alt="image-20200513221859810"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/13/qSnTLb9EJYasMQx.png" alt="image-20200513221859810"></p>
 <h1 id="异步回调"><a href="#异步回调" class="headerlink" title="异步回调"></a>异步回调</h1><p>学习过Ajax的应该很好理解这部分的内容。</p>
 <h2 id="CompletableFuture"><a href="#CompletableFuture" class="headerlink" title="CompletableFuture"></a>CompletableFuture</h2><p>CompletableFuture内包含两类常用方法：</p>
-<h3 id="没有返回值的方法"><a href="#没有返回值的方法" class="headerlink" title="没有返回值的方法"></a>没有返回值的方法</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/16/A8MzfcUxP3tHNCZ.png"
-                      alt="image-20200516212905649"
-                ></p>
+<h3 id="没有返回值的方法"><a href="#没有返回值的方法" class="headerlink" title="没有返回值的方法"></a>没有返回值的方法</h3><p><img src="https://i.loli.net/2020/05/16/A8MzfcUxP3tHNCZ.png" alt="image-20200516212905649"></p>
 <p>就好比小红和小明一起在健身房，，小红突然有事，对小明说我先走了，小红不用等小明回复，打声招呼就走了。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testRunAsync</span><span class="params">()</span> <span class="keyword">throws</span> ExecutionException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 没有返回值的用法</span></span><br><span class="line">    <span class="comment">// Void是void的包装类，就好比Integer是int的包装类。</span></span><br><span class="line">    CompletableFuture&lt;Void&gt; voidCompletableFuture = CompletableFuture.runAsync(() -&gt; &#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot;没有返回值！&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    System.out.println(voidCompletableFuture.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>输出结果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ForkJoinPool.commonPool-worker-1没有返回值！</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
 
-<h3 id="有返回值的方法"><a href="#有返回值的方法" class="headerlink" title="有返回值的方法"></a>有返回值的方法</h3><h3 id="有返回值的方法-1"><a href="#有返回值的方法-1" class="headerlink" title="有返回值的方法"></a>有返回值的方法</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/16/8lrWjnpkDMqw9uH.png"
-                      alt="image-20200516213355855"
-                ></p>
+<h3 id="有返回值的方法"><a href="#有返回值的方法" class="headerlink" title="有返回值的方法"></a>有返回值的方法</h3><h3 id="有返回值的方法-1"><a href="#有返回值的方法-1" class="headerlink" title="有返回值的方法"></a>有返回值的方法</h3><p><img src="https://i.loli.net/2020/05/16/8lrWjnpkDMqw9uH.png" alt="image-20200516213355855"></p>
 <p>这个的意思就是说假如你有道题目不会做，你去问同桌，但是同桌也得想一下，你就对同桌说我先去做其他作业了，你做好后告诉我。如果同桌做好了，他就告诉你正确的结果，如果同桌也遇到了困难，他就会告诉你不会做（给你返回异常信息）。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSupplyAsync</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 有返回值的用法，返回1+1的结果。</span></span><br><span class="line">    CompletableFuture&lt;Integer&gt; integerCompletableFuture = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot;有返回值！&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>+<span class="number">1</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// whenComplete表示完成后的操作</span></span><br><span class="line">    <span class="comment">// whenComplete内的参数是一个BiConsumer接口，它能够接受两个参数。而普通的Consumer接口只能接受一个参数。</span></span><br><span class="line">    integerCompletableFuture.whenComplete((integer, throwable) -&gt; &#123;</span><br><span class="line">        System.out.println(integer);        <span class="comment">// 1+1的结果，如果有异常，就为null。</span></span><br><span class="line">        System.out.println(throwable);      <span class="comment">// 异常信息，如果没有异常就为null。</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 输出后第一行是1+1的结果，第二行为null。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -935,12 +720,7 @@
 <li>lock：加锁，把一个变量标识位线程独占状态</li>
 <li>unlock：解锁，将一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/16/pfR1u5aGl4As8ZY.png"
-                      alt="image-20200516221312702"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/16/pfR1u5aGl4As8ZY.png" alt="image-20200516221312702"></p>
 <p>JMM对着8种指令的使用制定了如下规则：</p>
 <ol>
 <li>不允许read和load、store和write操作之一单独出现。即使用了read必须load，使用了store必须 write 。</li>
@@ -975,12 +755,7 @@
 <p>通过对add()加锁可以保证原子性，那不加锁怎么保证原子性呢？</p>
 </blockquote>
 <p>JUC包下有很多原子类</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/17/fEmKaLjc41piMQ8.png"
-                      alt="image-20200517093629661"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/17/fEmKaLjc41piMQ8.png" alt="image-20200517093629661"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">volatile</span> <span class="keyword">static</span> AtomicInteger num = <span class="keyword">new</span> AtomicInteger();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">    num.getAndIncrement();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 理论上num最后的结果应该是20000，</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">20</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">1000</span>; j++)&#123;</span><br><span class="line">                add();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (Thread.activeCount() &gt; <span class="number">2</span>) &#123;   <span class="comment">// GC main</span></span><br><span class="line">        Thread.yield();</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(Thread.currentThread().getName() + <span class="string">&quot; &quot;</span> + num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样就得到了正确结果</p>
@@ -1098,19 +873,9 @@
 <h3 id="场景重现"><a href="#场景重现" class="headerlink" title="场景重现"></a>场景重现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AtomicStampedReference 注意，如果泛型是一个包装类，注意对象的引用问题        // 正常在业务操作，这里面比较的都是一个个对象</span></span><br><span class="line"><span class="keyword">static</span> AtomicStampedReference&lt;Integer&gt; atomicStampedReference = <span class="keyword">new</span> AtomicStampedReference&lt;&gt;(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// CAS  compareAndSet : 比较并交换！</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">int</span> stamp = atomicStampedReference.getStamp(); <span class="comment">// 获得版本号            System.out.println(&quot;a1=&gt;&quot;+stamp);</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        atomicStampedReference.compareAndSet(<span class="number">1</span>, <span class="number">2</span>, atomicStampedReference.getStamp(), atomicStampedReference.getStamp() + <span class="number">1</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;a2=&gt;&quot;</span> + atomicStampedReference.getStamp());</span><br><span class="line">        System.out.println(atomicStampedReference.compareAndSet(<span class="number">2</span>, <span class="number">1</span>, atomicStampedReference.getStamp(), atomicStampedReference.getStamp() + <span class="number">1</span>));</span><br><span class="line">        System.out.println(<span class="string">&quot;a3=&gt;&quot;</span> + atomicStampedReference.getStamp());</span><br><span class="line">    &#125;, <span class="string">&quot;a&quot;</span>).start();</span><br><span class="line">    <span class="comment">// 乐观锁的原理相同！</span></span><br><span class="line">    <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">int</span> stamp = atomicStampedReference.getStamp();</span><br><span class="line">        <span class="comment">// 获得版本号</span></span><br><span class="line">        System.out.println(<span class="string">&quot;b1=&gt;&quot;</span> + stamp);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(<span class="number">2</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (</span><br><span class="line">                InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(atomicStampedReference.compareAndSet(<span class="number">1</span>, <span class="number">6</span>, stamp, stamp + <span class="number">1</span>));</span><br><span class="line">        System.out.println(<span class="string">&quot;b2=&gt;&quot;</span> + atomicStampedReference.getStamp());</span><br><span class="line">    &#125;, <span class="string">&quot;b&quot;</span>).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>注意：</strong><br><strong>Integer 使用了对象缓存机制，默认范围是 -128 ~ 127 ，推荐使用静态工厂方法 valueOf 获取对象实例，而不是 new，因为 valueOf 使用缓存，而 new 一定会创建新的对象分配新的内存空间；</strong></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/23/Y2nPyQVmB9j1Fob.png"
-                      alt="image-20200523222720833"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/23/Y2nPyQVmB9j1Fob.png" alt="image-20200523222720833"></p>
 <h1 id="几种锁"><a href="#几种锁" class="headerlink" title="几种锁"></a>几种锁</h1><h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>如果有两个线程A和B同时进行，如果线程A拿到了锁1，同时去申请锁2，而线程B到了锁2并申请锁1，因为锁2在B手里，A就拿不到，A就一直等待；同理锁1在A手里，B也拿不到，就一直等待。这就造成了<strong>死锁</strong>现象。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/24/iv6EIZp34xursCb.jpg"
-                      alt="img"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/24/iv6EIZp34xursCb.jpg" alt="img"></p>
 <h3 id="JAVA代码重现死锁场景"><a href="#JAVA代码重现死锁场景" class="headerlink" title="JAVA代码重现死锁场景"></a>JAVA代码重现死锁场景</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> lock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> ZhengHaoYun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span> 2020/5/24 17:01</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeadLockDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String lockA = <span class="string">&quot;lockA&quot;</span>;</span><br><span class="line">        String lockB = <span class="string">&quot;lockB&quot;</span>;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyThread(lockA, lockB), <span class="string">&quot;T1&quot;</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyThread(lockB, lockA), <span class="string">&quot;T2&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String lockA;</span><br><span class="line">    <span class="keyword">private</span> String lockB;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyThread</span><span class="params">(String lockA, String lockB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.lockA = lockA;</span><br><span class="line">        <span class="keyword">this</span>.lockB = lockB;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (lockA) &#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">&quot;lock:&quot;</span> + lockA + <span class="string">&quot;=&gt;get&quot;</span> + lockB);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">2</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">synchronized</span> (lockB) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">&quot;lock:&quot;</span> + lockB + <span class="string">&quot;=&gt;get&quot;</span> + lockA);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>T1拿到lockA，然后休眠2秒，在这两秒内，T2拿到lockB。2秒后T1去获取lockB，T2去获取lockA，但是都拿不到，造成死锁现象。</p>
@@ -1131,31 +896,16 @@
 <ol>
 <li>使用 <code>jps -l</code> 定位进程号</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/24/92vm7NBhztkUqw3.png"
-                      alt="image-20200524172207756"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/24/92vm7NBhztkUqw3.png" alt="image-20200524172207756"></p>
 <ol start="2">
 <li>使用 <code>jstack 进程号 </code>找到死锁问题</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/24/dcQTuta1oMELPjp.png"
-                      alt="image-20200524172326499"
-                ></p>
+<p><img src="https://i.loli.net/2020/05/24/dcQTuta1oMELPjp.png" alt="image-20200524172326499"></p>
 </li>
 </ol>
 <h2 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h2><p>可重入锁其实就是字面意思，<strong>可重入！</strong>浅显的讲就是你进了朋友的家，那你就也可以进朋友的卧室去参观参观了！</p>
 <p>大多数的内置锁都是可重入的，用专业的话讲也就是说<strong>如果某个线程尝试获取一个它已经持有的锁的时，那么这个请求就会立刻成功</strong>，并且会将这个锁的计数值+1（可重入锁会有一个计数值），而当线程退出同步代码块的时候，计数值会-1，当计数值为0的时候，锁会释放。</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2020/05/24/XmTxrionLBFuYMq.png"
-                      alt="image-20200524230850873" style="zoom:150%;" /
-                >
+<img src="https://i.loli.net/2020/05/24/XmTxrionLBFuYMq.png" alt="image-20200524230850873" style="zoom:150%;" />
 
 <p>自己实现的可重入锁</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyReLock</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isLocked = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">private</span> Thread lockedBy = <span class="keyword">null</span>; <span class="comment">//存储哪个线程拿了锁</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> holdCount = <span class="number">0</span>;  <span class="comment">//计数器</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Thread thread = Thread.currentThread();</span><br><span class="line">        <span class="keyword">while</span> (isLocked &amp;&amp; !lockedBy.equals(thread)) wait();</span><br><span class="line">        isLocked = <span class="keyword">true</span>;</span><br><span class="line">        lockedBy = thread;</span><br><span class="line">        holdCount++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (Thread.currentThread().equals(lockedBy)) &#123;</span><br><span class="line">            holdCount--;</span><br><span class="line">            <span class="keyword">if</span> (holdCount == <span class="number">0</span>) &#123;</span><br><span class="line">                isLocked = <span class="keyword">false</span>;</span><br><span class="line">                notify();</span><br><span class="line">                lockedBy = <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1484,10 +1234,6 @@
 <script src="/js/code-copy.js"></script>
 
 
-
-
-    
-<script src="/js/lazyload.js"></script>
 
 
 
