@@ -9,7 +9,7 @@
     
     <title>
         
-            MySQL高级篇笔记（五）主从复制 |
+            关于Git的七七八八 |
         
         好运的云
     </title>
@@ -164,7 +164,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">MySQL高级篇笔记（五）主从复制</span>
+            <span class="title-hover-animation">关于Git的七七八八</span>
         </div>
 
         
@@ -182,7 +182,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2020-09-06 17:55:20
+        <i class="fas fa-edit"></i>&nbsp;2021-04-25 01:55:20
     </span>
     
         <span class="article-categories article-meta-item">
@@ -190,7 +190,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/MySQL/">MySQL</a>&nbsp;
+                        <a href="/categories/Git/">Git</a>&nbsp;
                     </li>
                 
             </ul>
@@ -202,7 +202,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">MySQL主从复制</a>&nbsp;
+                        <a href="/tags/Git/">Git</a>&nbsp;
                     </li>
                 
             </ul>
@@ -221,23 +221,28 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="四、MySQL主从复制"><a href="#四、MySQL主从复制" class="headerlink" title="四、MySQL主从复制"></a>四、MySQL主从复制</h1><h2 id="1-复制的基本原理"><a href="#1-复制的基本原理" class="headerlink" title="1. 复制的基本原理"></a>1. 复制的基本原理</h2><h3 id="1-1-slave会从master读取binlog来进行数据同步"><a href="#1-1-slave会从master读取binlog来进行数据同步" class="headerlink" title="1.1. slave会从master读取binlog来进行数据同步"></a>1.1. slave会从master读取binlog来进行数据同步</h3><h3 id="1-2-三步骤-原理图"><a href="#1-2-三步骤-原理图" class="headerlink" title="1.2. 三步骤+原理图"></a>1.2. 三步骤+原理图</h3><h2 id="2-复制的基本准则"><a href="#2-复制的基本准则" class="headerlink" title="2. 复制的基本准则"></a>2. 复制的基本准则</h2><ul>
-<li>每个slave只有一个master</li>
-<li>每个slave只能有一个唯一的服务器ID</li>
-<li>每个master可以有多个salve</li>
-</ul>
-<h2 id="3-复制最大问题"><a href="#3-复制最大问题" class="headerlink" title="3. 复制最大问题"></a>3. 复制最大问题</h2><h2 id="4-一主一从常见配置"><a href="#4-一主一从常见配置" class="headerlink" title="4. 一主一从常见配置"></a>4. 一主一从常见配置</h2>
+            <p>这篇文章用于记录我在使用Git上碰到的七七八八的问题，便于日后再次遇到的时候查阅。</p>
+<p>可能会有很多低级的问题，内容也很杂，见笑了。</p>
+<h4 id="1-判断是否为最新版本"><a href="#1-判断是否为最新版本" class="headerlink" title="1. 判断是否为最新版本"></a>1. 判断是否为最新版本</h4><p><code>git status</code></p>
+<p>但这里有个要注意的，因为<code>git status</code>判断的当前分支与本地的远程分支之间的差异，也就是说，你修改了什么，它会判断出来，打印出红色提醒。</p>
+<p>但如果远程分支被别人修改了，仅靠这一行命令是不够的。必须先更新本地的远程分支，使用命令<code>git fetch origin</code>。</p>
+<p>也可以使用<code>git pull</code>，它会尝试将远程分支与本地进行比较，如果远程分支被修改了，就需要先merge到本地。</p>
+<h4 id="2-git-fetch和git-pull的区别"><a href="#2-git-fetch和git-pull的区别" class="headerlink" title="2. git fetch和git pull的区别"></a>2. git fetch和git pull的区别</h4><p><code>git fetch</code>会将数据拉取到本地仓库，它并不会自动合并或修改当前的工作；<code>git pull</code>是从远程获取最新版本并merge到本地，会自动合并或修改当前的工作。</p>
+<p><code>git pull</code>根据不同的配置，可等于 fetch + merge 或 fetch + rebase。</p>
+<img src="https://zhenghaoyun.oss-cn-beijing.aliyuncs.com/img/20210425020941.png" alt="image-20210425020850622" style="zoom:50%;" />
+
+<h4 id="3-git-rebase是什么"><a href="#3-git-rebase是什么" class="headerlink" title="3. git rebase是什么"></a>3. git rebase是什么</h4>
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：MySQL高级篇笔记（五）主从复制</li>
+        <li>Post title：关于Git的七七八八</li>
         <li>Post author：Hoven</li>
-        <li>Create time：2020-09-06 17:55:20</li>
+        <li>Create time：2021-04-25 01:55:20</li>
         <li>
-            Post link：https://zhenghaoyun.cn/MySQL/笔记/MySQL高级篇笔记（五）主从复制
+            Post link：https://zhenghaoyun.cn/Git/关于Git的七七八八
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -251,29 +256,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/%E5%88%86%E5%B8%83%E5%BC%8F/%E6%B5%85%E8%B0%88%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E2%80%94%E2%80%94RPC"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">浅谈远程过程调用——RPC</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%E9%94%81%E6%9C%BA%E5%88%B6"
+                           href="/Java%E5%9F%BA%E7%A1%80/%E4%BB%8E%E8%AE%BE%E8%AE%A1%E5%B1%82%E9%9D%A2%E4%B8%8A%E8%B0%88%E8%B0%88%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">MySQL高级篇笔记（四）锁机制</span>
+                                <span class="post-nav-title-item">从设计层面上谈谈抽象类和接口的区别</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -465,7 +455,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-text">四、MySQL主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%A4%8D%E5%88%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">1. 复制的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-slave%E4%BC%9A%E4%BB%8Emaster%E8%AF%BB%E5%8F%96binlog%E6%9D%A5%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5"><span class="nav-text">1.1. slave会从master读取binlog来进行数据同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%B8%89%E6%AD%A5%E9%AA%A4-%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="nav-text">1.2. 三步骤+原理图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%A4%8D%E5%88%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%87%86%E5%88%99"><span class="nav-text">2. 复制的基本准则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%A4%8D%E5%88%B6%E6%9C%80%E5%A4%A7%E9%97%AE%E9%A2%98"><span class="nav-text">3. 复制最大问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%B8%80%E4%B8%BB%E4%B8%80%E4%BB%8E%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE"><span class="nav-text">4. 一主一从常见配置</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BA%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC"><span class="nav-text">1. 判断是否为最新版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-git-fetch%E5%92%8Cgit-pull%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">2. git fetch和git pull的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-git-rebase%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">3. git rebase是什么</span></a></li></ol>
     </div>
 </div>
         </aside>
