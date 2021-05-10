@@ -5,25 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="博客,编程,代码,Java,空间,记录">
     <meta name="description" content="郑皓云的个人博客,博客,编程,代码,Java,空间,记录">
-    <meta name="author" content="Hoven">
+    <meta name="author" content="Keep Team">
     
     <title>
         
             JVM（一）内存与垃圾回收篇 |
         
-        好运的云
+        Keep Theme
     </title>
     
 <link rel="stylesheet" href="/css/style.css">
 
-    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="shortcut icon" href="/images/logo.svg">
     
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"zhenghaoyun.cn","root":"/","language":"zh-Hans","path":"search.json"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.png","favicon":"/images/favicon.png","article_img_align":"center","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.2"};
+    KEEP.theme_config = {"toc":{"enable":false,"number":false,"expand_all":false,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -31,8 +31,6 @@
 
 <body>
 <div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
     
 
     
@@ -50,8 +48,9 @@
 
     <div class="header-content">
         <div class="left">
+            
             <a class="logo-title" href="/">
-                好运的云
+                Keep Theme
             </a>
         </div>
 
@@ -63,7 +62,7 @@
                             <a class=""
                                href="/"
                             >
-                                首页
+                                HOME
                             </a>
                         </li>
                     
@@ -71,44 +70,14 @@
                             <a class=""
                                href="/archives"
                             >
-                                归档
+                                ARCHIVES
                             </a>
                         </li>
                     
-                        <li class="menu-item">
-                            <a class=""
-                               href="/categories"
-                            >
-                                分类
-                            </a>
-                        </li>
-                    
-                        <li class="menu-item">
-                            <a class=""
-                               href="/tags"
-                            >
-                                标签
-                            </a>
-                        </li>
-                    
-                        <li class="menu-item">
-                            <a class=""
-                               href="/about"
-                            >
-                                关于
-                            </a>
-                        </li>
-                    
-                    
-                        <li class="menu-item search search-popup-trigger">
-                            <i class="fas fa-search"></i>
-                        </li>
                     
                 </ul>
             </div>
             <div class="mobile">
-                
-                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
                 
                 <div class="icon-item menu-bar">
                     <div class="menu-bar-middle"></div>
@@ -122,27 +91,12 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/">首页</a>
+                       href="/">HOME</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/archives">归档</a>
-                </li>
-            
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/categories">分类</a>
-                </li>
-            
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/tags">标签</a>
-                </li>
-            
-                <li class="drawer-menu-item flex-center">
-                    <a class=""
-                       href="/about">关于</a>
+                       href="/archives">ARCHIVES</a>
                 </li>
             
         </ul>
@@ -170,11 +124,13 @@
         
             <div class="article-header">
                 <div class="avatar">
-                    <img src="/images/avatar.png">
+                    <img src="/images/avatar.svg">
                 </div>
                 <div class="info">
                     <div class="author">
-                        <span class="name">Hoven</span>
+                        <span class="name">Keep Team</span>
+                        
+                            <span class="author-label">Lv3</span>
                         
                     </div>
                     <div class="meta-info">
@@ -1433,23 +1389,6 @@
         </div>
 
         
-            <div class="post-copyright-info">
-                <div class="article-copyright-info-container">
-    <ul>
-        <li>Post title：JVM（一）内存与垃圾回收篇</li>
-        <li>Post author：Hoven</li>
-        <li>Create time：2020-06-01 15:32:00</li>
-        <li>
-            Post link：https://zhenghaoyun.cn/JVM/JVM（一）内存与垃圾回收篇
-        </li>
-        <li>
-            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
-        </li>
-    </ul>
-</div>
-
-            </div>
-        
 
         
             <div class="article-nav">
@@ -1489,85 +1428,6 @@
         
 
         
-            <div class="comment-container">
-                <div class="comments-container">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fas fa-comments">&nbsp;Comments</i>
-    </div>
-    
-
-        
-            
-    <div class="valine-container">
-        <script 
-                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
-        <div id="vcomments"></div>
-        <script >
-            function loadValine() {
-                new Valine({
-                    el: '#vcomments',
-                    appId: 'uffz9vWTIQhDc1YbAjAndspC-gzGzoHsz',
-                    appKey: 'KQwbThRfP3cQIJYoLHMIqXLX',
-                    meta: ['nick', 'mail', 'link'],
-                    avatar: 'wavatar',
-                    enableQQ: true,
-                    placeholder: '',
-                    lang: 'zh-Hans'.toLowerCase()
-                });
-
-                function getAuthor(language) {
-                    switch (language) {
-                        case 'en':
-                            return 'Author';
-                        case 'zh-CN':
-                            return '博主';
-                        default:
-                            return 'Master';
-                    }
-                }
-
-                // Add "Author" identify
-                const getValineDomTimer = setInterval(() => {
-                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
-                    if (vcards.length > 0) {
-                        let author = 'Hoven';
-
-                        if (author) {
-                            for (let vcard of vcards) {
-                                const vnick_dom = vcard.querySelector('.vhead .vnick');
-                                const vnick = vnick_dom.innerHTML;
-                                if (vnick === author) {
-                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
-                                }
-                            }
-                        }
-                        clearInterval(getValineDomTimer);
-                    } else {
-                        clearInterval(getValineDomTimer);
-                    }
-                }, 2000);
-            }
-
-            if ('false') {
-                const loadValineTimeout = setTimeout(() => {
-                    loadValine();
-                    clearTimeout(loadValineTimeout);
-                }, 1000);
-            } else {
-                window.addEventListener('DOMContentLoaded', loadValine);
-            }
-        </script>
-    </div>
-
-
-
-        
-    
-</div>
-
-            </div>
-        
     </div>
 </div>
 
@@ -1583,13 +1443,13 @@
         <div class="copyright-info info-item">
             &copy;
             
-              <span>2019</span>&nbsp;-&nbsp;
+              <span>2020</span>&nbsp;-&nbsp;
             
-            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Hoven</a>
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Keep Team</a>
         </div>
         
         <div class="theme-info info-item">
-            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.2</a>
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
         </div>
         
             <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">湘ICP备2021007595号</a></div>
@@ -1606,16 +1466,8 @@
     <ul class="tools-list">
         <!-- TOC aside toggle -->
         
-            <li class="tools-item page-aside-toggle">
-                <i class="fas fa-outdent"></i>
-            </li>
-        
 
         <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fas fa-comment"></i>
-            </li>
         
     </ul>
 </div>
@@ -1667,48 +1519,11 @@
     </div>
 
     
-        <aside class="page-aside">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81JVM%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-text">一、JVM体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AD%97%E8%8A%82%E7%A0%81"><span class="nav-text">1. 字节码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B"><span class="nav-text">2. 多语言混合编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8EJava%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-text">3. 虚拟机与Java虚拟机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-JVM%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-text">4. JVM的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-JVM%E7%9A%84%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="nav-text">5. JVM的整体结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-JVM%E7%9A%84%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%9E%8B"><span class="nav-text">6. JVM的架构模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-JVM%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-text">7. JVM的生命周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-text">二、类加载子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0"><span class="nav-text">1. 内存结构概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">2. 类加载子系统的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8ClassLoader%E8%A7%92%E8%89%B2"><span class="nav-text">3. 类加载器ClassLoader角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-text">4. 类的加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%8A%A0%E8%BD%BD"><span class="nav-text">（1）加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E9%93%BE%E6%8E%A5"><span class="nav-text">（2）链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">（3）初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">5. 类加载器的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%88%86%E7%B1%BB"><span class="nav-text">（1）分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%87%AA%E5%B8%A6%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-text">（2）虚拟机自带的加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-text">（3）用户自定义类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E5%85%B3%E4%BA%8EClassLoader"><span class="nav-text">（4）关于ClassLoader</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="nav-text">6. 双亲委派机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%8E%9F%E7%90%86"><span class="nav-text">（1）原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%E7%A4%BA%E4%BE%8B"><span class="nav-text">（2）双亲委派机制示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E7%A8%8B%E5%BA%8F%E5%AE%89%E5%85%A8"><span class="nav-text">保护程序安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%E5%9C%A8SPI%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">双亲委派机制在SPI中的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-text">（3）双亲委派机制的优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E6%B2%99%E7%AE%B1%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="nav-text">7. 沙箱安全机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E7%B1%BB%E7%9A%84%E4%B8%BB%E5%8A%A8%E4%BD%BF%E7%94%A8%E4%B8%8E%E8%A2%AB%E5%8A%A8%E4%BD%BF%E7%94%A8"><span class="nav-text">8. 类的主动使用与被动使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-%E5%85%B6%E4%BB%96"><span class="nav-text">9. 其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="nav-text">三、运行时数据区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA%E4%BB%8B%E7%BB%8D"><span class="nav-text">1. Java内存分区介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-text">2. 程序计数器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E4%BD%9C%E7%94%A8"><span class="nav-text">（1）作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E4%B8%BE%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-text">（2）举例说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="nav-text">（3）相关问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="nav-text">3. 虚拟机栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%83%8C%E6%99%AF"><span class="nav-text">（1）虚拟机背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%E5%9F%BA%E6%9C%AC%E5%86%85%E5%AE%B9"><span class="nav-text">（2）虚拟机栈基本内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E8%AE%BE%E7%BD%AE%E6%A0%88%E7%9A%84%E5%86%85%E5%AD%98%E5%A4%A7%E5%B0%8F"><span class="nav-text">（3）设置栈的内存大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E6%A0%88%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84%E5%92%8C%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="nav-text">（4）栈的存储结构和运行原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%885%EF%BC%89%E6%A0%88%E5%B8%A7%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-text">（5）栈帧的内部结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8"><span class="nav-text">局部变量表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%A0%88"><span class="nav-text">操作数栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-text">动态链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E5%9C%B0%E5%9D%80"><span class="nav-text">方法返回地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E9%99%84%E5%8A%A0%E4%BF%A1%E6%81%AF"><span class="nav-text">一些附加信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%886%EF%BC%89%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%E7%9A%84%E4%BA%94%E9%81%93%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-text">（6）虚拟机栈的五道面试题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="nav-text">4. 本地方法栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-text">（1）本地方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88%E6%A6%82%E8%BF%B0"><span class="nav-text">（2）本地方法栈概述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%A0%86%E7%A9%BA%E9%97%B4"><span class="nav-text">5. 堆空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%A0%86%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E8%BF%B0"><span class="nav-text">（1）堆的核心概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%BB%86%E5%88%86"><span class="nav-text">内存细分</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E8%AE%BE%E7%BD%AE%E5%A0%86%E5%86%85%E5%AD%98%E5%A4%A7%E5%B0%8F%E4%B8%8EOOM"><span class="nav-text">（2）设置堆内存大小与OOM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98"><span class="nav-text">堆内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OOM"><span class="nav-text">OOM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E5%B9%B4%E8%BD%BB%E4%BB%A3%E4%B8%8E%E8%80%81%E5%B9%B4%E4%BB%A3"><span class="nav-text">（3）年轻代与老年代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-text">参数设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E5%9B%BE%E8%A7%A3%E5%AF%B9%E8%B1%A1%E5%88%86%E9%85%8D%E8%BF%87%E7%A8%8B"><span class="nav-text">（4）图解对象分配过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%885%EF%BC%89Minor-GC%E3%80%81Major-GC%E3%80%81Full-GC"><span class="nav-text">（5）Minor GC、Major GC、Full GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%886%EF%BC%89%E5%A0%86%E7%A9%BA%E9%97%B4%E7%9A%84%E5%88%86%E4%BB%A3%E6%80%9D%E6%83%B3"><span class="nav-text">（6）堆空间的分代思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%887%EF%BC%89%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5"><span class="nav-text">（7）内存分配策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%888%EF%BC%89%E4%B8%BA%E5%AF%B9%E8%B1%A1%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%EF%BC%9ATLAB"><span class="nav-text">（8）为对象分配内存：TLAB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%889%EF%BC%89%E5%B0%8F%E7%BB%93%E5%A0%86%E7%A9%BA%E9%97%B4%E7%9A%84%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-text">（9）小结堆空间的参数设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%8810%EF%BC%89%E5%A0%86%E6%98%AF%E5%88%86%E9%85%8D%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%94%AF%E4%B8%80%E9%80%89%E6%8B%A9%E5%90%97"><span class="nav-text">（10）堆是分配对象的唯一选择吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%8811%EF%BC%89%E5%A0%86%E7%A9%BA%E9%97%B4%E6%80%BB%E7%BB%93"><span class="nav-text">（11）堆空间总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="nav-text">6. 方法区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%A0%88%E3%80%81%E5%A0%86%E3%80%81%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E4%BA%A4%E4%BA%92%E5%85%B3%E7%B3%BB"><span class="nav-text">（1）栈、堆、方法区的交互关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-text">（2）方法区的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95%E5%8C%BA%E5%A4%A7%E5%B0%8F%E4%B8%8EOOM"><span class="nav-text">（3）设置方法区大小与OOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%884%EF%BC%89%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-text">（4）方法区的内部结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%885%EF%BC%89%E6%96%B9%E6%B3%95%E5%8C%BA%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-text">（5）方法区使用实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%886%EF%BC%89%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E6%BC%94%E8%BF%9B%E7%BB%86%E8%8A%82"><span class="nav-text">（6）方法区的演进细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%887%EF%BC%89%E6%96%B9%E6%B3%95%E5%8C%BA%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-text">（7）方法区的垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%888%EF%BC%89%E6%80%BB%E7%BB%93"><span class="nav-text">（8）总结</span></a></li></ol></li></ol></li></ol>
-    </div>
-</div>
-        </aside>
-    
 
     <div class="image-viewer-container">
     <img src="">
 </div>
 
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fas fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fas fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
 
     
 
@@ -1729,28 +1544,12 @@
 
 
 
-    
-<script src="/js/local-search.js"></script>
-
-
-
-
-    
-<script src="/js/code-copy.js"></script>
 
 
 
 
 
 <div class="post-scripts">
-    
-        
-<script src="/js/left-side-toggle.js"></script>
-
-<script src="/js/libs/anime.min.js"></script>
-
-<script src="/js/toc.js"></script>
-
     
 </div>
 
